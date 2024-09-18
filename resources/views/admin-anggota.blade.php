@@ -44,14 +44,12 @@
                         <tr>
                             <th class="text-center">No</th>
                             <th class="text-center">Foto</th>
-                            <th class="text-center">Username</th>
                             <th class="text-center">Nama Lengkap</th>
                             <th class="text-center">NIM</th>
                             <th class="text-center">Angkatan</th>
                             <th class="text-center">Jenis Kelamin</th>
                             <th class="text-center">Divisi</th>
                             <th class="text-center">Jabatan</th>
-                            <th class="text-center">Email</th>
                             <th class="text-center">Link Instagram</th>
                             <th class="text-center">Link Linkedin</th>
                             <th class="text-center">Aksi</th>
@@ -71,22 +69,20 @@
                                             class="d-inline-block align-text-center rounded-circle">
                                     @endif
                                 </td>
-                                <td>{{ $value->name }}</td>
                                 <td>{{ $value->full_name }}</td>
                                 <td class="text-center">{{ $value->nim }}</td>
                                 <td class="text-center">{{ $value->angkatan }}</td>
                                 <td class="text-center">{{ $value->jenis_kelamin }}</td>
                                 <td>{{ $value->divisi->nama_divisi }}</td>
                                 <td>{{ $value->jabatan->nama_jabatan }}</td>
-                                <td>{{ $value->email }}</td>
                                 <td>{{ $value->link_ig }}</td>
                                 <td>{{ $value->link_linkedin }}</td>
                                 <td class="action-col">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#UbahAnggota{{ $value->id }}" title="Ubah Data">
+                                        data-bs-target="#UbahAnggota{{ $value->id_anggota }}" title="Ubah Data">
                                         <i class='bx bxs-edit'></i>
                                     </button>
-                                    <a href="{{ url($value->id . '/hapus-anggota') }}">
+                                    <a href="{{ url($value->id_anggota . '/hapus-anggota') }}">
                                         <button title="Hapus Data" class="btn btn-danger btn-sm">
                                             <i class='bx bx-trash'></i>
                                         </button>
@@ -98,255 +94,28 @@
                 </table>
             </div>
         </div>
-    </div>
-    {{-- tambah data --}}
-    <div class="modal" id="TambahDataAnggota" role="dialog">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Data Anggota</h4>
-                </div>
-                <div class="modal-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-                    <form method="POST" action="{{ url('simpan-data-anggota') }}" enctype="multipart/form-data">
-                        @csrf
-                        <h2>Data Login</h2>
-                        <div>
-                            <label for="name" class="required-label">{{ __('Username') }}</label>
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                name="name" value="{{ old('name') }}" required autofocus>
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="password" class="required-label">{{ __('Password') }}</label>
-                            <div class="input-group">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password" required
-                                    autocomplete="new-password">
-                                <div class="input-group-append">
-                                    <button type="button" id="togglePassword" class="btn btn-outline-secondary">
-                                        <i class="fa fa-eye" id="icon"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <h2>Data Anggota</h2>
-                        <div>
-                            <label for="foto">{{ __('Foto Profil') }}</label>
-                            <input id="foto" onchange="readFoto(event)" type="file"
-                                class="form-control @error('foto') is-invalid @enderror" name="foto"
-                                value="{{ old('foto') }}" autofocus>
-                            <img id="output" style="width: 100px;">
-                            @error('foto')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="full_name" class="required-label">{{ __('Nama Lengkap') }}</label>
-                            <input id="full_name" type="text"
-                                class="form-control @error('full_name') is-invalid @enderror" name="full_name"
-                                value="{{ old('full_name') }}" required autofocus>
-                            @error('full_name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="nim" class="required-label">{{ __('NIM') }}</label>
-                            <input id="nim" type="number" class="form-control @error('nim') is-invalid @enderror"
-                                name="nim" value="{{ old('nim') }}" required autofocus>
-                            @error('nim')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="angkatan" class="required-label">{{ __('Angkatan') }}</label>
-                            <select id="angkatan" class="form-control @error('angkatan') is-invalid @enderror"
-                                name="angkatan" required autofocus>
-                                <option value="">Pilih Tahun</option>
-                                @php
-                                    $currentYear = date('Y');
-                                    $startYear = 2019;
-                                @endphp
-                                @for ($year = $currentYear; $year >= $startYear; $year--)
-                                    <option value="{{ $year }}" {{ old('angkatan') == $year ? 'selected' : '' }}>
-                                        {{ $year }}
-                                    </option>
-                                @endfor
-                            </select>
-                            @error('angkatan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label class="required-label">{{ __('Jenis Kelamin') }}</label>
-                            <div class="form-check">
-                                <input id="jenis_kelamin_laki" type="radio"
-                                    class="form-check-input @error('jenis_kelamin') is-invalid @enderror"
-                                    name="jenis_kelamin" value="Laki-laki"
-                                    {{ old('jenis_kelamin') == 'Laki-laki' ? 'checked' : '' }} required>
-                                <label for="jenis_kelamin_laki" class="form-check-label">{{ __('Laki-laki') }}</label>
-                            </div>
-                            <div class="form-check">
-                                <input id="jenis_kelamin_perempuan" type="radio"
-                                    class="form-check-input @error('jenis_kelamin') is-invalid @enderror"
-                                    name="jenis_kelamin" value="Perempuan"
-                                    {{ old('jenis_kelamin') == 'Perempuan' ? 'checked' : '' }} required>
-                                <label for="jenis_kelamin_perempuan"
-                                    class="form-check-label">{{ __('Perempuan') }}</label>
-                            </div>
-                            @error('jenis_kelamin')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="id_divisi">{{ __('Divisi') }}</label>
-                            <select class="form-select" name="id_divisi" id="id_divisi" value="{{ $value->id_divisi }}"
-                                style="width: 100%; height: 35px; font-size: 13px;">
-                                <option disble value>Pilih Divisi</option>
-                                @foreach ($divisi as $data)
-                                    <option value="{{ $data->id_divisi }}"
-                                        {{ $value && $data->id_divisi == $value->id_divisi ? 'selected' : '' }}>
-                                        {{ $data->nama_divisi }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <label for="id_jabatan">{{ __('Jabatan') }}</label>
-                            <select class="form-select" name="id_jabatan" id="id_jabatan"
-                                value="{{ $value->id_jabatan }}" style="width: 100%; height: 35px; font-size: 13px;">
-                                <option disble value>Pilih Jabatan</option>
-                                @foreach ($jabatan as $data)
-                                    <option value="{{ $data->id_jabatan }}"
-                                        {{ $value && $data->id_jabatan == $value->id_jabatan ? 'selected' : '' }}>
-                                        {{ $data->nama_jabatan }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <label for="email">{{ __('Email') }}</label>
-                            <input id="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="link_ig">{{ __('Link Instagram') }}</label>
-                            <input id="link_ig" type="text"
-                                class="form-control @error('link_ig') is-invalid @enderror" name="link_ig"
-                                value="{{ old('link_ig') }}">
-                            @error('link_ig')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="link_linkedin">{{ __('Link Linkedin') }}</label>
-                            <input id="link_linkedin" type="text"
-                                class="form-control @error('link_linkedin') is-invalid @enderror" name="link_linkedin"
-                                value="{{ old('link_linkedin') }}">
-                            @error('link_linkedin')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label text-md-end"></label>
-                            <div class="col-md-8">
-                                <button class="btn btn-success">Simpan</button>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    {{-- edit data --}}
-    @foreach ($anggota as $no => $value)
-        <div class="modal" id="UbahAnggota{{ $value->id }}" role="dialog">
+        {{-- tambah data --}}
+        <div class="modal" id="TambahDataAnggota" role="dialog">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Ubah Data Anggota</h4>
+                        <h4 class="modal-title">Tambah Data Anggota</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ url('update-anggota/' . $value->id) }}"
-                            enctype="multipart/form-data">
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <form method="POST" action="{{ url('simpan-data-anggota') }}" enctype="multipart/form-data">
                             @csrf
-                            <h2>Data Login</h2>
-                            <div>
-                                <label for="name" class="required-label">{{ __('Username') }}</label>
-                                <input id="name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror" name="name"
-                                    value="{{ $value->name }}" required autofocus>
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="password" class="required-label">{{ __('Password') }}</label>
-                                <div class="input-group">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="new-password" value="{{ $value->password }}">
-                                    <div class="input-group-append">
-                                        <button type="button" id="togglePassword" class="btn btn-outline-secondary">
-                                            <i class="fa fa-eye" id="icon"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <h2>Data Anggota</h2>
                             <div>
                                 <label for="foto">{{ __('Foto Profil') }}</label>
-                                @if ($value->foto)
-                                    <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="Foto Produk"
-                                        style="width: 100px;">
-                                @endif
-
                                 <input id="foto" onchange="readFoto(event)" type="file"
-                                    class="form-control @error('foto') is-invalid @enderror" name="foto" autofocus>
-                                <img id="output" style="width: 100px; display: none;">
-
+                                    class="form-control @error('foto') is-invalid @enderror" name="foto"
+                                    value="{{ old('foto') }}" autofocus>
+                                <img id="output" style="width: 100px;">
                                 @error('foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -357,7 +126,7 @@
                                 <label for="full_name" class="required-label">{{ __('Nama Lengkap') }}</label>
                                 <input id="full_name" type="text"
                                     class="form-control @error('full_name') is-invalid @enderror" name="full_name"
-                                    value="{{ $value->full_name }}" required autofocus>
+                                    value="{{ old('full_name') }}" required autofocus>
                                 @error('full_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -366,9 +135,8 @@
                             </div>
                             <div>
                                 <label for="nim" class="required-label">{{ __('NIM') }}</label>
-                                <input id="nim" type="number"
-                                    class="form-control @error('nim') is-invalid @enderror" name="nim"
-                                    value="{{ $value->nim }}" required autofocus>
+                                <input id="nim" type="number" class="form-control @error('nim') is-invalid @enderror"
+                                    name="nim" value="{{ old('nim') }}" required autofocus>
                                 @error('nim')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -386,7 +154,7 @@
                                     @endphp
                                     @for ($year = $currentYear; $year >= $startYear; $year--)
                                         <option value="{{ $year }}"
-                                            {{ ($value->angkatan ?? old('angkatan')) == $year ? 'selected' : '' }}>
+                                            {{ old('angkatan') == $year ? 'selected' : '' }}>
                                             {{ $year }}
                                         </option>
                                     @endfor
@@ -403,8 +171,7 @@
                                     <input id="jenis_kelamin_laki" type="radio"
                                         class="form-check-input @error('jenis_kelamin') is-invalid @enderror"
                                         name="jenis_kelamin" value="Laki-laki"
-                                        {{ ($value->jenis_kelamin ?? old('jenis_kelamin')) == 'Laki-laki' ? 'checked' : '' }}
-                                        required>
+                                        {{ old('jenis_kelamin') == 'Laki-laki' ? 'checked' : '' }} required>
                                     <label for="jenis_kelamin_laki"
                                         class="form-check-label">{{ __('Laki-laki') }}</label>
                                 </div>
@@ -412,8 +179,7 @@
                                     <input id="jenis_kelamin_perempuan" type="radio"
                                         class="form-check-input @error('jenis_kelamin') is-invalid @enderror"
                                         name="jenis_kelamin" value="Perempuan"
-                                        {{ ($value->jenis_kelamin ?? old('jenis_kelamin')) == 'Perempuan' ? 'checked' : '' }}
-                                        required>
+                                        {{ old('jenis_kelamin') == 'Perempuan' ? 'checked' : '' }} required>
                                     <label for="jenis_kelamin_perempuan"
                                         class="form-check-label">{{ __('Perempuan') }}</label>
                                 </div>
@@ -424,47 +190,34 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="id_divisi">{{ __('Divisi') }}</label>
+                                <label for="id_divisi" class="required-label">{{ __('Divisi') }}</label>
                                 <select class="form-select" name="id_divisi" id="id_divisi"
-                                    style="width: 100%; height: 35px; font-size: 13px;">
-                                    <option value="">Pilih Divisi</option>
+                                    value="{{ $value->id_divisi }}" style="width: 100%; height: 35px; font-size: 13px;">
+                                    <option disble value>Pilih Divisi</option>
                                     @foreach ($divisi as $data)
                                         <option value="{{ $data->id_divisi }}"
-                                            {{ ($value->id_divisi ?? old('id_divisi')) == $data->id_divisi ? 'selected' : '' }}>
-                                            {{ $data->nama_divisi }}
-                                        </option>
+                                            {{ $value && $data->id_divisi == $value->id_divisi ? 'selected' : '' }}>
+                                            {{ $data->nama_divisi }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div>
-                                <label for="id_jabatan">{{ __('Jabatan') }}</label>
+                                <label for="id_jabatan" class="required-label">{{ __('Jabatan') }}</label>
                                 <select class="form-select" name="id_jabatan" id="id_jabatan"
-                                    style="width: 100%; height: 35px; font-size: 13px;">
-                                    <option value="">Pilih Jabatan</option>
+                                    value="{{ $value->id_jabatan }}" style="width: 100%; height: 35px; font-size: 13px;">
+                                    <option disble value>Pilih Jabatan</option>
                                     @foreach ($jabatan as $data)
                                         <option value="{{ $data->id_jabatan }}"
-                                            {{ ($value->id_jabatan ?? old('id_jabatan')) == $data->id_jabatan ? 'selected' : '' }}>
-                                            {{ $data->nama_jabatan }}
-                                        </option>
+                                            {{ $value && $data->id_jabatan == $value->id_jabatan ? 'selected' : '' }}>
+                                            {{ $data->nama_jabatan }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div>
-                                <label for="email">{{ __('Email') }}</label>
-                                <input id="email" type="email"
-                                    class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ $value->email }}">
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                             <div>
                                 <label for="link_ig">{{ __('Link Instagram') }}</label>
                                 <input id="link_ig" type="text"
                                     class="form-control @error('link_ig') is-invalid @enderror" name="link_ig"
-                                    value="{{ $value->link_ig }}">
+                                    value="{{ old('link_ig') }}">
                                 @error('link_ig')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -474,8 +227,8 @@
                             <div>
                                 <label for="link_linkedin">{{ __('Link Linkedin') }}</label>
                                 <input id="link_linkedin" type="text"
-                                    class="form-control @error('link_linkedin') is-invalid @enderror"
-                                    name="link_linkedin" value="{{ $value->link_linkedin }}">
+                                    class="form-control @error('link_linkedin') is-invalid @enderror" name="link_linkedin"
+                                    value="{{ old('link_linkedin') }}">
                                 @error('link_linkedin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -489,64 +242,211 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    @endforeach
 
+        {{-- edit data --}}
+        @foreach ($anggota as $no => $value)
+            <div class="modal" id="UbahAnggota{{ $value->id_anggota }}" role="dialog">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Ubah Data Anggota</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ url('update-anggota/' . $value->id_anggota) }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div>
+                                    <label for="foto">{{ __('Foto Profil') }}</label><br>
+                                    @if ($value->foto)
+                                        <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="Foto Produk" style="width: 100px;">
+                                        <div>
+                                            <input type="checkbox" name="hapus_foto" id="hapus_foto">
+                                            <label for="hapus_foto">Hapus Foto</label>
+                                        </div>
+                                    @endif
+                                
+                                    <input id="foto" onchange="readFoto(event)" type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" autofocus>
+                                    <img id="output" style="width: 100px; display: none;">
+                                
+                                    @error('foto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>                                
+                                <div>
+                                    <label for="full_name" class="required-label">{{ __('Nama Lengkap') }}</label>
+                                    <input id="full_name" type="text"
+                                        class="form-control @error('full_name') is-invalid @enderror" name="full_name"
+                                        value="{{ $value->full_name }}" required autofocus>
+                                    @error('full_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label for="nim" class="required-label">{{ __('NIM') }}</label>
+                                    <input id="nim" type="number"
+                                        class="form-control @error('nim') is-invalid @enderror" name="nim"
+                                        value="{{ $value->nim }}" required autofocus>
+                                    @error('nim')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label for="angkatan" class="required-label">{{ __('Angkatan') }}</label>
+                                    <select id="angkatan" class="form-control @error('angkatan') is-invalid @enderror"
+                                        name="angkatan" required autofocus>
+                                        <option value="">Pilih Tahun</option>
+                                        @php
+                                            $currentYear = date('Y');
+                                            $startYear = 2019;
+                                        @endphp
+                                        @for ($year = $currentYear; $year >= $startYear; $year--)
+                                            <option value="{{ $year }}"
+                                                {{ ($value->angkatan ?? old('angkatan')) == $year ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                    @error('angkatan')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label class="required-label">{{ __('Jenis Kelamin') }}</label>
+                                    <div class="form-check">
+                                        <input id="jenis_kelamin_laki" type="radio"
+                                            class="form-check-input @error('jenis_kelamin') is-invalid @enderror"
+                                            name="jenis_kelamin" value="Laki-laki"
+                                            {{ ($value->jenis_kelamin ?? old('jenis_kelamin')) == 'Laki-laki' ? 'checked' : '' }}
+                                            required>
+                                        <label for="jenis_kelamin_laki"
+                                            class="form-check-label">{{ __('Laki-laki') }}</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="jenis_kelamin_perempuan" type="radio"
+                                            class="form-check-input @error('jenis_kelamin') is-invalid @enderror"
+                                            name="jenis_kelamin" value="Perempuan"
+                                            {{ ($value->jenis_kelamin ?? old('jenis_kelamin')) == 'Perempuan' ? 'checked' : '' }}
+                                            required>
+                                        <label for="jenis_kelamin_perempuan"
+                                            class="form-check-label">{{ __('Perempuan') }}</label>
+                                    </div>
+                                    @error('jenis_kelamin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label for="id_divisi" class="required-label">{{ __('Divisi') }}</label>
+                                    <select class="form-select" name="id_divisi" id="id_divisi"
+                                        style="width: 100%; height: 35px; font-size: 13px;">
+                                        <option value="">Pilih Divisi</option>
+                                        @foreach ($divisi as $data)
+                                            <option value="{{ $data->id_divisi }}"
+                                                {{ ($value->id_divisi ?? old('id_divisi')) == $data->id_divisi ? 'selected' : '' }}>
+                                                {{ $data->nama_divisi }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="id_jabatan" class="required-label">{{ __('Jabatan') }}</label>
+                                    <select class="form-select" name="id_jabatan" id="id_jabatan"
+                                        style="width: 100%; height: 35px; font-size: 13px;">
+                                        <option value="">Pilih Jabatan</option>
+                                        @foreach ($jabatan as $data)
+                                            <option value="{{ $data->id_jabatan }}"
+                                                {{ ($value->id_jabatan ?? old('id_jabatan')) == $data->id_jabatan ? 'selected' : '' }}>
+                                                {{ $data->nama_jabatan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="link_ig">{{ __('Link Instagram') }}</label>
+                                    <input id="link_ig" type="text"
+                                        class="form-control @error('link_ig') is-invalid @enderror" name="link_ig"
+                                        value="{{ $value->link_ig }}">
+                                    @error('link_ig')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label for="link_linkedin">{{ __('Link Linkedin') }}</label>
+                                    <input id="link_linkedin" type="text"
+                                        class="form-control @error('link_linkedin') is-invalid @enderror"
+                                        name="link_linkedin" value="{{ $value->link_linkedin }}">
+                                    @error('link_linkedin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label text-md-end"></label>
+                                    <div class="col-md-8">
+                                        <button class="btn btn-success">Simpan</button>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
 
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('#example').DataTable({
-                    paging: true,
-                    searching: true,
-                    ordering: true,
-                    info: true,
-                    autoWidth: false,
+        @push('scripts')
+            <script>
+                $(document).ready(function() {
+                    $('#example').DataTable({
+                        paging: true,
+                        searching: true,
+                        ordering: true,
+                        info: true,
+                        autoWidth: false,
+                    });
                 });
-            });
-        </script>
-    @endpush
-    {{-- password --}}
-    <script>
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
-        const icon = document.querySelector('#icon');
+            </script>
+        @endpush
+        {{-- foto --}}
+        <script>
+            function readFoto(event) {
+                var input = event.target;
+                var output = document.getElementById('output');
 
-        togglePassword.addEventListener('click', function(e) {
-            // Toggle the type attribute
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-            // Toggle the eye / eye-slash icon
-            icon.classList.toggle('fa-eye');
-            icon.classList.toggle('fa-eye-slash');
-        });
-    </script>
-    {{-- foto --}}
-    <script>
-        function readFoto(event) {
-            var input = event.target;
-            var output = document.getElementById('output');
+                    reader.onload = function(e) {
+                        output.src = e.target.result;
+                        output.style.display = 'block';
+                    };
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    output.src = e.target.result;
-                    output.style.display = 'block';
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                output.src = '';
-                output.style.display = 'none';
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    output.src = '';
+                    output.style.display = 'none';
+                }
             }
-        }
-    </script>
-@endsection
+        </script>
+    @endsection

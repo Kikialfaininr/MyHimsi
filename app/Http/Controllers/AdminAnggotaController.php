@@ -9,7 +9,6 @@ use App\Models\Divisi;
 use App\Models\Jabatan;
 use Redirect;
 use Session;
-use Hash;
 use DB;
 use PDF;
 use Image;
@@ -21,7 +20,6 @@ class AdminAnggotaController extends Controller
         $divisi = Divisi::all();
         $jabatan = Jabatan::all();
         $anggota = Anggota::with(['divisi', 'jabatan'])
-                        ->where('role', 'anggota')
                       ->orderBy('created_at', 'DESC')
                       ->get();
         
@@ -31,12 +29,10 @@ class AdminAnggotaController extends Controller
     public function simpan(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nim' => 'unique:users',
-            'name' => 'unique:users',
+            'nim' => 'unique:anggota',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nim.unique' => 'Gagal menyimpan data karena data sudah ada.',
-            'name.unique' => 'Gagal menyimpan data karena data sudah ada.',
             'foto.image' => 'File harus berupa gambar.',
             'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
             'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
@@ -63,92 +59,102 @@ class AdminAnggotaController extends Controller
 
         $anggota = new Anggota();
             $anggota->foto = $foto;
-            $anggota->name = $request->name;
-            $anggota->password = Hash::make($request->password);
             $anggota->full_name = $request->full_name;
             $anggota->nim = $request->nim;
             $anggota->angkatan = $request->angkatan;
             $anggota->jenis_kelamin = $request->jenis_kelamin;
             $anggota->id_divisi = $request->id_divisi;
             $anggota->id_jabatan = $request->id_jabatan;
-            $anggota->email = $request->email;
             $anggota->link_ig = $request->link_ig;
             $anggota->link_linkedin = $request->link_linkedin;
-            $anggota->role = 'anggota';
         $anggota->save();
         return redirect('/admin-anggota')->with('message', 'Data berhasil ditambah')->with('alert_class', 'success');      
     }
 
     public function edit(Request $request, $id)
     {
-        $anggota = Anggota::where('id',$id)->first();
+        $anggota = Anggota::where('id_anggota',$id)->first();
         return view('anggota-edit', compact('anggota'));
     }
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'nim' => 'unique:users,nim,' . $id,
-            'name' => 'unique:users,name,' . $id,
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ], [
-            'nim.unique' => 'Gagal menyimpan data karena data sudah ada.',
-            'name.unique' => 'Gagal menyimpan data karena data sudah ada.',
-            'foto.image' => 'File harus berupa gambar.',
-            'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'nim' => 'unique:anggota,nim,' . $id . ',id_anggota',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ], [
+                'nim.unique' => 'Gagal menyimpan data karena NIM sudah ada.',
+                'foto.image' => 'File harus berupa gambar.',
+                'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
+                'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
+            ]);
 
-        if ($validator->fails()) {
+            if ($validator->fails()) {
+                return redirect('/admin-anggota')->with([
+                    'message' => $validator->errors()->first(),
+                    'alert_class' => 'danger'
+                ]);
+            }
+
+            $anggota = Anggota::find($id);
+
+            // Check if the "hapus_foto" checkbox is checked
+            if ($request->has('hapus_foto')) {
+                // Hapus foto lama jika ada
+                if ($anggota->foto && file_exists(public_path('image/anggota/' . $anggota->foto))) {
+                    unlink(public_path('image/anggota/' . $anggota->foto));
+                }
+                $anggota->foto = null; // Set foto to null in the database
+            }
+
+            if ($request->hasFile('foto')) {
+                $file = $request->file('foto');
+                $foto = 'Anggota-'.date('Ymdhis').'.'.$file->getClientOriginalExtension();
+
+                $resize_foto = Image::make($file->getRealPath());
+                $resize_foto->resize(200, 200, function($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('image/anggota/'.$foto));
+
+                // Hapus foto lama jika ada
+                if ($anggota->foto && file_exists(public_path('image/anggota/' . $anggota->foto))) {
+                    unlink(public_path('image/anggota/' . $anggota->foto));
+                }
+
+                $anggota->foto = $foto;
+            }
+
+            // Update data anggota
+            $anggota->full_name = $request->full_name;
+            $anggota->nim = $request->nim;
+            $anggota->angkatan = $request->angkatan;
+            $anggota->jenis_kelamin = $request->jenis_kelamin;
+            $anggota->id_divisi = $request->id_divisi;
+            $anggota->id_jabatan = $request->id_jabatan;
+            $anggota->link_ig = $request->link_ig;
+            $anggota->link_linkedin = $request->link_linkedin;
+            $anggota->save();
+
+            return redirect('/admin-anggota')->with('message', 'Data berhasil diubah')->with('alert_class', 'success');
+        } catch (\Exception $e) {
+            // Tangkap error dan berikan alert kepada user
             return redirect('/admin-anggota')->with([
-                'message' => $validator->errors()->first(),
+                'message' => 'Gagal menyimpan data: ' . $e->getMessage(),
                 'alert_class' => 'danger'
             ]);
         }
-
-        $anggota = Anggota::find($id);
-
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $foto = 'Anggota-'.date('Ymdhis').'.'.$file->getClientOriginalExtension();
-            
-            $resize_foto = Image::make($file->getRealPath());
-            $resize_foto->resize(200, 200, function($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path('image/anggota/'.$foto));
-            
-            // Hapus foto lama jika ada
-            if ($anggota->foto && file_exists(public_path('image/anggota/' . $anggota->foto))) {
-                unlink(public_path('image/anggota/' . $anggota->foto));
-            }
-
-            $anggota->foto = $foto;
-        } else {
-            // Jika tidak ada file baru, pertahankan foto lama
-            $anggota->foto = $anggota->foto;
-        }
-
-        $anggota->name = $request->name;
-        $anggota->password = Hash::make($request->password);
-        $anggota->full_name = $request->full_name;
-        $anggota->nim = $request->nim;
-        $anggota->angkatan = $request->angkatan;
-        $anggota->jenis_kelamin = $request->jenis_kelamin;
-        $anggota->id_divisi = $request->id_divisi;
-        $anggota->id_jabatan = $request->id_jabatan;
-        $anggota->email = $request->email;
-        $anggota->link_ig = $request->link_ig;
-        $anggota->link_linkedin = $request->link_linkedin;
-        $anggota->role = 'anggota';
-        $anggota->save();
-
-        return redirect('/admin-anggota')->with('message', 'Data berhasil diubah')->with('alert_class', 'success');
     }
 
     public function hapus(Request $request, $id)
     {
         $anggota = Anggota::findOrFail($id);
-        $anggota->delete();
+
+        if ($anggota->users()->count() > 0) {
+            return redirect('/admin-anggota')->with('error', 'Tidak dapat menghapus anggota karena terdapat data login yang terkait.');
+        }
+
+        $divisi->delete();
         return redirect('/admin-anggota')->with('message', 'Data berhasil dihapus')->with('alert_class', 'success');
     }
 
@@ -157,7 +163,6 @@ class AdminAnggotaController extends Controller
         $divisi = Divisi::all();
         $jabatan = Jabatan::all();
         $anggota = Anggota::with(['divisi', 'jabatan'])
-                        ->where('role', 'anggota')
                       ->orderBy('created_at', 'DESC')
                       ->get();
 
@@ -175,7 +180,7 @@ class AdminAnggotaController extends Controller
 
         // Pass imageSrc dan currentDate ke view
         $pdf = PDF::loadview('pdf-anggota', compact('anggota', 'himsiSrc', 'uhbSrc', 'currentDate'));
-        $pdf->setPaper('F4', 'landscape');
+        $pdf->setPaper('F4', 'potrait');
         return $pdf->stream('Data Anggota Himsi.pdf');
     }
 

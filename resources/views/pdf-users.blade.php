@@ -81,34 +81,26 @@
     </div>
 
     <div class="content">
-        <h1>DATA ANGGOTA</h1>
+        <h1>DATA LOGIN ANGGOTA</h1>
         <table id="example" class="table table-responsive table-striped table-hover table-bordered">
             <thead>
                 <tr>
                     <th class="text-center">No</th>
-                    <th class="text-center">Nama Lengkap</th>
-                    <th class="text-center">NIM</th>
-                    <th class="text-center">Angkatan</th>
-                    <th class="text-center">Jenis Kelamin</th>
-                    <th class="text-center">Divisi</th>
-                    <th class="text-center">Jabatan</th>
-                    <th class="text-center">Link Instagram</th>
-                    <th class="text-center">Link Linkedin</th>
+                        <th class="text-center">Nama</th>
+                        <th class="text-center">Username</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Password</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($anggota as $no => $value)
-                    <tr>
-                        <td class="text-center">{{ $no + 1 }}</td>
-                        <td>{{ $value->full_name }}</td>
-                        <td class="text-center">{{ $value->nim }}</td>
-                        <td class="text-center">{{ $value->angkatan }}</td>
-                        <td class="text-center">{{ $value->jenis_kelamin }}</td>
-                        <td>{{ $value->divisi->nama_divisi }}</td>
-                        <td>{{ $value->jabatan->nama_jabatan }}</td>
-                        <td>{{ $value->link_ig }}</td>
-                        <td>{{ $value->link_linkedin }}</td>
-                    </tr>
+                @foreach($users as $no => $value)
+                <tr>
+                    <td align="center">{{$no+1}}</td>
+                    <td>{{$value->anggota->full_name}}</td>
+                    <td>{{$value->name}}</td> 
+                    <td>{{$value->email}}</td> 
+                    <td>{{$value->password}}</td>  
+                </tr>
                 @endforeach
             </tbody>
         </table>

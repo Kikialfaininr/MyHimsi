@@ -426,6 +426,23 @@ body {
     font-weight: 600;
 }
 
+.password-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.password-toggle i {
+    font-size: 16px;
+}
+
+
 /* responsif */
 @media (max-width: 991px) {
     .navigation {

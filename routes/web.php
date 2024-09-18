@@ -24,6 +24,14 @@ Route::get('/publikasi', [App\Http\Controllers\PublikasiController::class, 'inde
 Route::get('/sertifikat', [App\Http\Controllers\SertifikatController::class, 'index']);
 Route::get('/loker', [App\Http\Controllers\LokerController::class, 'index']);
 
+// halaman admin users
+Route::get('/admin-users', [App\Http\Controllers\AdminUsersController::class, 'index']);
+Route::post('/simpan-data-users', [App\Http\Controllers\AdminUsersController::class, 'simpan']);
+Route::get('{id}/edit-users', [App\Http\Controllers\AdminUsersController::class, 'edit']);
+Route::post('/update-users/{id}', [App\Http\Controllers\AdminUsersController::class, 'update']);
+Route::get('{id}/hapus-users', [App\Http\Controllers\AdminUsersController::class, 'hapus']);
+Route::get('/downloadpdf-users', [App\Http\Controllers\AdminUsersController::class, 'downloadpdf']);
+
 // halaman admin divisi
 Route::get('/admin-divisi', [App\Http\Controllers\AdminDivisiController::class, 'index']);
 Route::post('/simpan-data-divisi', [App\Http\Controllers\AdminDivisiController::class, 'simpan']);
