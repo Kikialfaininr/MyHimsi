@@ -62,29 +62,39 @@
                                 <td class="text-center">{{ $no + 1 }}</td>
                                 <td class="text-center">
                                     @if ($value->foto)
-                                        <img src="image/event/{{ $value->foto }}" alt="event"
-                                            style="width:100px; height: 100px;"
-                                            class="d-inline-block align-text-center rounded-circle" />
+                                        <a href="{{ asset('image/event/' . $value->foto) }}" target="_blank">
+                                            <img src="{{ asset('image/event/' . $value->foto) }}" alt="event"
+                                                style="width:100px; height: 100px;"
+                                                class="d-inline-block align-text-center" />
+                                        </a>
                                     @else
                                         @if ($value->kategori == "Acara")
-                                            <img src="{{ asset('image/acara.png') }}" alt="acara"
-                                                style="width:100px; height: 100px;"
-                                                class="d-inline-block align-text-center rounded-circle">
+                                            <a href="{{ asset('image/acara.png') }}" target="_blank">
+                                                <img src="{{ asset('image/acara.png') }}" alt="acara"
+                                                    style="width:100px; height: 100px;"
+                                                    class="d-inline-block align-text-center" />
+                                            </a>
                                         @elseif ($value->kategori == "Akademik")
-                                            <img src="{{ asset('image/akademik.png') }}" alt="akademik"
-                                                style="width:100px; height: 100px;"
-                                                class="d-inline-block align-text-center rounded-circle">
+                                            <a href="{{ asset('image/akademik.png') }}" target="_blank">
+                                                <img src="{{ asset('image/akademik.png') }}" alt="akademik"
+                                                    style="width:100px; height: 100px;"
+                                                    class="d-inline-block align-text-center" />
+                                            </a>
                                         @elseif ($value->kategori == "Rapat")
-                                            <img src="{{ asset('image/rapat.png') }}" alt="rapat"
-                                                style="width:100px; height: 100px;"
-                                                class="d-inline-block align-text-center rounded-circle">
+                                            <a href="{{ asset('image/rapat.png') }}" target="_blank">
+                                                <img src="{{ asset('image/rapat.png') }}" alt="rapat"
+                                                    style="width:100px; height: 100px;"
+                                                    class="d-inline-block align-text-center" />
+                                            </a>
                                         @else
-                                            <img src="{{ asset('image/profil.jpg') }}" alt="profil"
-                                                style="width:100px; height: 100px;"
-                                                class="d-inline-block align-text-center rounded-circle">
+                                            <a href="{{ asset('image/profil.jpg') }}" target="_blank">
+                                                <img src="{{ asset('image/profil.jpg') }}" alt="profil"
+                                                    style="width:100px; height: 100px;"
+                                                    class="d-inline-block align-text-center" />
+                                            </a>
                                         @endif
                                     @endif
-                                </td>  
+                                </td>                                 
                                 <td>{{ $value->nama_event }}</td>                              
                                 <td>{{ $value->tanggal }}</td>
                                 <td>{{ $value->waktu_mulai }}</td>
@@ -185,7 +195,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="lokasi" class="required-label">{{ __('Lokasi') }}</label>
+                            <label for="lokasi">{{ __('Lokasi') }}</label>
                             <input id="lokasi" type="text"
                                 class="form-control @error('lokasi') is-invalid @enderror" name="lokasi"
                                 value="{{ old('lokasi') }}">
@@ -199,7 +209,7 @@
                             <label for="penyelenggara" class="required-label">{{ __('Penyelenggara') }}</label>
                             <input id="penyelenggara" type="text"
                                 class="form-control @error('penyelenggara') is-invalid @enderror" name="penyelenggara"
-                                value="{{ old('penyelenggara') }}">
+                                value="{{ old('penyelenggara') }}" required autofocus>
                             @error('penyelenggara')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -221,7 +231,7 @@
                             <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
                             <input id="deskripsi" type="text"
                                 class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                                value="{{ old('deskripsi') }}">
+                                value="{{ old('deskripsi') }}" required autofocus>
                             @error('deskripsi')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -270,16 +280,18 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div>
-                                <label for="foto">{{ __('Foto Event') }}</label>
+                                <label for="foto">{{ __('Foto Event') }}</label><br>
                                 @if ($value->foto)
-                                    <img src="{{ asset('image/event/' . $value->foto) }}" alt="Foto Produk"
-                                        style="width: 100px;">
+                                    <img src="{{ asset('image/event/' . $value->foto) }}" alt="Foto Event" style="width: 100px;">
+                                    <div>
+                                        <input type="checkbox" name="hapus_foto" id="hapus_foto">
+                                        <label for="hapus_foto">Hapus Foto</label>
+                                    </div>
                                 @endif
-
-                                <input id="foto" onchange="readFoto(event)" type="file"
-                                    class="form-control @error('foto') is-invalid @enderror" name="foto" autofocus>
+                            
+                                <input id="foto" onchange="readFoto(event)" type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" autofocus>
                                 <img id="output" style="width: 100px; display: none;">
-
+                            
                                 @error('foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -332,7 +344,7 @@
                             </div>
                             
                             <div>
-                                <label for="lokasi" class="required-label">{{ __('Lokasi') }}</label>
+                                <label for="lokasi">{{ __('Lokasi') }}</label>
                                 <input id="lokasi" type="text"
                                     class="form-control @error('lokasi') is-invalid @enderror" name="lokasi"
                                     value="{{ $value->lokasi }}">
@@ -346,7 +358,7 @@
                                 <label for="penyelenggara" class="required-label">{{ __('Penyelenggara') }}</label>
                                 <input id="penyelenggara" type="text"
                                     class="form-control @error('penyelenggara') is-invalid @enderror" name="penyelenggara"
-                                    value="{{ $value->penyelenggara }}">
+                                    value="{{ $value->penyelenggara }}" required autofocus>
                                 @error('penyelenggara')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -368,7 +380,7 @@
                                 <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
                                 <input id="deskripsi" type="text"
                                     class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                                    value="{{ $value->deskripsi }}">
+                                    value="{{ $value->deskripsi }}" required autofocus>
                                 @error('deskripsi')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -395,7 +407,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>

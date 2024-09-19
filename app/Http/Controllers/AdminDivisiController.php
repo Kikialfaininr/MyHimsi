@@ -48,9 +48,22 @@ class AdminDivisiController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'nama_divisi' => 'unique:divisi',
+        ], [
+            'nama_divisi.unique' => 'Gagal menyimpan data karena data sudah ada.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/admin-divisi')->with([
+                'message' => $validator->errors()->first(),
+                'alert_class' => 'danger'
+            ]);
+        }
+
         $divisi = Divisi::where('id_divisi', $id)->first();
-        $divisi->nama_divisi = $request->nama_divisi;
-        $divisi->deskripsi = $request->deskripsi;
+            $divisi->nama_divisi = $request->nama_divisi;
+            $divisi->deskripsi = $request->deskripsi;
         $divisi->save();
         return redirect('/admin-divisi')->with('message', 'Data berhasil diubah')->with('alert_class', 'success');
     }
@@ -59,8 +72,8 @@ class AdminDivisiController extends Controller
     {
         $divisi = Divisi::findOrFail($id);
 
-        if ($divisi->anggota()->count() > 0) {
-            return redirect('/admin-divisi')->with('error', 'Tidak dapat menghapus divisi karena terdapat anggota yang terkait.');
+        if ($divisi->anggota()->count() > 0 || $divisi->proker()->count() > 0) {
+            return redirect('/admin-divisi')->with('error', 'Tidak dapat menghapus divisi karena terdapat anggota dan/atau program kerja yang terkait.');
         }
 
         $divisi->delete();

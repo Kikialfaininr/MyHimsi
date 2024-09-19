@@ -48,9 +48,22 @@ class AdminJabatanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'nama_jabatan' => 'unique:jabatan',
+        ], [
+            'nama_jabatan.unique' => 'Gagal menyimpan data karena data sudah ada.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/admin-jabatan')->with([
+                'message' => $validator->errors()->first(),
+                'alert_class' => 'danger'
+            ]);
+        }
+
         $jabatan = Jabatan::where('id_jabatan', $id)->first();
-        $jabatan->nama_jabatan = $request->nama_jabatan;
-        $jabatan->deskripsi = $request->deskripsi;
+            $jabatan->nama_jabatan = $request->nama_jabatan;
+            $jabatan->deskripsi = $request->deskripsi;
         $jabatan->save();
         return redirect('/admin-jabatan')->with('message', 'Data berhasil diubah')->with('alert_class', 'success');
     }

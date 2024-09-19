@@ -54,6 +54,7 @@
         .content table,
         .content th,
         .content td {
+            width: 100%;
             border: 1px solid black;
             border-collapse: collapse;
             padding: 10px;

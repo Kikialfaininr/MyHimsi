@@ -61,22 +61,27 @@
                                 <td class="text-center">{{ $no + 1 }}</td>
                                 <td class="text-center">
                                     @if ($value->foto)
-                                        <img src="image/anggota/{{ $value->foto }}" alt="profil"
-                                            style="width:100px; height: 100px;"
-                                            class="d-inline-block align-text-center rounded-circle" />
+                                        <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
+                                            <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil" style="width:100px; height: 100px;" class="d-inline-block align-text-center rounded-circle" />
+                                        </a>
                                     @else
-                                        <img src="image/profil.jpg" alt="profil" style="width:100px; height: 100px;"
-                                            class="d-inline-block align-text-center rounded-circle">
+                                        <a href="{{ asset('image/profil.jpg') }}" target="_blank">
+                                            <img src="{{ asset('image/profil.jpg') }}" alt="profil" style="width:100px; height: 100px;" class="d-inline-block align-text-center rounded-circle">
+                                        </a>
                                     @endif
-                                </td>
+                                </td>                                
                                 <td>{{ $value->full_name }}</td>
                                 <td class="text-center">{{ $value->nim }}</td>
                                 <td class="text-center">{{ $value->angkatan }}</td>
                                 <td class="text-center">{{ $value->jenis_kelamin }}</td>
                                 <td>{{ $value->divisi->nama_divisi }}</td>
                                 <td>{{ $value->jabatan->nama_jabatan }}</td>
-                                <td>{{ $value->link_ig }}</td>
-                                <td>{{ $value->link_linkedin }}</td>
+                                <td>
+                                    <a href="{{ $value->link_ig }}" target="_blank">{{ $value->link_ig }}</a>
+                                </td> 
+                                <td>
+                                    <a href="{{ $value->link_linkedin }}" target="_blank">{{ $value->link_linkedin }}</a>
+                                </td> 
                                 <td class="action-col">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#UbahAnggota{{ $value->id_anggota }}" title="Ubah Data">
@@ -192,7 +197,7 @@
                             <div>
                                 <label for="id_divisi" class="required-label">{{ __('Divisi') }}</label>
                                 <select class="form-select" name="id_divisi" id="id_divisi"
-                                    value="{{ $value->id_divisi }}" style="width: 100%; height: 35px; font-size: 13px;">
+                                    value="{{ $value->id_divisi }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
                                     <option disble value>Pilih Divisi</option>
                                     @foreach ($divisi as $data)
                                         <option value="{{ $data->id_divisi }}"
@@ -204,7 +209,7 @@
                             <div>
                                 <label for="id_jabatan" class="required-label">{{ __('Jabatan') }}</label>
                                 <select class="form-select" name="id_jabatan" id="id_jabatan"
-                                    value="{{ $value->id_jabatan }}" style="width: 100%; height: 35px; font-size: 13px;">
+                                    value="{{ $value->id_jabatan }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
                                     <option disble value>Pilih Jabatan</option>
                                     @foreach ($jabatan as $data)
                                         <option value="{{ $data->id_jabatan }}"
@@ -265,7 +270,7 @@
                                 <div>
                                     <label for="foto">{{ __('Foto Profil') }}</label><br>
                                     @if ($value->foto)
-                                        <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="Foto Produk" style="width: 100px;">
+                                        <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="Foto Profil" style="width: 100px;">
                                         <div>
                                             <input type="checkbox" name="hapus_foto" id="hapus_foto">
                                             <label for="hapus_foto">Hapus Foto</label>
@@ -280,7 +285,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>                                
+                                </div>
                                 <div>
                                     <label for="full_name" class="required-label">{{ __('Nama Lengkap') }}</label>
                                     <input id="full_name" type="text"
@@ -354,7 +359,7 @@
                                 <div>
                                     <label for="id_divisi" class="required-label">{{ __('Divisi') }}</label>
                                     <select class="form-select" name="id_divisi" id="id_divisi"
-                                        style="width: 100%; height: 35px; font-size: 13px;">
+                                        style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
                                         <option value="">Pilih Divisi</option>
                                         @foreach ($divisi as $data)
                                             <option value="{{ $data->id_divisi }}"
@@ -367,7 +372,7 @@
                                 <div>
                                     <label for="id_jabatan" class="required-label">{{ __('Jabatan') }}</label>
                                     <select class="form-select" name="id_jabatan" id="id_jabatan"
-                                        style="width: 100%; height: 35px; font-size: 13px;">
+                                        style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
                                         <option value="">Pilih Jabatan</option>
                                         @foreach ($jabatan as $data)
                                             <option value="{{ $data->id_jabatan }}"
@@ -406,7 +411,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                                 </div>
                             </form>
                         </div>

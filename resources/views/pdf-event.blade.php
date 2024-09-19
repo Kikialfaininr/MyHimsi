@@ -108,8 +108,12 @@
                         <td>{{ $value->lokasi }}</td>
                         <td>{{ $value->penyelenggara }}</td>
                         <td>
-                            <a href="{{ $value->link_kegiatan }}" target="_blank">Link Kegiatan</a>
-                        </td> 
+                            @if ($value->link_kegiatan)
+                                <a href="{{ $value->link_kegiatan }}" target="_blank">Link Kegiatan</a>
+                            @else
+                                
+                            @endif
+                        </td>                         
                         <td>{{ $value->deskripsi }}</td>
                         <td>{{ $value->kategori }}</td>
                     </tr>

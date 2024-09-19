@@ -44,12 +44,12 @@
                     <tr>
                         <th class="text-center">No</th>
                         <th class="text-center">Posisi</th>
-                        <th class="text-center">Deskripsi</th>
                         <th class="text-center">Perusahaan</th>
                         <th class="text-center">Lokasi</th>
                         <th class="text-center">Gaji</th>
                         <th class="text-center">Jenis Pekerjaan</th>
                         <th class="text-center">Link Apply</th>
+                        <th class="text-center">Deskripsi</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -58,14 +58,25 @@
                     <tr>
                         <td align="center">{{$no+1}}</td>
                         <td>{{$value->posisi}}</td>
-                        <td>{{$value->deskripsi}}</td>
                         <td>{{$value->nama_perusahaan}}</td>
                         <td>{{$value->lokasi}}</td>
-                        <td>Rp {{ number_format($value->gaji) }}</td>
+                        <td>
+                            @if ($value->gaji)
+                                Rp {{ number_format($value->gaji) }}
+                            @else
+                                
+                            @endif
+                        </td>                        
                         <td>{{$value->jenis_pekerjaan}}</td>
                         <td>
                             <a href="{{ $value->link_apply }}" target="_blank">{{ $value->link_apply }}</a>
-                        </td>                   
+                        </td> 
+                        <td class="action-col">
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#Deskripsi{{ $value->id_loker }}" title="Deskripsi Pekerjaan">
+                                Selengkapnya
+                            </button>
+                        </td>       
                         <td class="action-col">
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#UbahLoker{{$value->id_loker}}" title="Ubah Data">
@@ -84,6 +95,24 @@
         </div>
     </div>
 </div>
+
+{{-- edit data --}}
+@foreach($loker as $no => $value)
+<div class="modal" id="Deskripsi{{$value->id_loker}}" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Deskripsi Pekerjaan</h4>
+            </div>
+            <div class="modal-body">
+                <h4>{{$value->posisi}} - {{$value->nama_perusahaan}}</h4>
+                <p><strong>Deskripsi:</strong></p>
+                <p>{{$value->deskripsi}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 {{-- tambah data --}}
 <div class="modal" id="TambahDataLoker" role="dialog">
@@ -106,17 +135,6 @@
                             class="form-control @error('posisi') is-invalid @enderror" name="posisi"
                             value="{{ old('posisi') }}" required autofocus>
                         @error('posisi')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
-                        <input id="deskripsi" type="text"
-                            class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                            value="{{ old('deskripsi') }}" required autofocus>
-                        @error('deskripsi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -161,6 +179,7 @@
                             <option value="" selected disabled>Pilih Jenis Pekerjaan</option>
                             <option value="Full time">Full time</option>
                             <option value="Part time">Part time</option>
+                            <option value="Magang">Magang</option>
                         </select>
                         @error('jenis_pekerjaan')
                         <span class="invalid-feedback" role="alert">
@@ -178,7 +197,18 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </div>                                      
+                    </div>  
+                    <div>
+                        <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
+                        <textarea 
+                            class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" type="text" name="deskripsi"
+                            value="{{ old('deskripsi') }}" required autofocus></textarea>
+                        @error('deskripsi')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>                                    
                     <div class="form-group row">
                         <label class="col-form-label text-md-end"></label>
                         <div class="col-md-8">
@@ -211,17 +241,6 @@
                             class="form-control @error('posisi') is-invalid @enderror" name="posisi"
                             value="{{ $value->posisi }}" required autofocus>
                         @error('posisi')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
-                        <input id="deskripsi" type="text"
-                            class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                            value="{{ $value->deskripsi }}" required autofocus>
-                        @error('deskripsi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -265,6 +284,7 @@
                         <select id="jenis_pekerjaan" class="form-control @error('jenis_pekerjaan') is-invalid @enderror" name="jenis_pekerjaan" required autofocus>
                             <option value="Full time" {{ $value->jenis_pekerjaan == 'Full time' ? 'selected' : '' }}>Full time</option>
                             <option value="Part time" {{ $value->jenis_pekerjaan == 'Part time' ? 'selected' : '' }}>Part time</option>
+                            <option value="Magang" {{ $value->jenis_pekerjaan == 'Magang' ? 'selected' : '' }}>Magang</option>
                         </select>
                         @error('jenis_pekerjaan')
                         <span class="invalid-feedback" role="alert">
@@ -283,6 +303,18 @@
                         </span>
                         @enderror
                     </div>
+                    <div>
+                        <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
+                        <textarea id="deskripsi" 
+                                  class="form-control @error('deskripsi') is-invalid @enderror" 
+                                  name="deskripsi" 
+                                  required autofocus>{{ old('deskripsi', $value->deskripsi) }}</textarea>
+                        @error('deskripsi')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>                    
                     <div class="form-group row">
                         <label class="col-form-label text-md-end"></label>
                         <div class="col-md-8">
@@ -290,7 +322,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>

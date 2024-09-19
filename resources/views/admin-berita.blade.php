@@ -28,11 +28,6 @@
                         title="Tambah Data">
                         <i class='bx bx-plus'></i> Tambah Data Berita
                     </button>
-                    <a href="{{ url('downloadpdf-berita') }}" target="_blank">
-                        <button class="btn btn-danger">
-                            <i class='bx bxs-file-pdf'></i> Cetak
-                        </button>
-                    </a>
                 </div>
             </div>
         </div>
@@ -56,17 +51,27 @@
                                 <td class="text-center">{{ $no + 1 }}</td>
                                 <td class="text-center">
                                     @if ($value->foto)
-                                        <img src="image/berita/{{ $value->foto }}" alt="profil"
-                                            style="width:100px; height: 100px;"
-                                            class="d-inline-block align-text-center rounded-circle" />
+                                        <a href="{{ asset('image/berita/' . $value->foto) }}" target="_blank">
+                                            <img src="{{ asset('image/berita/' . $value->foto) }}" alt="profil"
+                                                style="width:100px; height: 100px;"
+                                                class="d-inline-block align-text-center" />
+                                        </a>
                                     @else
-                                        <img src="image/berita.png" alt="profil" style="width:100px; height: 100px;"
-                                            class="d-inline-block align-text-center rounded-circle">
+                                        <a href="{{ asset('image/berita.png') }}" target="_blank">
+                                            <img src="{{ asset('image/berita.png') }}" alt="profil"
+                                                style="width:100px; height: 100px;"
+                                                class="d-inline-block align-text-center" />
+                                        </a>
                                     @endif
-                                </td> 
-                                <td>{{ $value->penulis }}</td>                              
+                                </td>
+                                <td>{{ $value->penulis }}</td>
                                 <td>{{ $value->judul_berita }}</td>
-                                <td>{{ $value->deskripsi }}</td>
+                                <td class="action-col">
+                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#IsiBerita{{ $value->id_berita }}" title="Isi Data">
+                                        Selengkapnya
+                                    </button>
+                                </td>
                                 <td class="action-col">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#UbahBerita{{ $value->id_berita }}" title="Ubah Data">
@@ -85,6 +90,37 @@
             </div>
         </div>
     </div>
+    {{-- isi berita --}}
+    @foreach ($berita as $no => $value)
+    <div class="modal" id="IsiBerita{{ $value->id_berita }}" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="padding: 20px;">
+                <div class="modal-body" style="text-align: center; margin-bottom: 15px;">
+                    <h3>{{ $value->judul_berita }}</h3>
+                    <h6>{{ $value->penulis }}</h6>
+                    <h6>{{ $value->created_at }}</h6>
+                    @if ($value->foto)
+                        <a href="{{ asset('image/berita/' . $value->foto) }}" target="_blank">
+                            <img src="{{ asset('image/berita/' . $value->foto) }}" alt="profil"
+                                style="width:50%; display: inline-block;"/>
+                        </a>
+                    @else
+                        <a href="{{ asset('image/berita.png') }}" target="_blank">
+                            <img src="{{ asset('image/berita.png') }}" alt="profil"
+                                style="width:50%; display: inline-block;"/>
+                        </a>
+                    @endif
+                </div>
+                <p>{{ $value->deskripsi }}</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @endforeach
+
     {{-- tambah data --}}
     <div class="modal" id="TambahDataBerita" role="dialog">
         <div class="modal-dialog modal-xl">
@@ -114,9 +150,8 @@
                         </div>
                         <div>
                             <label for="penulis" class="required-label">{{ __('Penulis') }}</label>
-                            <input id="penulis" type="text"
-                                class="form-control @error('penulis') is-invalid @enderror" name="penulis"
-                                value="{{ old('penulis') }}">
+                            <input id="penulis" type="text" class="form-control @error('penulis') is-invalid @enderror"
+                                name="penulis" value="{{ old('penulis') }}">
                             @error('penulis')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -136,9 +171,9 @@
                         </div>
                         <div>
                             <label for="deskripsi" class="required-label">{{ __('Isi Berita') }}</label>
-                            <input id="deskripsi" type="text"
+                            <textarea id="deskripsi" type="text"
                                 class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                                value="{{ old('deskripsi') }}">
+                                value="{{ old('deskripsi') }}"></textarea>
                             @error('deskripsi')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -213,15 +248,16 @@
                             </div>
                             <div>
                                 <label for="deskripsi" class="required-label">{{ __('Isi Berita') }}</label>
-                                <input id="deskripsi" type="text"
-                                    class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                                    value="{{ $value->deskripsi }}">
+                                <textarea id="deskripsi" 
+                                          class="form-control @error('deskripsi') is-invalid @enderror" 
+                                          name="deskripsi" 
+                                          required autofocus>{{ old('deskripsi', $value->deskripsi) }}</textarea>
                                 @error('deskripsi')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
-                            </div>
+                            </div>  
                             <div class="form-group row">
                                 <label class="col-form-label text-md-end"></label>
                                 <div class="col-md-8">
@@ -229,7 +265,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>
@@ -237,7 +273,6 @@
             </div>
         </div>
     @endforeach
-
 
     @push('scripts')
         <script>

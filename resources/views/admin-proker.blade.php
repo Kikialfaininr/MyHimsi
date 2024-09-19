@@ -112,9 +112,9 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="id_divisi">{{ __('Divisi Penanggungjawab') }}</label>
+                            <label for="id_divisi" class="required-label">{{ __('Divisi Penanggungjawab') }}</label>
                             <select class="form-select" name="id_divisi" id="id_divisi" value="{{ $value->id_divisi }}"
-                                style="width: 100%; height: 35px; font-size: 13px;">
+                                style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
                                 <option disble value>Pilih Divisi</option>
                                 @foreach ($divisi as $data)
                                     <option value="{{ $data->id_divisi }}"
@@ -172,9 +172,9 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="id_divisi">{{ __('Divisi Penanggungjawab') }}</label>
+                                <label for="id_divisi" class="required-label">{{ __('Divisi Penanggungjawab') }}</label>
                                 <select class="form-select" name="id_divisi" id="id_divisi"
-                                    style="width: 100%; height: 35px; font-size: 13px;">
+                                    style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
                                     <option value="">Pilih Divisi</option>
                                     @foreach ($divisi as $data)
                                         <option value="{{ $data->id_divisi }}"
@@ -191,7 +191,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>

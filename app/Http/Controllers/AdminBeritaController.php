@@ -119,27 +119,4 @@ class AdminBeritaController extends Controller
         $berita->delete();
         return redirect('/admin-berita')->with('message', 'Data berhasil dihapus')->with('alert_class', 'success');
     }
-
-    public function downloadpdf()
-    {
-        $berita = berita::get();
-
-        // Encode gambar ke base64
-        $logoHimsi = public_path('image/logo himsi.png');
-        $himsiData = base64_encode(file_get_contents($logoHimsi));
-        $himsiSrc = 'data:image/png;base64,' . $himsiData;
-
-        $logoUhb = public_path('image/logo uhb.png');
-        $uhbData = base64_encode(file_get_contents($logoUhb));
-        $uhbSrc = 'data:image/png;base64,' . $uhbData;
-
-        // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y'); // Format sesuai kebutuhan
-
-        // Pass imageSrc dan currentDate ke view
-        $pdf = PDF::loadview('pdf-berita', compact('berita', 'himsiSrc', 'uhbSrc', 'currentDate'));
-        $pdf->setPaper('F4', 'portrait');
-        return $pdf->stream('Data Berita.pdf');
-    }
-
 }

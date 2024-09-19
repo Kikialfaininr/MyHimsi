@@ -78,7 +78,6 @@ Route::post('/simpan-data-berita', [App\Http\Controllers\AdminBeritaController::
 Route::get('{id}/edit-berita', [App\Http\Controllers\AdminBeritaController::class, 'edit']);
 Route::post('/update-berita/{id}', [App\Http\Controllers\AdminBeritaController::class, 'update']);
 Route::get('{id}/hapus-berita', [App\Http\Controllers\AdminBeritaController::class, 'hapus']);
-Route::get('/downloadpdf-berita', [App\Http\Controllers\AdminBeritaController::class, 'downloadpdf']);
 
 // halaman admin publikasi
 Route::get('/admin-publikasi', [App\Http\Controllers\AdminPublikasiController::class, 'index']);
