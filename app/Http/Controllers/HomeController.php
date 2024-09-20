@@ -35,7 +35,7 @@ class HomeController extends Controller
         $events = Event::where('tanggal', '>', now())
                         ->orderBy('tanggal', 'asc') 
                         ->get();
-        $latestMembers = Anggota::orderBy('created_at', 'desc')->take(7)->get();
+        $latestMembers = Anggota::orderBy('created_at', 'desc')->take(5)->get();
 
         return view('home', [
             'divisiCount' => $divisiCount,

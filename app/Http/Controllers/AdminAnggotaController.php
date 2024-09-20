@@ -30,12 +30,12 @@ class AdminAnggotaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nim' => 'unique:anggota',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
         ], [
             'nim.unique' => 'Gagal menyimpan data karena data sudah ada.',
             'foto.image' => 'File harus berupa gambar.',
             'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
+            'foto.max' => 'Gambar tidak boleh lebih dari 10MB.',
         ]);
 
         if ($validator->fails()) {
@@ -51,10 +51,8 @@ class AdminAnggotaController extends Controller
             $file = $request->file('foto');
             $foto = 'Anggota-'.date('Ymdhis').'.'.$file->getClientOriginalExtension();
     
-            $resize_foto = Image::make($file->getRealPath());
-            $resize_foto->resize(200, 200, function($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path('image/anggota/'.$foto));
+            $image = Image::make($file->getRealPath());
+            $image->save(public_path('image/anggota/'.$foto), 80);
         }
 
         $anggota = new Anggota();
@@ -82,12 +80,12 @@ class AdminAnggotaController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'nim' => 'unique:anggota,nim,' . $id . ',id_anggota',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
             ], [
                 'nim.unique' => 'Gagal menyimpan data karena NIM sudah ada.',
                 'foto.image' => 'File harus berupa gambar.',
                 'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
-                'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
+                'foto.max' => 'Gambar tidak boleh lebih dari 10MB.',
             ]);
 
             if ($validator->fails()) {
@@ -112,10 +110,8 @@ class AdminAnggotaController extends Controller
                 $file = $request->file('foto');
                 $foto = 'Anggota-'.date('Ymdhis').'.'.$file->getClientOriginalExtension();
 
-                $resize_foto = Image::make($file->getRealPath());
-                $resize_foto->resize(200, 200, function($constraint) {
-                    $constraint->aspectRatio();
-                })->save(public_path('image/anggota/'.$foto));
+                $image = Image::make($file->getRealPath());
+                $image->save(public_path('image/anggota/'.$foto), 80);
 
                 // Hapus foto lama jika ada
                 if ($anggota->foto && file_exists(public_path('image/anggota/' . $anggota->foto))) {
@@ -154,7 +150,7 @@ class AdminAnggotaController extends Controller
             return redirect('/admin-anggota')->with('error', 'Tidak dapat menghapus anggota karena terdapat data login yang terkait.');
         }
 
-        $divisi->delete();
+        $anggota->delete();
         return redirect('/admin-anggota')->with('message', 'Data berhasil dihapus')->with('alert_class', 'success');
     }
 

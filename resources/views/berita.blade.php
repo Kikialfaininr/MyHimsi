@@ -4,58 +4,35 @@
     <div class="berita">
         <div class="card">
             <h2>Berita <span>Kegiatan</span></h2>
-            <div class="search-bar">
-                <button type="submit">
-                    <i class="bx bx-search"></i>
-                </button>
-                <input type="text" placeholder="Type to search...">
-            </div>
+            <form action="{{url('berita')}}" method="GET">
+                <div class="search-bar">
+                    <button type="submit">
+                        <i class="bx bx-search"></i>
+                    </button>
+                    <input type="text" name="search" placeholder="Cari judul berita" value="{{ request('search') }}">
+                </div>
+            </form>  
             <div class="berita-content">
                 <div class="row justify-content-center">
+                    @foreach ($berita as $no => $value)
                     <div class="col-md-3">
-                        <a href="{{ url('/') }}" class="text-decoration-none text-dark">
+                        <a href="{{ url('berita/' . $value->id_berita) }}" class="text-decoration-none text-dark">
                             <div class="card">
-                                <img src="{{ asset('image\profil1.jpg') }}" alt="Berita Himsi">
+                                @if ($value->foto)
+                                            <img src="{{ asset('image/berita/' . $value->foto) }}" alt="berita"
+                                                class="d-inline-block align-text-center" />
+                                    @else
+                                            <img src="{{ asset('image/berita.png') }}" alt="berita"
+                                                class="d-inline-block align-text-center" />
+                                    @endif
                                 <div class="card-body text-center">
-                                    <p class="card-text">Purwokerto, 21 Agustus 2024</p>
-                                    <h5 class="card-title">Mahasiswa S1 Sistem Informasi memenangkan penghargaan dari Google</h5>
+                                    <p class="card-text">{{ \Carbon\Carbon::parse($value->created_at)->translatedFormat('l, d F Y') }}</p>
+                                    <h5 class="card-title">{{ $value->judul_berita }}</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-3">
-                        <a href="{{ url('/') }}" class="text-decoration-none text-dark">
-                            <div class="card">
-                                <img src="{{ asset('image\profil1.jpg') }}" alt="Berita Himsi">
-                                <div class="card-body text-center">
-                                    <p class="card-text">Purwokerto, 21 Agustus 2024</p>
-                                    <h5 class="card-title">Mahasiswa S1 Sistem Informasi memenangkan penghargaan dari Google</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="{{ url('/') }}" class="text-decoration-none text-dark">
-                            <div class="card">
-                                <img src="{{ asset('image\profil1.jpg') }}" alt="Berita Himsi">
-                                <div class="card-body text-center">
-                                    <p class="card-text">Purwokerto, 21 Agustus 2024</p>
-                                    <h5 class="card-title">Mahasiswa S1 Sistem Informasi memenangkan penghargaan dari Google</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="{{ url('/') }}" class="text-decoration-none text-dark">
-                            <div class="card">
-                                <img src="{{ asset('image\profil1.jpg') }}" alt="Berita Himsi">
-                                <div class="card-body text-center">
-                                    <p class="card-text">Purwokerto, 21 Agustus 2024</p>
-                                    <h5 class="card-title">Mahasiswa S1 Sistem Informasi memenangkan penghargaan dari Google</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

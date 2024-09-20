@@ -52,14 +52,12 @@
                                 <td class="text-center">
                                     @if ($value->foto)
                                         <a href="{{ asset('image/berita/' . $value->foto) }}" target="_blank">
-                                            <img src="{{ asset('image/berita/' . $value->foto) }}" alt="profil"
-                                                style="width:100px; height: 100px;"
+                                            <img src="{{ asset('image/berita/' . $value->foto) }}" alt="berita" style="width: 30%"
                                                 class="d-inline-block align-text-center" />
                                         </a>
                                     @else
                                         <a href="{{ asset('image/berita.png') }}" target="_blank">
-                                            <img src="{{ asset('image/berita.png') }}" alt="profil"
-                                                style="width:100px; height: 100px;"
+                                            <img src="{{ asset('image/berita.png') }}" alt="berita" style="width: 30%"
                                                 class="d-inline-block align-text-center" />
                                         </a>
                                     @endif
@@ -98,15 +96,15 @@
                 <div class="modal-body" style="text-align: center; margin-bottom: 15px;">
                     <h3>{{ $value->judul_berita }}</h3>
                     <h6>{{ $value->penulis }}</h6>
-                    <h6>{{ $value->created_at }}</h6>
+                    <h6>{{ \Carbon\Carbon::parse($value->created_at)->translatedFormat('l, d F Y') }}</h6>
                     @if ($value->foto)
                         <a href="{{ asset('image/berita/' . $value->foto) }}" target="_blank">
-                            <img src="{{ asset('image/berita/' . $value->foto) }}" alt="profil"
+                            <img src="{{ asset('image/berita/' . $value->foto) }}" alt="berita"
                                 style="width:50%; display: inline-block;"/>
                         </a>
                     @else
                         <a href="{{ asset('image/berita.png') }}" target="_blank">
-                            <img src="{{ asset('image/berita.png') }}" alt="profil"
+                            <img src="{{ asset('image/berita.png') }}" alt="berita"
                                 style="width:50%; display: inline-block;"/>
                         </a>
                     @endif

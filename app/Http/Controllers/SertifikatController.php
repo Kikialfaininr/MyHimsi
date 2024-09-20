@@ -3,11 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sertifikat;
 
 class SertifikatController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('sertifikat');
+        $search = $request->input('search');
+        $kategori = $request->input('kategori');
+
+        $sertifikat = Sertifikat::when($search, function ($query, $search) {
+                return $query->where('nama_sertifikat', 'like', "%{$search}%")
+                             ->orWhere('kategori', 'like', "%{$search}%");
+            })
+            ->when($kategori, function ($query, $kategori) {
+                return $query->where('kategori', $kategori);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('sertifikat', compact('sertifikat'));
     }
 }

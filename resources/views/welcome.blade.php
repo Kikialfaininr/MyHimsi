@@ -105,90 +105,136 @@
         <div class="bph" id="bph">
             <h2 class="heading">Badan Pengurus Harian</h2>
             <h3 class="subheading">Periode 2023/2024</h3>
-            <div class="row bph-content">
-                <div class="col-md-6">
-                    <div class="bio-bph">
-                        <h3>Ketua Umum</h3>
-                        <h2>Ulan Juniarti</h2>
-                        <h4>2021 - S1 Sistem Informasi</h4>
-                        <div class="social-icons">
-                            <a href="https://www.linkedin.com/in/ulan-juniarti/" target="_blank"
-                                rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
-                            <a href="https://www.instagram.com/himsi.uhb/" target="_blank" rel="noopener noreferrer"><i
-                                    class='bx bxl-instagram-alt'></i></a>
+            @foreach ($anggota as $no => $value)
+                @if ($value->jabatan->nama_jabatan == 'Ketua Umum')
+                <div class="row bph-content">
+                    <div class="col-md-6">
+                        <div class="bio-bph">
+                            <h3>{{ $value->jabatan->nama_jabatan }}</h3>
+                            <h2>{{ $value->full_name }}</h2>
+                            <h4>{{ $value->angkatan }} - S1 Sistem Informasi</h4>
+                            <div class="social-icons">
+                                <a href="{{ $value->link_linkedin }}" target="_blank" rel="noopener noreferrer"><i
+                                        class='bx bxl-linkedin'></i></a>
+                                <a href="{{ $value->link_ig }}" target="_blank" rel="noopener noreferrer"><i
+                                        class='bx bxl-instagram-alt'></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="img-bph">
+                            @if ($value->foto)
+                                <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
+                                    <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
+                                        class="d-inline-block align-text-center" />
+                                </a>
+                            @else
+                                <a href="{{ asset('image/profil.jpg') }}" target="_blank">
+                                    <img src="{{ asset('image/profil.jpg') }}" alt="profil"
+                                        class="d-inline-block align-text-center">
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="img-bph">
-                        <img src="{{ asset('image\profil1.jpg') }}" alt="himsi"
-                            class="d-inline-block align-text-center" />
+                @endif
+                @if ($value->jabatan->nama_jabatan == 'Wakil Ketua Umum')
+                <div class="row bph-content">
+                    <div class="col-md-6">
+                        <div class="img-bph">
+                            @if ($value->foto)
+                                <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
+                                    <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
+                                        class="d-inline-block align-text-center" />
+                                </a>
+                            @else
+                                <a href="{{ asset('image/profil.jpg') }}" target="_blank">
+                                    <img src="{{ asset('image/profil.jpg') }}" alt="profil"
+                                        class="d-inline-block align-text-center">
+                                </a>
+                            @endif
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row bph-content">
-                <div class="col-md-6">
-                    <div class="img-bph">
-                        <img src="{{ asset('image\profil1.jpg') }}" alt="himsi"
-                            class="d-inline-block align-text-center" />
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="bio-bph">
-                        <h3>Wakil Ketua Umum</h3>
-                        <h2>Evana Anugrah Purwanto</h2>
-                        <h4>2022 - S1 Sistem Informasi</h4>
-                        <div class="social-icons">
-                            <a href="https://www.linkedin.com/in/ulan-juniarti/" target="_blank"
-                                rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
-                            <a href="https://www.instagram.com/himsi.uhb/" target="_blank" rel="noopener noreferrer"><i
-                                    class='bx bxl-instagram-alt'></i></a>
+                    <div class="col-md-6">
+                        <div class="bio-bph">
+                            <h3>{{ $value->jabatan->nama_jabatan }}</h3>
+                            <h2>{{ $value->full_name }}</h2>
+                            <h4>{{ $value->angkatan }} - S1 Sistem Informasi</h4>
+                            <div class="social-icons">
+                                <a href="{{ $value->link_linkedin }}" target="_blank" rel="noopener noreferrer"><i
+                                        class='bx bxl-linkedin'></i></a>
+                                <a href="{{ $value->link_ig }}" target="_blank" rel="noopener noreferrer"><i
+                                        class='bx bxl-instagram-alt'></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row bph-content">
-                <div class="col-md-6">
-                    <div class="bio-bph">
-                        <h3>Sekretaris</h3>
-                        <h2>Ria Suci Nuralizah</h2>
-                        <h4>2021 - S1 Sistem Informasi</h4>
-                        <div class="social-icons">
-                            <a href="https://www.linkedin.com/in/ulan-juniarti/" target="_blank"
-                                rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
-                            <a href="https://www.instagram.com/himsi.uhb/" target="_blank" rel="noopener noreferrer"><i
-                                    class='bx bxl-instagram-alt'></i></a>
+                @endif
+                @if ($value->jabatan->nama_jabatan == 'Sekretaris')
+                <div class="row bph-content">
+                    <div class="col-md-6">
+                        <div class="bio-bph">
+                            <h3>{{ $value->jabatan->nama_jabatan }}</h3>
+                            <h2>{{ $value->full_name }}</h2>
+                            <h4>{{ $value->angkatan }} - S1 Sistem Informasi</h4>
+                            <div class="social-icons">
+                                <a href="{{ $value->link_linkedin }}" target="_blank" rel="noopener noreferrer"><i
+                                        class='bx bxl-linkedin'></i></a>
+                                <a href="{{ $value->link_ig }}" target="_blank" rel="noopener noreferrer"><i
+                                        class='bx bxl-instagram-alt'></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="img-bph">
+                            @if ($value->foto)
+                                <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
+                                    <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
+                                        class="d-inline-block align-text-center" />
+                                </a>
+                            @else
+                                <a href="{{ asset('image/profil.jpg') }}" target="_blank">
+                                    <img src="{{ asset('image/profil.jpg') }}" alt="profil"
+                                        class="d-inline-block align-text-center">
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="img-bph">
-                        <img src="{{ asset('image\profil1.jpg') }}" alt="himsi"
-                            class="d-inline-block align-text-center" />
+                @endif
+                @if ($value->jabatan->nama_jabatan == 'Bendahara')
+                <div class="row bph-content">
+                    <div class="col-md-6">
+                        <div class="img-bph">
+                            @if ($value->foto)
+                                <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
+                                    <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
+                                        class="d-inline-block align-text-center" />
+                                </a>
+                            @else
+                                <a href="{{ asset('image/profil.jpg') }}" target="_blank">
+                                    <img src="{{ asset('image/profil.jpg') }}" alt="profil"
+                                        class="d-inline-block align-text-center">
+                                </a>
+                            @endif
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row bph-content">
-                <div class="col-md-6">
-                    <div class="img-bph">
-                        <img src="{{ asset('image\profil1.jpg') }}" alt="himsi"
-                            class="d-inline-block align-text-center" />
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="bio-bph">
-                        <h3>Bendahara</h3>
-                        <h2>Nur Amanah Zaen</h2>
-                        <h4>2021 - S1 Sistem Informasi</h4>
-                        <div class="social-icons">
-                            <a href="https://www.linkedin.com/in/ulan-juniarti/" target="_blank"
-                                rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
-                            <a href="https://www.instagram.com/himsi.uhb/" target="_blank" rel="noopener noreferrer"><i
-                                    class='bx bxl-instagram-alt'></i></a>
+                    <div class="col-md-6">
+                        <div class="bio-bph">
+                            <h3>{{ $value->jabatan->nama_jabatan }}</h3>
+                            <h2>{{ $value->full_name }}</h2>
+                            <h4>{{ $value->angkatan }} - S1 Sistem Informasi</h4>
+                            <div class="social-icons">
+                                <a href="{{ $value->link_linkedin }}" target="_blank" rel="noopener noreferrer"><i
+                                        class='bx bxl-linkedin'></i></a>
+                                <a href="{{ $value->link_ig }}" target="_blank" rel="noopener noreferrer"><i
+                                        class='bx bxl-instagram-alt'></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                @endif
+            @endforeach
         </div>
 
         {{-- divisi --}}
@@ -197,60 +243,22 @@
             <h3 class="subheading">Periode 2023/2024</h3>
             <div class="wrapper">
                 <div class="row justify-content-center">
-                    <div class="col-sm-4">
-                        <div class="card division-item">
-                            <div class="card-body">
-                                <i class='bx bx-briefcase division-icon'></i>
-                                <h2>Divisi Kewirausahaan</h2>
-                                <p>Menciptakan kesempatan kewirausahaan, meningkatkan keterampilan berbisnis, dan mendukung anggota himpunan dalam merintis usaha atau proyek yang berorientasi pada keuntungan.</p>
-                                <a href="{{ url('/div-kewirausahaan') }}" class="btn btn-division">Selengkapnya <i class='bx bx-right-arrow-alt'></i></a>
+                    @foreach ($divisi as $no => $value)
+                        @if ($value->nama_divisi !== 'BPH')
+                            <div class="col-sm-4">
+                                <div class="card division-item">
+                                    <div class="card-body">
+                                        <i class='bx bx-briefcase division-icon'></i>
+                                        <h2>{{ $value->nama_divisi }}</h2>
+                                        <p>{{ $value->deskripsi }}</p>
+                                        <a href="{{ url('/divisi/' . $value->id_divisi) }}" class="btn btn-division">Selengkapnya
+                                            <i class='bx bx-right-arrow-alt'></i></a>                                        
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card division-item">
-                            <div class="card-body">
-                                <i class='bx bx-star division-icon'></i>
-                                <h2>Divisi Minat dan Bakat</h2>
-                                <p>Menggali dan mengembangkan bakat serta minat mahasiswa dalam berbagai bidang.</p>
-                                <a href="{{ url('/div-minatbakat') }}" class="btn btn-division">Selengkapnya <i class='bx bx-right-arrow-alt'></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card division-item">
-                            <div class="card-body">
-                                <i class='bx bx-network-chart division-icon'></i>
-                                <h2>Divisi Jaringan Komunikasi dan Informasi</h2>
-                                <p>Merencanakan dan mengelola konten di berbagai platform medsos HIMSI untuk meningkatkan keterlibatan anggota dan mempromosikan kegiatan.</p>
-                                <a href="{{ url('/div-jarkominfo') }}" class="btn btn-division">Selengkapnya <i class='bx bx-right-arrow-alt'></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center mt-4">
-                    <div class="col-sm-4">
-                        <div class="card division-item">
-                            <div class="card-body">
-                                <i class='bx bx-group division-icon'></i>
-                                <h2>Divisi Sosial dan Kemasyarakatan</h2>
-                                <p>Menggerakkan kepedulian mahasiswa dan membawa perubahan positif di masyarakat. Mengembangkan program-program yang berorientasi pada pelayanan dan pengabdian kepada masyarakat.</p>
-                                <a href="{{ url('/div-sosmas') }}" class="btn btn-division">Selengkapnya <i class='bx bx-right-arrow-alt'></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card division-item">
-                            <div class="card-body">
-                                <i class='bx bx-book division-icon'></i>
-                                <h2>Divisi Pendidikan dan Penalaran</h2>
-                                <p>Fokus pada meningkatkan pemahaman, pengetahuan, dan keterampilan anggota melalui berbagai kegiatan pendidikan dan penalaran.</p>
-                                <a href="{{ url('/div-pendidikan') }}" class="btn btn-division">Selengkapnya <i class='bx bx-right-arrow-alt'></i></a>
-                            </div>
-                        </div>
-                    </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
-        
-@endsection
+    @endsection

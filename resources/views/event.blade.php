@@ -5,166 +5,101 @@
         <div class="card">
             <h2>Kegiatan</h2>
             <div class="tags">
-                <a href="#">Acara</a>
-                <a href="#">Akademik</a>
-                <a href="#">Rapat</a>
-            </div>
-            <div class="search-bar">
-                <button type="submit">
-                    <i class="bx bx-search"></i>
-                </button>
-                <input type="text" placeholder="Type to search...">
-            </div>
+                <a href="{{url('event')}}">All</a>
+                <a href="{{ url('event', ['category' => 'Acara', 'search' => request('search')]) }}">Acara</a>
+                <a href="{{ url('event', ['category' => 'Akademik', 'search' => request('search')]) }}">Akademik</a>
+                <a href="{{ url('event', ['category' => 'Rapat', 'search' => request('search')]) }}">Rapat</a>
+            </div>            
+            <form action="{{url('event')}}" method="GET">
+                <div class="search-bar">
+                    <button type="submit">
+                        <i class="bx bx-search"></i>
+                    </button>
+                    <input type="text" name="search" placeholder="Cari event" value="{{ request('search') }}">
+                </div>
+            </form>            
             <div class="event-content">
                 <div class="row justify-content-center">
+                    @foreach ($event as $no => $value)
                     <div class="col-md-3">
                         <a href="#" class="text-decoration-none text-dark">
                             <div class="card">
-                                <img src="{{ asset('image\profil1.jpg') }}" alt="event Himsi" class="card-img-top">
+                                    @if ($value->foto)
+                                        <a href="{{ asset('image/event/' . $value->foto) }}" target="_blank">
+                                            <img src="{{ asset('image/event/' . $value->foto) }}" alt="event" class="card-img-top" />
+                                        </a>
+                                    @else
+                                        @if ($value->kategori == "Acara")
+                                            <a href="{{ asset('image/acara.png') }}" target="_blank">
+                                                <img src="{{ asset('image/acara.png') }}" alt="acara"
+                                                    class="card-img-top" />
+                                            </a>
+                                        @elseif ($value->kategori == "Akademik")
+                                            <a href="{{ asset('image/akademik.png') }}" target="_blank">
+                                                <img src="{{ asset('image/akademik.png') }}" alt="akademik"
+                                                    class="card-img-top" />
+                                            </a>
+                                        @elseif ($value->kategori == "Rapat")
+                                            <a href="{{ asset('image/rapat.png') }}" target="_blank">
+                                                <img src="{{ asset('image/rapat.png') }}" alt="rapat"
+                                                    class="card-img-top" />
+                                            </a>
+                                        @else
+                                            <a href="{{ asset('image/profil.jpg') }}" target="_blank">
+                                                <img src="{{ asset('image/profil.jpg') }}" alt="profil"
+                                                    class="card-img-top" />
+                                            </a>
+                                        @endif
+                                    @endif
                                 <div class="card-body">
-                                    <h5 class="card-title">Rapat Bulanan</h5>
+                                    <h5 class="card-title">{{ $value->nama_event }}</h5>
+                                    <p>Penyelenggara: {{ $value->penyelenggara }}</p>
                                     <div class="card-text">
                                         <table class="table table-borderless">
                                             <tbody>
                                                 <tr>
                                                     <th scope="col"><i class='bx bx-calendar'></i></th>
-                                                    <th scope="row">Senin, 2 September 2024</th>
+                                                    <th scope="row">{{ \Carbon\Carbon::parse($value->tanggal)->translatedFormat('l, d F Y') }}</th>
                                                 </tr>
                                                 <tr>
                                                     <th scope="col"><i class='bx bx-time'></i></th>
-                                                    <td>13.00 WIB</td>
-                                                </tr>
+                                                    <td>
+                                                        @if($value->waktu_mulai && $value->waktu_selesai)
+                                                            {{ $value->waktu_mulai }} - {{ $value->waktu_selesai }}
+                                                        @elseif($value->waktu_mulai && is_null($value->waktu_selesai))
+                                                            {{ $value->waktu_mulai }} - selesai
+                                                        @else
+                                                            -
+                                                        @endif
+                                                    </td>
+                                                </tr>                                                
                                                 <tr>
                                                     <th scope="col"><i class='bx bx-location-plus'></i></th>
-                                                    <td>Lab Pemrograman Lanjut</td>
-                                                </tr>
+                                                    <td>{{ $value->lokasi ? $value->lokasi : '-' }}</td>
+                                                </tr>                                                
                                                 <tr>
                                                     <th scope="col"><i class='bx bx-link-alt'></i></th>
-                                                    <td><a href="" target="_blank" rel="noopener noreferrer">-</a></td>
-                                                </tr>
+                                                    <td>
+                                                        @if($value->link_kegiatan)
+                                                            <a href="{{ $value->link_kegiatan }}" target="_blank" rel="noopener noreferrer">Link Kegiatan</a>
+                                                        @else
+                                                            -
+                                                        @endif
+                                                    </td>
+                                                </tr>                                                
                                                 <tr>
                                                     <th scope="col"><i class='bx bxs-edit'></i></th>
-                                                    <td>Agenda kegiatan bulanan</td>
+                                                    <td>{{ $value->deskripsi }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <h5 class="card-tag">Tags: Rapat</h5>
+                                    <h5 class="card-tag">Tags: {{ $value->kategori }}</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="card">
-                                <img src="{{ asset('image\profil1.jpg') }}" alt="event Himsi" class="card-img-top">
-                                <div class="card-body">
-                                    <h5 class="card-title">Webinar Literasi Informasi</h5>
-                                    <div class="card-text">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-calendar'></i></th>
-                                                    <th scope="row">Rabu, 28 Agustus 2024</th>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-time'></i></th>
-                                                    <td>09.00 WIB</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-location-plus'></i></th>
-                                                    <td>Zoom Meeting</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-link-alt'></i></th>
-                                                    <td><a href="" target="_blank" rel="noopener noreferrer">Link Pengumuman</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bxs-edit'></i></th>
-                                                    <td>-</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <h5 class="card-tag">Tags: Acara</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="card">
-                                <img src="{{ asset('image\profil1.jpg') }}" alt="event Himsi" class="card-img-top">
-                                <div class="card-body">
-                                    <h5 class="card-title">KRS Online</h5>
-                                    <div class="card-text">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-calendar'></i></th>
-                                                    <th scope="row">-</th>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-time'></i></th>
-                                                    <td>-</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-location-plus'></i></th>
-                                                    <td>-</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-link-alt'></i></th>
-                                                    <td><a href="https://fst.uhb.ac.id" target="_blank" rel="noopener noreferrer">Link Pengumuman</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bxs-edit'></i></th>
-                                                    <td>Batas waktu KRS: 30 Agustus</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <h5 class="card-tag">Tags: Akademik</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="card">
-                                <img src="{{ asset('image\profil1.jpg') }}" alt="event Himsi" class="card-img-top">
-                                <div class="card-body">
-                                    <h5 class="card-title">Survei Kepuasan Mahasiswa</h5>
-                                    <div class="card-text">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-calendar'></i></th>
-                                                    <th scope="row">-</th>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-time'></i></th>
-                                                    <td>-</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-location-plus'></i></th>
-                                                    <td>-</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bx-link-alt'></i></th>
-                                                    <td><a href="https://tracerstudy.uhb.ac.id/kepuasan-layanan-kemahasiswaan/" target="_blank" rel="noopener noreferrer">Link Survei</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col"><i class='bx bxs-edit'></i></th>
-                                                    <td>Wajib diisi sebelum tanggal 31 Agustus</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <h5 class="card-tag">Tags: Akademik</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

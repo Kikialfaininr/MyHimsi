@@ -2,27 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Welcome
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// halaman umum divisi
-Route::get('/div-kewirausahaan', [App\Http\Controllers\DivKewirausahaanController::class, 'index']);
-Route::get('/div-minatbakat', [App\Http\Controllers\DivMinatbakatController::class, 'index']);
-Route::get('/div-jarkominfo', [App\Http\Controllers\DivJarkominfoController::class, 'index']);
-Route::get('/div-sosmas', [App\Http\Controllers\DivSosmasController::class, 'index']);
-Route::get('/div-pendidikan', [App\Http\Controllers\DivPendidikanController::class, 'index']);
-
 // halaman umum
+Route::get('/divisi/{id}', [App\Http\Controllers\DivisiController::class, 'index']);
+Route::get('/berita/{id}', [App\Http\Controllers\BeritaController::class, 'show']);
 Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index']);
 Route::get('/event', [App\Http\Controllers\EventController::class, 'index']);
+Route::get('/event/{category?}', [App\Http\Controllers\EventController::class, 'index']);
 Route::get('/publikasi', [App\Http\Controllers\PublikasiController::class, 'index']);
 Route::get('/sertifikat', [App\Http\Controllers\SertifikatController::class, 'index']);
 Route::get('/loker', [App\Http\Controllers\LokerController::class, 'index']);
+
+// Dashboard admin
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // halaman admin users
 Route::get('/admin-users', [App\Http\Controllers\AdminUsersController::class, 'index']);

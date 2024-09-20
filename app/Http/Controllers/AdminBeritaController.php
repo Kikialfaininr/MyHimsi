@@ -22,11 +22,11 @@ class AdminBeritaController extends Controller
     public function simpan(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
         ], [
             'foto.image' => 'File harus berupa gambar.',
             'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
+            'foto.max' => 'Gambar tidak boleh lebih dari 10MB.',
         ]);
 
         if ($validator->fails()) {
@@ -42,10 +42,8 @@ class AdminBeritaController extends Controller
             $file = $request->file('foto');
             $foto = 'Berita-'.date('Ymdhis').'.'.$file->getClientOriginalExtension();
     
-            $resize_foto = Image::make($file->getRealPath());
-            $resize_foto->resize(200, 200, function($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path('image/berita/'.$foto));
+            $image = Image::make($file->getRealPath());
+            $image->save(public_path('image/berita/'.$foto), 80);
         }
 
         $berita = new Berita();
@@ -66,11 +64,11 @@ class AdminBeritaController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
         ], [
             'foto.image' => 'File harus berupa gambar.',
             'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
+            'foto.max' => 'Gambar tidak boleh lebih dari 10MB.',
         ]);
 
         if ($validator->fails()) {
@@ -86,10 +84,8 @@ class AdminBeritaController extends Controller
             $file = $request->file('foto');
             $foto = 'Berita-' . date('Ymdhis') . '.' . $file->getClientOriginalExtension();
             
-            $resize_foto = Image::make($file->getRealPath());
-            $resize_foto->resize(200, 200, function($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path('image/berita/'.$foto));
+            $image = Image::make($file->getRealPath());
+            $image->save(public_path('image/berita/'.$foto), 80);
 
             // Hapus foto lama jika ada
             if ($berita->foto && file_exists(public_path('image/berita/' . $berita->foto))) {

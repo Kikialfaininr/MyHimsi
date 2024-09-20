@@ -96,7 +96,7 @@
                                     @endif
                                 </td>                                 
                                 <td>{{ $value->nama_event }}</td>                              
-                                <td>{{ $value->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($value->tanggal)->translatedFormat('l, d F Y') }}</td>
                                 <td>{{ $value->waktu_mulai }}</td>
                                 <td>{{ $value->waktu_selesai }}</td>
                                 <td>{{ $value->lokasi }}</td>

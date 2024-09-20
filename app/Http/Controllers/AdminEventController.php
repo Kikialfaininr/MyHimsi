@@ -24,11 +24,11 @@ class AdminEventController extends Controller
     public function simpan(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
         ], [
             'foto.image' => 'File harus berupa gambar.',
             'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
+            'foto.max' => 'Gambar tidak boleh lebih dari 10MB.',
         ]);
 
         if ($validator->fails()) {
@@ -44,10 +44,8 @@ class AdminEventController extends Controller
             $file = $request->file('foto');
             $foto = 'Event-'.date('Ymdhis').'.'.$file->getClientOriginalExtension();
     
-            $resize_foto = Image::make($file->getRealPath());
-            $resize_foto->resize(200, 200, function($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path('image/event/'.$foto));
+            $image = Image::make($file->getRealPath());
+            $image->save(public_path('image/event/'.$foto), 80);
         }
 
         $event = new Event();
@@ -75,11 +73,11 @@ class AdminEventController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
             ], [
                 'foto.image' => 'File harus berupa gambar.',
                 'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
-                'foto.max' => 'Gambar tidak boleh lebih dari 2MB.',
+                'foto.max' => 'Gambar tidak boleh lebih dari 10MB.',
             ]);
 
             if ($validator->fails()) {
@@ -104,10 +102,8 @@ class AdminEventController extends Controller
                 $file = $request->file('foto');
                 $foto = 'Event-'.date('Ymdhis').'.'.$file->getClientOriginalExtension();
 
-                $resize_foto = Image::make($file->getRealPath());
-                $resize_foto->resize(200, 200, function($constraint) {
-                    $constraint->aspectRatio();
-                })->save(public_path('image/event/'.$foto));
+                $image = Image::make($file->getRealPath());
+                $image->save(public_path('image/event/'.$foto), 80);
 
                 // Hapus foto lama jika ada
                 if ($event->foto && file_exists(public_path('image/event/' . $event->foto))) {
