@@ -1252,3 +1252,294 @@ body {
     text-align: center;
     color: var(--second-bg-color)
 }
+
+.loker-content {
+    width: 100%;
+}
+
+.lokerList .card {
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-color: 1px solid #ccc;
+    background-color: var(--bg-color);
+    transition: all 0.3s ease;
+}
+
+.lokerList .card:hover {
+    box-shadow: 0 4px 15px var(--main-color);
+}
+
+.lokerList h5 {
+    color: var(--main-color);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.lokerList h4 {
+    font-size: 1.7rem;
+    font-weight: 500;
+}
+
+.lokerList h6 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: grey;
+}
+
+.lokerList p {
+    font-size: 1.5rem;
+    color: grey;
+}
+
+.lokerDetail .card {
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+    border-color: 1px solid #ccc;
+    background-color: var(--bg-color);
+}
+
+.lokerDetail h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.lokerDetail i {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.lokerDetail h5 {
+    color: var(--main-color);
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+
+.lokerDetail h4 {
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+}
+
+.lokerDetail i {
+    font-size: 1.7rem;
+    color: gray;
+    margin-right: 15px;
+}
+
+.lokerDetail h6 {
+    font-size: 1.5rem;
+    color: grey;
+}
+
+.lokerDetail .btn {
+    display: inline-flex;
+    background: transparent;
+    border: 2px solid var(--main-color);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--main-color);
+    margin: 3rem 0;
+    transition: 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.lokerDetail .btn:hover {
+    color: var(--second-text-color);
+    background-color: var(--main-color);
+    border: 2px solid var(--main-color);
+}
+
+.lokerDetail .btn i {
+    color: var(--main-color);
+    font-size: 1.7rem;
+}
+
+.lokerDetail p {
+    font-size: 1.5rem;
+}
+
+/* profil */
+.profil {
+    padding: 80px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+}
+
+.profil .card {
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: var(--bg-color);
+    padding: 20px;
+}
+
+.profil .row {
+    width: 100%;
+}
+
+.profil-img {
+    position: relative;
+    align-items: center;
+    text-align: center;
+}
+
+.profil-img img {
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+    box-shadow: 0 0 40px var(--main-color);
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out; 
+}
+
+.profil-img img:hover {
+    box-shadow: 0 0 25px var(--main-color), 0 0 50px var(--main-color), 0 0 100px var(--main-color);
+    transform: scale(1.05);
+}
+
+.profil-img .img-btn {
+    position: absolute;
+    bottom: 15%;
+    right: 0;
+    transform: translate(-60%, 10%);
+    padding: 5px 10px;
+    z-index: 1;
+    background-color: var(--main-color);
+    border: none;
+    font-size: 1.2rem;
+}
+
+.profil-img .img-btn:hover {
+    background-color: var(--second-bg-color);
+    border: none;
+}
+
+.profil-data {
+    margin-top: 30px;
+    position: relative;
+    align-items: center;
+    text-align: center;
+}
+
+.profil-data h2 {
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+
+.profil-data h3 {
+    font-size: 1.5rem;
+    color: grey;
+}
+
+.edit-btn {
+    margin: 10px;
+    font-size: 1.3rem;
+    background-color: var(--second-bg-color);
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+.edit-btn:hover {
+    box-shadow: 0 0 30px var(--second-bg-color);
+    transform: scale(1.05);
+    background-color: var(--second-bg-color);
+}
+
+.memberData .card h2 {
+    color: var(--main-color);
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+
+.memberData .card .table,
+.memberData .card .table tr,
+.memberData .card .table td {
+    background-color: white;
+    font-size: 1.5rem;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.password-toggle i {
+    font-size: 16px;
+}
+
+.modal-body label {
+    font-size: 1.7rem;
+}
+
+.modal-body input, 
+.modal-body select {
+    font-size: 1.5rem;
+    padding: 10px;
+    height: 40px;
+}
+
+.modal-body .form-control {
+    margin-bottom: 15px; 
+}
+
+.modal-body .form-check {
+    margin-left: 10px;
+
+}
+.modal-body .form-check-input {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+.modal-body .form-check-label {
+    margin-left: 0.5rem;
+}
+
+.modal-header h4 {
+    font-size: 2.3rem;
+}
+
+.modal-body .btn,
+.modal-footer .btn {
+    font-size: 1.5rem;
+}
+
+.required-label::after {
+    content: "*";
+    color: red;
+    margin-left: 4px;
+}
+
+.alertCrd {
+    font-size: 1.5rem;
+}
+
+
+
+
+
+
+
+
+

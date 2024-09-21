@@ -17,6 +17,12 @@ Route::get('/publikasi', [App\Http\Controllers\PublikasiController::class, 'inde
 Route::get('/sertifikat', [App\Http\Controllers\SertifikatController::class, 'index']);
 Route::get('/loker', [App\Http\Controllers\LokerController::class, 'index']);
 
+// profil
+Route::get('/profil-anggota', [App\Http\Controllers\ProfilAnggotaController::class, 'index']);
+Route::post('/ubah-profil/{id}', [App\Http\Controllers\ProfilAnggotaController::class, 'image']);
+Route::post('/ubah-login/{id}', [App\Http\Controllers\ProfilAnggotaController::class, 'login']);
+Route::post('/ubah-anggota/{id}', [App\Http\Controllers\ProfilAnggotaController::class, 'anggota']);
+
 // Dashboard admin
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
