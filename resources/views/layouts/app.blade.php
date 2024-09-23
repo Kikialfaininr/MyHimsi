@@ -139,12 +139,6 @@
                 <div class="toggle">
                     <i class='bx bx-menu'></i>
                 </div>
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <i class='bx bx-search-alt'></i>
-                    </label>
-                </div>
                 <div class="user">
                     @guest
                         @if (Route::has('login'))
@@ -154,8 +148,32 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                @php
+                                    $foto = '';
+                                    
+
+                                    if (Auth::user()->role == 'Admin') {
+                                        $foto = asset('image/admin.jpeg');
+                                    } elseif (Auth::user()->role == 'Pengurus') {
+                                        $foto = asset('image/pengurus.jpeg');
+                                    } elseif (Auth::user()->role == 'Anggota') {
+                                        $anggota = \App\Models\Anggota::where(
+                                            'id_anggota',
+                                            Auth::user()->id_anggota,
+                                        )->first();
+                                        if ($anggota && $anggota->foto) {
+                                            $foto = asset('image/anggota/' . $anggota->foto);
+                                        } else {
+                                            $foto = asset('image/profil.jpg');
+                                        }
+                                    } else {
+                                        $foto = asset('image/profil.jpg');
+                                    }
+                                @endphp
+
+                                <img src="{{ $foto }}" alt="User Avatar" class="user-avatar me-2">
                                 {{ Auth::user()->name }}
                             </a>
 
@@ -203,12 +221,12 @@
         };
     </script>
 
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
-<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
-@stack('scripts')
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

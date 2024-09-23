@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,41 +15,42 @@
     <!-- Scripts -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css\style-login.css') }}">
 </head>
+
 <body>
     <div class="container">
         <div class="login">
             <div class="form-login">
                 <a href="javascript:history.back()" class="btn btn-back">
                     <i class='bx bx-left-arrow-alt'></i> Back
-                </a>                                
+                </a>
                 <h2>Login</h2>
                 <p>gunakan username dan password</p>
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="row mb-3">
                         <div class="col-md-12">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <input id="name" type="text"
+                                class="form-control @error('name') is-invalid @enderror" name="name"
+                                value="{{ old('name') }}" required autocomplete="name" autofocus>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-12">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <input id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror" name="password" required
+                                autocomplete="current-password">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-12 form-check-container">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="remember">
                                     {{ __('Remember Me') }}
                                 </label>
@@ -73,10 +75,12 @@
                 <h2>Halo, Sobat Himsi!</h2>
                 <p>Pertama kali login? <br>Hubungi kontak admin dibawah ini untuk medapatkan data login!</p>
                 <div class="social-icons">
-                    <a href="https://wa.me/087773705521" target="_blank" rel="noopener noreferrer"><i class='bx bxl-whatsapp'></i></a>
+                    <a href="https://wa.me/087773705521" target="_blank" rel="noopener noreferrer"><i
+                            class='bx bxl-whatsapp'></i></a>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>

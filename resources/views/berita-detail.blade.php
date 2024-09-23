@@ -18,7 +18,7 @@
                 </a>
             @endif
             </div>
-            <p>{{ $berita->deskripsi }}</p>
+            <p>{!! nl2br(e($berita->deskripsi)) !!}</p>
         </div>
     </div>
 @endsection

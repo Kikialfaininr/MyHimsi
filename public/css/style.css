@@ -132,6 +132,14 @@ body {
     pointer-events: none;
 }
 
+.user-avatar {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%;
+    object-fit: cover; 
+    margin-right: 10px;
+}
+
 /* ===================== Main ===================== */
 .main {
     position: absolute;
@@ -440,6 +448,13 @@ body {
 
 .password-toggle i {
     font-size: 16px;
+}
+
+.table-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 

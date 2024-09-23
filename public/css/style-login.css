@@ -152,3 +152,8 @@ body {
     box-shadow: 0 0 25px var(--main-color);
     background-color: var(--main-color);
 }
+
+.alert-danger {
+    color: red;
+    text-align: center;
+}

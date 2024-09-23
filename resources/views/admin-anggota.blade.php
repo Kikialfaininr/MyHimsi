@@ -62,11 +62,11 @@
                                 <td class="text-center">
                                     @if ($value->foto)
                                         <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
-                                            <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil" style="width:100px; height: 100px;" class="d-inline-block align-text-center rounded-circle" />
+                                            <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil" style="width:100px; height: 100px;" class="d-inline-block align-text-center rounded-circle table-img" />
                                         </a>
                                     @else
                                         <a href="{{ asset('image/profil.jpg') }}" target="_blank">
-                                            <img src="{{ asset('image/profil.jpg') }}" alt="profil" style="width:100px; height: 100px;" class="d-inline-block align-text-center rounded-circle">
+                                            <img src="{{ asset('image/profil.jpg') }}" alt="profil" style="width:100px; height: 100px;" class="d-inline-block align-text-center rounded-circle table-img">
                                         </a>
                                     @endif
                                 </td>                                

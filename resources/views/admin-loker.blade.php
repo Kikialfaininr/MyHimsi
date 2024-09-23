@@ -107,7 +107,7 @@
             <div class="modal-body">
                 <h4>{{$value->posisi}} - {{$value->nama_perusahaan}}</h4>
                 <p><strong>Deskripsi:</strong></p>
-                <p>{{$value->deskripsi}}</p>
+                <p>{!! nl2br(e($value->deskripsi)) !!}</p>
             </div>
         </div>
     </div>

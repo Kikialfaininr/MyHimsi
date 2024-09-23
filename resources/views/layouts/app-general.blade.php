@@ -63,17 +63,46 @@
                     @else
                         <div class="user">
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" v-pre>
+                                    @php
+                                        $foto = '';
+
+                                        if (Auth::user()->role == 'Admin') {
+                                            $foto = asset('image/admin.jpeg');
+                                        } elseif (Auth::user()->role == 'Pengurus') {
+                                            $foto = asset('image/pengurus.jpeg');
+                                        } elseif (Auth::user()->role == 'Anggota') {
+                                            $anggota = \App\Models\Anggota::where(
+                                                'id_anggota',
+                                                Auth::user()->id_anggota,
+                                            )->first();
+                                            if ($anggota && $anggota->foto) {
+                                                $foto = asset('image/anggota/' . $anggota->foto);
+                                            } else {
+                                                $foto = asset('image/profil.jpg');
+                                            }
+                                        } else {
+                                            $foto = asset('image/profil.jpg');
+                                        }
+                                    @endphp
+
+                                    <img src="{{ $foto }}" alt="User Avatar" class="user-avatar me-2">
                                     {{ Auth::user()->name }}
                                 </a>
+
+
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/profil-anggota') }}">
+                                        {{ __('Profil anggota') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-    
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -96,7 +125,8 @@
                 <div class="footer-logo">
                     <img src="{{ asset('image/logo himsi.png') }}" alt="Logo" class="footer-logo-img">
                     <h3>Himpunan Mahasiswa <br> Sistem Informasi</h3>
-                    <p>JL. K.H. Wahid Hasyim, No. 274-A, Windusara, Karangklesem, Kec. Purwokerto Sel., Kabupaten Banyumas, Jawa Tengah 53144</p>
+                    <p>JL. K.H. Wahid Hasyim, No. 274-A, Windusara, Karangklesem, Kec. Purwokerto Sel., Kabupaten
+                        Banyumas, Jawa Tengah 53144</p>
                 </div>
                 <div class="footer-column">
                     <h3>Profile</h3>
@@ -110,21 +140,28 @@
                 <div class="footer-column">
                     <h3>Website</h3>
                     <ul>
-                        <li><a href="https://www.uhb.ac.id/id/fakultas/fakultas-sains/s1-sistem-informasi/" target="_blank">Program Studi</a></li>
+                        <li><a href="https://www.uhb.ac.id/id/fakultas/fakultas-sains/s1-sistem-informasi/"
+                                target="_blank">Program Studi</a></li>
                         <li><a href="https://www.uhb.ac.id/id/" target="_blank">Universitas</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Maps</h3>
                     <div class="map-responsive">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.1457469738784!2d109.24050117371971!3d-7.449122873406023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e655de2b7be3c8b%3A0xb7cf22e20eade4d!2sUniversitas%20Harapan%20Bangsa%2C%20Kampus%20B!5e0!3m2!1sid!2sid!4v1724655046845!5m2!1sid!2sid" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.1457469738784!2d109.24050117371971!3d-7.449122873406023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e655de2b7be3c8b%3A0xb7cf22e20eade4d!2sUniversitas%20Harapan%20Bangsa%2C%20Kampus%20B!5e0!3m2!1sid!2sid!4v1724655046845!5m2!1sid!2sid"
+                            width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
             <div class="social">
-                <a href="https://wa.me/087773705521" target="_blank" rel="noopener noreferrer"><i class='bx bxl-whatsapp'></i></a>
-                <a href="mailto:himsiuhb@gmail.com" target="_blank" rel="noopener noreferrer"><i class='bx bxl-gmail'></i></a>
-                <a href="https://www.instagram.com/himsi.uhb/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="https://wa.me/087773705521" target="_blank" rel="noopener noreferrer"><i
+                        class='bx bxl-whatsapp'></i></a>
+                <a href="mailto:himsiuhb@gmail.com" target="_blank" rel="noopener noreferrer"><i
+                        class='bx bxl-gmail'></i></a>
+                <a href="https://www.instagram.com/himsi.uhb/" target="_blank" rel="noopener noreferrer"><i
+                        class='bx bxl-instagram-alt'></i></a>
             </div>
             <hr class="footer-divider">
             <p class="copyright">&copy; 2024 My Himsi. All rights reserved.</p>
@@ -133,7 +170,7 @@
     </div>
 
     <script>
-        document.addEventListener("scroll", function () {
+        document.addEventListener("scroll", function() {
             const navbar = document.querySelector(".navbar");
             if (window.scrollY > 50) {
                 navbar.classList.add("scrolled");

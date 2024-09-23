@@ -109,7 +109,7 @@
                         </a>
                     @endif
                 </div>
-                <p>{{ $value->deskripsi }}</p>
+                <p>{!! nl2br(e($value->deskripsi)) !!}</p>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                 </div>
