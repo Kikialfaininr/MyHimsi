@@ -236,6 +236,14 @@ body {
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
 
+.cardBox .card a {
+    text-decoration: none; /* Menghapus garis bawah pada tautan */
+    color: inherit; /* Menggunakan warna teks yang sama seperti konten kartu */
+    display: block; /* Agar tautan mencakup seluruh area kartu */
+    height: 100%; /* Memastikan tautan mengisi kartu secara vertikal */
+}
+
+
 .cardBox .card .content {
     display: flex;
     flex-direction: column;
