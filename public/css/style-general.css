@@ -1040,17 +1040,30 @@ body {
     margin: 20px;
 }
 
+.event-content .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.event-content .col-md-3 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
 .event-content .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     border-radius: 15px;
     overflow: hidden;
     position: relative;
-    margin: 20px 0;
     transition: all 0.3s ease;
 }
 
 .event-content .card-img-top {
     width: 100%;
-    height: auto;
+    height: auto; 
     object-fit: cover;
     transition: transform 0.3s ease;
 }
@@ -1059,42 +1072,42 @@ body {
     background-color: #fff;
     padding: 20px;
     text-align: center;
-    flex: 1;
+    flex-grow: 1;
 }
 
 .event-content .card-title {
     color: var(--main-color);
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 10px;
+    font-size: 2rem; 
+    font-weight: 700; 
+    margin-bottom: 10px; 
 }
 
 .event-content .card p {
-    color: #555;
-    font-size: 12px;
+    color: #555;  
+    font-size: 12px; 
 }
 
 .event-content .card-text .table {
-    background-color: var(--bg-color);
-    font-size: 1.3rem;
-    font-weight: 700;
-    text-align: left;
+    background-color: var(--bg-color); 
+    font-size: 1.3rem; 
+    font-weight: 700; 
+    text-align: left;  
 }
 
 .event-content .card-text .table i {
-    font-size: 1.8rem;
-    font-weight: bold;
+    font-size: 1.8rem; 
+    font-weight: bold; 
 }
 
 .event-content .card-tag {
-    text-align: right;
-    color: var(--main-color);
-    font-weight: 700;
-    font-size: 1.3rem;
+    text-align: right;  
+    color: var(--main-color);  
+    font-weight: 700; 
+    font-size: 1.3rem; 
 }
 
 .event-content .card:hover {
-    box-shadow: 0 4px 15px var(--main-color);
+    box-shadow: 0 4px 15px var(--main-color); 
 }
 
 .event-content .card:hover .card-img-top {
@@ -1127,7 +1140,20 @@ body {
     font-weight: 700;
 }
 
+.publikasi-content .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.publikasi-content .col-md-4 {
+    display: flex;
+    justify-content: center;
+}
+
 .publikasi-content .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     border-radius: 15px;
     overflow: hidden;
     position: relative;
@@ -1139,7 +1165,7 @@ body {
     background-color: #fff;
     padding: 20px;
     text-align: center;
-    flex: 1;
+    flex-grow: 1;
 }
 
 .publikasi-content .card-title {
