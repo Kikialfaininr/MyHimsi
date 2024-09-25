@@ -51,6 +51,12 @@
             text-align: center;
         }
 
+        .content h3 {
+            font-size: 18px;
+            text-align: center;
+            margin-top: -5px;
+        }
+
         .content table,
         .content th,
         .content td {

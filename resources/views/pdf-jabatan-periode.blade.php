@@ -3,6 +3,7 @@
 @section('content')
     <div class="content">
         <h1>DATA JABATAN</h1>
+        <h3>Jabatan {{ $periode->keterangan }} {{ $periode->periode }}</h3>
         <table id="example" class="table table-responsive table-striped table-hover table-bordered">
             <thead>
                 <tr>

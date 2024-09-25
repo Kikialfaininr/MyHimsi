@@ -26,19 +26,6 @@ class AdminProkerController extends Controller
 
     public function simpan(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'judul_proker' => 'unique:proker',
-        ], [
-            'judul_proker.unique' => 'Gagal menyimpan data karena data sudah ada.',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/admin-proker')->with([
-                'message' => $validator->errors()->first(),
-                'alert_class' => 'danger'
-            ]);
-        }
-
         $proker = new Proker();
             $proker->judul_proker = $request->judul_proker;
             $proker->deskripsi = $request->deskripsi;
@@ -105,4 +92,37 @@ class AdminProkerController extends Controller
         return $pdf->stream('Data Proker Himsi.pdf');
     }
 
+    public function downloadpdfByPeriode(Request $request)
+    {
+        $periodeId = $request->input('periode');
+
+        $proker = Proker::with('divisi', 'periode')
+                        ->where('id_periode', $periodeId)
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+        $periode = Periode::find($periodeId);
+
+        // Cari anggota dengan jabatan "Ketua Umum"
+        $ketuaUmum = Anggota::whereHas('jabatan', function($query) {
+            $query->where('nama_jabatan', 'Ketua Umum');
+        })->first();
+
+        // Encode gambar ke base64
+        $logoHimsi = public_path('image/logo himsi.png');
+        $himsiData = base64_encode(file_get_contents($logoHimsi));
+        $himsiSrc = 'data:image/png;base64,' . $himsiData;
+
+        $logoUhb = public_path('image/logo uhb.png');
+        $uhbData = base64_encode(file_get_contents($logoUhb));
+        $uhbSrc = 'data:image/png;base64,' . $uhbData;
+
+        // Ambil tanggal hari ini
+        $currentDate = now()->format('d F Y');
+
+        $pdf = PDF::loadview('pdf-proker-periode', compact('proker', 'periode', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
+        $pdf->setPaper('F4', 'portrait');
+
+        $sanitizedPeriode = str_replace(['/', '\\'], '-', $periode->periode);
+        return $pdf->stream('Data Proker Periode ' . $sanitizedPeriode . '.pdf');
+    }
 }

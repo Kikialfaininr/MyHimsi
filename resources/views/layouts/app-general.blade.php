@@ -20,6 +20,12 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" type="text/css" href="{{ asset('css\style-general.css') }}">
+
+    <!-- DataTables -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css" rel="stylesheet">
 </head>
 
 <body>
@@ -50,6 +56,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/loker') }}">Loker</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/arsip') }}">Arsip</a>
                         </li>
                     </ul>
                 </div>
@@ -131,10 +140,11 @@
                 <div class="footer-column">
                     <h3>Profile</h3>
                     <ul>
-                        <li><a href="#vision">Visi-Misi</a></li>
-                        <li><a href="#division">Divisi</a></li>
-                        <li><a href="#">Event</a></li>
-                        <li><a href="#">Berita</a></li>
+                        <li><a href="{{ url('/') }}#vision">Visi-Misi</a></li>
+                        <li><a href="{{ url('/') }}#division">Divisi</a></li>
+                        <li><a href="{{ url('/event') }}">Event</a></li>
+                        <li><a href="{{ url('/berita') }}">Berita</a></li>
+                        <li><a href="{{ url('/arsip') }}">Arsip</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -179,6 +189,13 @@
             }
         });
     </script>
+
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+@stack('scripts')
 
 </body>
 

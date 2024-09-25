@@ -52,6 +52,12 @@
             text-align: center;
         }
 
+        .content h3 {
+            font-size: 18px;
+            text-align: center;
+            margin-top: -5px;
+        }
+
         .content table,
         .content th,
         .content td {
@@ -82,6 +88,7 @@
 
     <div class="content">
         <h1>DATA ANGGOTA</h1>
+        <h3>Anggota {{ $periode->keterangan }} {{ $periode->periode }}</h3>
         <table id="example" class="table table-responsive table-striped table-hover table-bordered">
             <thead>
                 <tr>

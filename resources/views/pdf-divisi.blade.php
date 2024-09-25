@@ -13,15 +13,21 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($divisi as $no => $value)
+                @if ($divisi->isEmpty())
                     <tr>
-                        <td align="center">{{ $no + 1 }}</td>
-                        <td>{{ $value->nama_divisi }}</td>
-                        <td>{{ $value->deskripsi }}</td>
-                        <td>{{ $value->periode->periode }}</td>
+                        <td colspan="4" class="text-center">Data tidak ada</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach ($divisi as $no => $value)
+                        <tr>
+                            <td align="center">{{ $no + 1 }}</td>
+                            <td>{{ $value->nama_divisi }}</td>
+                            <td>{{ $value->deskripsi }}</td>
+                            <td>{{ $value->periode->periode }}</td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
-        </table>
+        </table>        
     </div>
 @endsection

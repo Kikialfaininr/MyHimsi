@@ -28,9 +28,28 @@
                         title="Tambah Data">
                         <i class='bx bx-plus'></i> Tambah Data Anggota
                     </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <form action="{{ url('downloadpdf-anggota-periode') }}" method="GET" target="_blank">
+                        <div class="input-group">
+                            <select name="periode" id="periode" class="form-control" required>
+                                <option selected disabled>Pilih Periode</option>
+                                @foreach ($periode as $item)
+                                    <option value="{{ $item->id_periode }}">{{ $item->periode }} - {{ $item->keterangan }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-danger">
+                                <i class='bx bxs-file-pdf'></i> Cetak
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3">
                     <a href="{{ url('downloadpdf-anggota') }}" target="_blank">
                         <button class="btn btn-danger">
-                            <i class='bx bxs-file-pdf'></i> Cetak
+                            <i class='bx bxs-file-pdf'></i> Cetak Semua Anggota
                         </button>
                     </a>
                 </div>
@@ -63,14 +82,18 @@
                                 <td class="text-center">
                                     @if ($value->foto)
                                         <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
-                                            <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil" style="width:100px; height: 100px;" class="d-inline-block align-text-center rounded-circle table-img" />
+                                            <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
+                                                style="width:100px; height: 100px;"
+                                                class="d-inline-block align-text-center rounded-circle table-img" />
                                         </a>
                                     @else
                                         <a href="{{ asset('image/profil.jpg') }}" target="_blank">
-                                            <img src="{{ asset('image/profil.jpg') }}" alt="profil" style="width:100px; height: 100px;" class="d-inline-block align-text-center rounded-circle table-img">
+                                            <img src="{{ asset('image/profil.jpg') }}" alt="profil"
+                                                style="width:100px; height: 100px;"
+                                                class="d-inline-block align-text-center rounded-circle table-img">
                                         </a>
                                     @endif
-                                </td>                                
+                                </td>
                                 <td>{{ $value->full_name }}</td>
                                 <td class="text-center">{{ $value->nim }}</td>
                                 <td class="text-center">{{ $value->angkatan }}</td>
@@ -80,10 +103,10 @@
                                 <td>{{ $value->periode->periode }}</td>
                                 <td>
                                     <a href="{{ $value->link_ig }}" target="_blank">{{ $value->link_ig }}</a>
-                                </td> 
+                                </td>
                                 <td>
                                     <a href="{{ $value->link_linkedin }}" target="_blank">{{ $value->link_linkedin }}</a>
-                                </td> 
+                                </td>
                                 <td class="action-col">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#UbahAnggota{{ $value->id_anggota }}" title="Ubah Data">
@@ -142,8 +165,9 @@
                             </div>
                             <div>
                                 <label for="nim" class="required-label">{{ __('NIM') }}</label>
-                                <input id="nim" type="number" class="form-control @error('nim') is-invalid @enderror"
-                                    name="nim" value="{{ old('nim') }}" required autofocus>
+                                <input id="nim" type="number"
+                                    class="form-control @error('nim') is-invalid @enderror" name="nim"
+                                    value="{{ old('nim') }}" required autofocus>
                                 @error('nim')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -199,7 +223,8 @@
                             <div>
                                 <label for="id_divisi" class="required-label">{{ __('Divisi') }}</label>
                                 <select class="form-select" name="id_divisi" id="id_divisi"
-                                    value="{{ $value->id_divisi }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                                    value="{{ $value->id_divisi }}" style="width: 100%; height: 35px; font-size: 13px;"
+                                    required autofocus>
                                     <option disble value>Pilih Divisi</option>
                                     @foreach ($divisi as $data)
                                         <option value="{{ $data->id_divisi }}"
@@ -211,7 +236,8 @@
                             <div>
                                 <label for="id_jabatan" class="required-label">{{ __('Jabatan') }}</label>
                                 <select class="form-select" name="id_jabatan" id="id_jabatan"
-                                    value="{{ $value->id_jabatan }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                                    value="{{ $value->id_jabatan }}" style="width: 100%; height: 35px; font-size: 13px;"
+                                    required autofocus>
                                     <option disble value>Pilih Jabatan</option>
                                     @foreach ($jabatan as $data)
                                         <option value="{{ $data->id_jabatan }}"
@@ -223,12 +249,13 @@
                             <div>
                                 <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
                                 <select class="form-select" name="id_periode" id="id_periode"
-                                    value="{{ $value->id_periode }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                                    value="{{ $value->id_periode }}" style="width: 100%; height: 35px; font-size: 13px;"
+                                    required autofocus>
                                     <option disble value>Pilih periode</option>
                                     @foreach ($periode as $data)
                                         <option value="{{ $data->id_periode }}"
                                             {{ $value && $data->id_periode == $value->id_periode ? 'selected' : '' }}>
-                                            {{ $data->periode }}</option>
+                                            {{ $data->periode }} - {{ $data->keterangan }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -284,16 +311,18 @@
                                 <div>
                                     <label for="foto">{{ __('Foto Profil') }}</label><br>
                                     @if ($value->foto)
-                                        <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="Foto Profil" style="width: 100px;">
+                                        <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="Foto Profil"
+                                            style="width: 100px;">
                                         <div>
                                             <input type="checkbox" name="hapus_foto" id="hapus_foto">
                                             <label for="hapus_foto">Hapus Foto</label>
                                         </div>
                                     @endif
-                                
-                                    <input id="foto" onchange="readFoto(event)" type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" autofocus>
+
+                                    <input id="foto" onchange="readFoto(event)" type="file"
+                                        class="form-control @error('foto') is-invalid @enderror" name="foto" autofocus>
                                     <img id="output" style="width: 100px; display: none;">
-                                
+
                                     @error('foto')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -404,7 +433,7 @@
                                         @foreach ($periode as $data)
                                             <option value="{{ $data->id_periode }}"
                                                 {{ ($value->id_periode ?? old('id_periode')) == $data->id_periode ? 'selected' : '' }}>
-                                                {{ $data->periode }}
+                                                {{ $data->periode }} - {{ $data->keterangan }}
                                             </option>
                                         @endforeach
                                     </select>

@@ -28,9 +28,28 @@
                     data-bs-toggle="modal" data-bs-target="#TambahDataDivisi" title="Tambah Data">
                     <i class='bx bx-plus'></i> Tambah Data Divisi
                 </button>
-                <a href="{{url('downloadpdf-divisi')}}" target="_blank">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <form action="{{ url('downloadpdf-divisi-periode') }}" method="GET" target="_blank">
+                    <div class="input-group">
+                        <select name="periode" id="periode" class="form-control" required>
+                            <option selected disabled>Pilih Periode</option>
+                            @foreach ($periode as $item)
+                                <option value="{{ $item->id_periode }}">{{ $item->periode }} - {{ $item->keterangan }}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit" class="btn btn-danger">
+                            <i class='bx bxs-file-pdf'></i> Cetak
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3">
+                <a href="{{ url('downloadpdf-divisi') }}" target="_blank">
                     <button class="btn btn-danger">
-                        <i class='bx bxs-file-pdf'></i> Cetak
+                        <i class='bx bxs-file-pdf'></i> Cetak Semua Divisi
                     </button>
                 </a>
             </div>
@@ -120,7 +139,7 @@
                             @foreach ($periode as $data)
                                 <option value="{{ $data->id_periode }}"
                                     {{ $value && $data->id_periode == $value->id_periode ? 'selected' : '' }}>
-                                    {{ $data->periode }}</option>
+                                    {{ $data->periode }} - {{ $data->keterangan }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -180,7 +199,7 @@
                             @foreach ($periode as $data)
                                 <option value="{{ $data->id_periode }}"
                                     {{ ($value->id_periode ?? old('id_periode')) == $data->id_periode ? 'selected' : '' }}>
-                                    {{ $data->periode }}
+                                    {{ $data->periode }} - {{ $data->keterangan }}
                                 </option>
                             @endforeach
                         </select>

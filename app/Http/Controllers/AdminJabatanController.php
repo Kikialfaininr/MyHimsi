@@ -119,5 +119,43 @@ class AdminJabatanController extends Controller
         return $pdf->stream('Data Jabatan Himsi.pdf');
     }
 
+    public function downloadpdfByPeriode(Request $request)
+    {
+        // Ambil periode yang dipilih dari request
+        $periodeId = $request->input('periode');
 
+        // Ambil data jabatan berdasarkan periode yang dipilih
+        $jabatan = Jabatan::with(['periode'])
+                        ->where('id_periode', $periodeId)
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        // Ambil data periode untuk ditampilkan di PDF
+        $periode = Periode::find($periodeId);
+
+        // Cari anggota dengan jabatan "Ketua Umum"
+        $ketuaUmum = Anggota::whereHas('jabatan', function($query) {
+            $query->where('nama_jabatan', 'Ketua Umum');
+        })->first();
+
+        // Encode gambar ke base64
+        $logoHimsi = public_path('image/logo himsi.png');
+        $himsiData = base64_encode(file_get_contents($logoHimsi));
+        $himsiSrc = 'data:image/png;base64,' . $himsiData;
+
+        $logoUhb = public_path('image/logo uhb.png');
+        $uhbData = base64_encode(file_get_contents($logoUhb));
+        $uhbSrc = 'data:image/png;base64,' . $uhbData;
+
+        // Ambil tanggal hari ini
+        $currentDate = now()->format('d F Y');
+
+        // Generate PDF dan tambahkan periode untuk informasi
+        $pdf = PDF::loadview('pdf-jabatan-periode', compact('jabatan', 'periode', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
+        $pdf->setPaper('F4', 'portrait');
+
+        // Gunakan nama file dengan nama periode yang disanitasi
+        $sanitizedPeriode = str_replace(['/', '\\'], '-', $periode->periode);
+        return $pdf->stream('Data Jabatan Periode ' . $sanitizedPeriode . '.pdf');
+    }
 }

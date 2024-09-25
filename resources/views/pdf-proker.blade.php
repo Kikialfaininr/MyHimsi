@@ -14,17 +14,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($proker as $no => $value)
+                @if ($proker->isEmpty())
                     <tr>
-                        <td align="center">{{ $no + 1 }}</td>
-                        <td>{{ $value->judul_proker }}</td>
-                        <td>{{ $value->deskripsi }}</td>
-                        <td>{{ $value->divisi->nama_divisi }}</td>
-                        <td>{{ $value->periode->periode }}</td>
+                        <td colspan="5" class="text-center">Data tidak ada</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach ($proker as $no => $value)
+                        <tr>
+                            <td align="center">{{ $no + 1 }}</td>
+                            <td>{{ $value->judul_proker }}</td>
+                            <td>{{ $value->deskripsi }}</td>
+                            <td>{{ $value->divisi->nama_divisi }}</td>
+                            <td>{{ $value->periode->periode }}</td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
-        </table>
+        </table>        
     </div>
 @endsection
     
