@@ -9,6 +9,7 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Jabatan</th>
                     <th class="text-center">Deskripsi</th>
+                    <th class="text-center">Periode</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                         <td align="center">{{ $no + 1 }}</td>
                         <td>{{ $value->nama_jabatan }}</td>
                         <td>{{ $value->deskripsi }}</td>
+                        <td>{{ $value->periode->periode }}</td>
                     </tr>
                 @endforeach
             </tbody>

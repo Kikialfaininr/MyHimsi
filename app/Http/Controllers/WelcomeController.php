@@ -6,15 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Divisi;
 use App\Models\Jabatan;
 use App\Models\Anggota;
+use App\Models\Periode;
 
 class WelcomeController extends Controller
 {
     public function index()
     {
-        $divisi = Divisi::all();
-        $jabatan = Jabatan::all();
-        $anggota = Anggota::with(['divisi', 'jabatan'])->get();
+        $periode = Periode::where('keterangan', 'Aktif')->first();
 
-        return view('welcome', compact('divisi', 'jabatan', 'anggota'));
+        $divisi = $periode ? Divisi::where('id_periode', $periode->id_periode)->get() : collect();
+        $jabatan = $periode ? Jabatan::where('id_periode', $periode->id_periode)->get() : collect();
+        $anggota = $periode ? Anggota::with(['divisi', 'jabatan', 'periode'])
+                                ->where('id_periode', $periode->id_periode)
+                                ->get() : collect();
+
+        return view('welcome', compact('divisi', 'jabatan', 'anggota', 'periode'));
     }
 }

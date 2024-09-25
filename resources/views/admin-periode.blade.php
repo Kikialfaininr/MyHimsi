@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="dataCard">
-    <h2>Data Jabatan</h2>
+    <h2>Data Periode Kepengurusan</h2>
     <div class="col-md-12 col-xs-12">
         {{-- alert --}}
         <div class="alertCrd">
@@ -25,14 +25,9 @@
         <div class="row">
             <div class="col-md-8">
                 <button type="button" class="btn btn-primary"
-                    data-bs-toggle="modal" data-bs-target="#TambahDataJabatan" title="Tambah Data">
-                    <i class='bx bx-plus'></i> Tambah Data Jabatan
+                    data-bs-toggle="modal" data-bs-target="#TambahDataPeriode" title="Tambah Data">
+                    <i class='bx bx-plus'></i> Tambah Data Periode
                 </button>
-                <a href="{{url('downloadpdf-jabatan')}}" target="_blank">
-                    <button class="btn btn-danger">
-                        <i class='bx bxs-file-pdf'></i> Cetak
-                    </button>
-                </a>
             </div>
         </div>
     </div>
@@ -43,25 +38,23 @@
                 <thead>
                     <tr>
                         <th class="text-center">No</th>
-                        <th class="text-center">Jabatan</th>
-                        <th class="text-center">Deskripsi</th>
                         <th class="text-center">Periode</th>
+                        <th class="text-center">Keterangan</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($jabatan as $no => $value)
+                    @foreach($periode as $no => $value)
                     <tr>
                         <td align="center">{{$no+1}}</td>
-                        <td>{{$value->nama_jabatan}}</td>
-                        <td>{{$value->deskripsi}}</td>
-                        <td>{{$value->periode->periode}}</td>
+                        <td>{{$value->periode}}</td>
+                        <td>{{$value->keterangan}}</td>
                         <td class="action-col">
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#UbahJabatan{{$value->id_jabatan}}" title="Ubah Data">
+                                data-bs-target="#UbahPeriode{{$value->id_periode}}" title="Ubah Data">
                                 <i class='bx bxs-edit'></i>
                             </button>
-                            <a href="{{url($value->id_jabatan.'/hapus-jabatan')}}">
+                            <a href="{{url($value->id_periode.'/hapus-periode')}}">
                                 <button title="Hapus Data" class="btn btn-danger btn-sm">
                                     <i class='bx bx-trash'></i>
                                 </button>
@@ -76,11 +69,11 @@
 </div>
 
 {{-- tambah data --}}
-<div class="modal" id="TambahDataJabatan" role="dialog">
+<div class="modal" id="TambahDataPeriode" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Jabatan</h4>
+                <h4 class="modal-title">Tambah Data Periode</h4>
             </div>
             <div class="modal-body">
                 @if(session('error'))
@@ -88,42 +81,35 @@
                     {{ session('error') }}
                 </div>
                 @endif
-                <form method="POST" action="{{url('simpan-data-jabatan')}}">
+                <form method="POST" action="{{url('simpan-data-periode')}}">
                     @csrf
                     <div>
-                        <label for="nama_jabatan" class="required-label">{{ __('Jabatan') }}</label>
-                        <input id="nama_jabatan" type="text"
-                            class="form-control @error('nama_jabatan') is-invalid @enderror" name="nama_jabatan"
-                            value="{{ old('nama_jabatan') }}" required autofocus>
-                        @error('nama_jabatan')
+                        <label for="periode" class="required-label">{{ __('Periode') }}</label>
+                        <input id="periode" type="text"
+                            class="form-control @error('periode') is-invalid @enderror" name="periode"
+                            value="{{ old('periode') }}" required autofocus>
+                        @error('periode')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div>
-                        <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
-                        <input id="deskripsi" type="text"
-                            class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                            value="{{ old('deskripsi') }}" required autofocus>
-                        @error('deskripsi')
+                        <label class="required-label">{{ __('Keterangan') }}</label>
+                        <div>
+                            <input id="aktif" type="radio" class="@error('keterangan') is-invalid @enderror" name="keterangan" value="Aktif" required>
+                            <label for="aktif">Aktif</label>
+                        </div>
+                        <div>
+                            <input id="non_aktif" type="radio" class="@error('keterangan') is-invalid @enderror" name="keterangan" value="Non Aktif" required>
+                            <label for="non_aktif">Non Aktif</label>
+                        </div>
+                        @error('keterangan')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </div>
-                    <div>
-                        <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
-                        <select class="form-select" name="id_periode" id="id_periode"
-                            value="{{ $value->id_periode }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
-                            <option disble value>Pilih periode</option>
-                            @foreach ($periode as $data)
-                                <option value="{{ $data->id_periode }}"
-                                    {{ $value && $data->id_periode == $value->id_periode ? 'selected' : '' }}>
-                                    {{ $data->periode }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    </div>                                       
                     <div class="form-group row">
                         <label class="col-form-label text-md-end"></label>
                         <div class="col-md-8">
@@ -140,51 +126,43 @@
 </div>
 
 {{-- edit data --}}
-@foreach($jabatan as $no => $value)
-<div class="modal" id="UbahJabatan{{$value->id_jabatan}}" role="dialog">
+@foreach($periode as $no => $value)
+<div class="modal" id="UbahPeriode{{$value->id_periode}}" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Ubah Data Jabatan</h4>
+                <h4 class="modal-title">Ubah Data Periode</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{url('update-jabatan/'.$value->id_jabatan)}}">
+                <form method="POST" action="{{url('update-periode/'.$value->id_periode)}}">
                     @csrf
                     <div>
-                        <label for="nama_jabatan" class="required-label">{{ __('Jabatan') }}</label>
-                        <input id="nama_jabatan" type="text"
-                            class="form-control @error('nama_jabatan') is-invalid @enderror" name="nama_jabatan"
-                            value="{{ $value->nama_jabatan }}" required autofocus>
-                        @error('nama_jabatan')
+                        <label for="periode" class="required-label">{{ __('periode') }}</label>
+                        <input id="periode" type="text"
+                            class="form-control @error('periode') is-invalid @enderror" name="periode"
+                            value="{{ $value->periode }}" required autofocus>
+                        @error('periode')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div>
-                        <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
-                        <input id="deskripsi" type="text"
-                            class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                            value="{{ $value->deskripsi }}" required autofocus>
-                        @error('deskripsi')
+                        <label class="required-label">{{ __('Keterangan') }}</label>
+                        <div>
+                            <input id="aktif" type="radio" class="@error('keterangan') is-invalid @enderror" name="keterangan" value="Aktif" {{ $value->keterangan == 'Aktif' ? 'checked' : '' }} required>
+                            <label for="aktif">Aktif</label>
+                        </div>
+                        <div>
+                            <input id="non_aktif" type="radio" class="@error('keterangan') is-invalid @enderror" name="keterangan" value="Non Aktif" {{ $value->keterangan == 'Non Aktif' ? 'checked' : '' }} required>
+                            <label for="non_aktif">Non Aktif</label>
+                        </div>
+                        @error('keterangan')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </div>
-                    <div>
-                        <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
-                        <select class="form-select" name="id_periode" id="id_periode"
-                            style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
-                            <option value="">Pilih periode</option>
-                            @foreach ($periode as $data)
-                                <option value="{{ $data->id_periode }}"
-                                    {{ ($value->id_periode ?? old('id_periode')) == $data->id_periode ? 'selected' : '' }}>
-                                    {{ $data->periode }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    </div>                    
                     <div class="form-group row">
                         <label class="col-form-label text-md-end"></label>
                         <div class="col-md-8">

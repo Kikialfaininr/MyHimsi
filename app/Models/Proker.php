@@ -17,4 +17,9 @@ class Proker extends Model
     {
         return $this->belongsTo(Divisi::class, 'id_divisi');
     }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'id_periode');
+    }
 }

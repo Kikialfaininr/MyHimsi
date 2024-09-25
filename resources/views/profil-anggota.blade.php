@@ -99,6 +99,11 @@
                                     <td>:</td>
                                     <td>{{$value->jabatan->nama_jabatan}}</td>
                                 </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>:</td>
+                                    <td>Anggota {{$value->periode->keterangan}} Kepengurusan {{$value->periode->periode}}</td>
+                                </tr>
                             </tbody>
                         </table>
                         <button type="button" class="btn btn-primary edit-btn" data-bs-toggle="modal"

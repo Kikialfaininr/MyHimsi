@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Jabatan;
 use App\Models\Anggota;
+use App\Models\Periode;
 use Redirect;
 use Session;
 use PDF;
@@ -14,9 +15,12 @@ class AdminJabatanController extends Controller
 {
     public function index()
     {
-        $jabatan = Jabatan::orderBy('created_at', 'desc')->get();
+        $periode = Periode::all();
+        $jabatan = Jabatan::with(['periode'])
+                      ->orderBy('created_at', 'DESC')
+                      ->get();
         
-        return view('admin-jabatan', compact('jabatan'));
+        return view('admin-jabatan', compact('jabatan', 'periode'));
     }
 
     public function simpan(Request $request)
@@ -37,6 +41,7 @@ class AdminJabatanController extends Controller
         $jabatan = new Jabatan();
             $jabatan->nama_jabatan = $request->nama_jabatan;
             $jabatan->deskripsi = $request->deskripsi;
+            $jabatan->id_periode = $request->id_periode;
         $jabatan->save();
         return redirect('/admin-jabatan')->with('message', 'Data berhasil ditambah')->with('alert_class', 'success');      
     }
@@ -50,7 +55,7 @@ class AdminJabatanController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama_jabatan' => 'unique:jabatan',
+            'nama_jabatan' => 'unique:jabatan,nama_jabatan,' . $id . ',id_jabatan',
         ], [
             'nama_jabatan.unique' => 'Gagal menyimpan data karena data sudah ada.',
         ]);
@@ -65,6 +70,7 @@ class AdminJabatanController extends Controller
         $jabatan = Jabatan::where('id_jabatan', $id)->first();
             $jabatan->nama_jabatan = $request->nama_jabatan;
             $jabatan->deskripsi = $request->deskripsi;
+            $jabatan->id_periode = $request->id_periode;
         $jabatan->save();
         return redirect('/admin-jabatan')->with('message', 'Data berhasil diubah')->with('alert_class', 'success');
     }
@@ -83,7 +89,10 @@ class AdminJabatanController extends Controller
 
     public function downloadpdf()
     {
-        $jabatan = Jabatan::all();
+        $periode = Periode::all();
+        $jabatan = Jabatan::with(['periode'])
+                      ->orderBy('created_at', 'DESC')
+                      ->get();
         $anggota = Anggota::with(['divisi', 'jabatan'])
                         ->orderBy('created_at', 'DESC')
                         ->get();

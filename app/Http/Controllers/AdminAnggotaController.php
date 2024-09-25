@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Anggota;
 use App\Models\Divisi;
 use App\Models\Jabatan;
+use App\Models\Periode;
 use Redirect;
 use Session;
 use DB;
@@ -19,11 +20,12 @@ class AdminAnggotaController extends Controller
     {
         $divisi = Divisi::all();
         $jabatan = Jabatan::all();
-        $anggota = Anggota::with(['divisi', 'jabatan'])
+        $periode = Periode::all();
+        $anggota = Anggota::with(['divisi', 'jabatan', 'periode'])
                       ->orderBy('created_at', 'DESC')
                       ->get();
         
-        return view('admin-anggota', compact('anggota', 'divisi', 'jabatan'));
+        return view('admin-anggota', compact('anggota', 'divisi', 'jabatan', 'periode'));
     }
 
     public function simpan(Request $request)
@@ -63,6 +65,7 @@ class AdminAnggotaController extends Controller
             $anggota->jenis_kelamin = $request->jenis_kelamin;
             $anggota->id_divisi = $request->id_divisi;
             $anggota->id_jabatan = $request->id_jabatan;
+            $anggota->id_periode = $request->id_periode;
             $anggota->link_ig = $request->link_ig;
             $anggota->link_linkedin = $request->link_linkedin;
         $anggota->save();
@@ -128,6 +131,7 @@ class AdminAnggotaController extends Controller
             $anggota->jenis_kelamin = $request->jenis_kelamin;
             $anggota->id_divisi = $request->id_divisi;
             $anggota->id_jabatan = $request->id_jabatan;
+            $anggota->id_periode = $request->id_periode;
             $anggota->link_ig = $request->link_ig;
             $anggota->link_linkedin = $request->link_linkedin;
             $anggota->save();
@@ -158,9 +162,10 @@ class AdminAnggotaController extends Controller
     {
         $divisi = Divisi::all();
         $jabatan = Jabatan::all();
-        $anggota = Anggota::with(['divisi', 'jabatan'])
-                        ->orderBy('created_at', 'DESC')
-                        ->get();
+        $periode = Periode::all();
+        $anggota = Anggota::with(['divisi', 'jabatan', 'periode'])
+                      ->orderBy('created_at', 'DESC')
+                      ->get();
 
         // Cari anggota dengan jabatan "Ketua Umum"
         $ketuaUmum = Anggota::whereHas('jabatan', function($query) {

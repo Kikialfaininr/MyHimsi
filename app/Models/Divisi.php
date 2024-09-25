@@ -24,4 +24,9 @@ class Divisi extends Model
     {
         return $this->hasMany(Proker::class, 'id_divisi', 'id_divisi');
     }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'id_periode');
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Proker;
 use App\Models\Divisi;
 use App\Models\Jabatan;
 use App\Models\Anggota;
+use App\Models\Periode;
 use Redirect;
 use Session;
 use PDF;
@@ -17,9 +18,10 @@ class AdminProkerController extends Controller
     public function index()
     {
         $divisi = Divisi::all();
-        $proker = Proker::with('divisi')->orderBy('created_at', 'DESC')->get();
+        $periode = Periode::all();
+        $proker = Proker::with('divisi', 'periode')->orderBy('created_at', 'DESC')->get();
         
-        return view('admin-proker', compact('proker', 'divisi'));
+        return view('admin-proker', compact('proker', 'divisi', 'periode'));
     }
 
     public function simpan(Request $request)
@@ -41,6 +43,7 @@ class AdminProkerController extends Controller
             $proker->judul_proker = $request->judul_proker;
             $proker->deskripsi = $request->deskripsi;
             $proker->id_divisi = $request->id_divisi;
+            $proker->id_periode = $request->id_periode;
         $proker->save();
         return redirect('/admin-proker')->with('message', 'Data berhasil ditambah')->with('alert_class', 'success');      
     }
@@ -57,6 +60,7 @@ class AdminProkerController extends Controller
             $proker->judul_proker = $request->judul_proker;
             $proker->deskripsi = $request->deskripsi;
             $proker->id_divisi = $request->id_divisi;
+            $proker->id_periode = $request->id_periode;
         $proker->save();
         return redirect('/admin-proker')->with('message', 'Data berhasil diubah')->with('alert_class', 'success');
     }
@@ -71,8 +75,9 @@ class AdminProkerController extends Controller
 
     public function downloadpdf()
     {
-        $proker = Proker::get();
         $divisi = Divisi::all();
+        $periode = Periode::all();
+        $proker = Proker::with('divisi', 'periode')->orderBy('created_at', 'DESC')->get();
         $jabatan = Jabatan::all();
         $anggota = Anggota::with(['divisi', 'jabatan'])
                         ->orderBy('created_at', 'DESC')

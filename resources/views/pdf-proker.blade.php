@@ -10,6 +10,7 @@
                     <th class="text-center">Program Kerja</th>
                     <th class="text-center">Deskripsi</th>
                     <th class="text-center">Divisi Penanggungjawab</th>
+                    <th class="text-center">Periode</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +20,7 @@
                         <td>{{ $value->judul_proker }}</td>
                         <td>{{ $value->deskripsi }}</td>
                         <td>{{ $value->divisi->nama_divisi }}</td>
+                        <td>{{ $value->periode->periode }}</td>
                     </tr>
                 @endforeach
             </tbody>

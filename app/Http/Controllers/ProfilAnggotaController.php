@@ -7,6 +7,7 @@ use App\Models\Users;
 use App\Models\Anggota;
 use App\Models\Divisi;
 use App\Models\Jabatan;
+use App\Models\Periode;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 use Session;
@@ -22,7 +23,8 @@ class ProfilAnggotaController extends Controller
 
         $divisi = Divisi::all();
         $jabatan = Jabatan::all();
-        $anggota = Anggota::with(['divisi', 'jabatan'])
+        $periode = Periode::all();
+        $anggota = Anggota::with(['divisi', 'jabatan', 'periode'])
                     ->where('id_anggota', $user->id_anggota)
                     ->get();
 
@@ -56,6 +58,7 @@ class ProfilAnggotaController extends Controller
             $anggota->jenis_kelamin = $request->jenis_kelamin;
             $anggota->id_divisi = $request->id_divisi;
             $anggota->id_jabatan = $request->id_jabatan;
+            $anggota->id_periode = $request->id_periode;
             $anggota->link_ig = $request->link_ig;
             $anggota->link_linkedin = $request->link_linkedin;
             $anggota->save();

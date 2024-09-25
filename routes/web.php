@@ -35,6 +35,14 @@ Route::get('{id}/hapus-users', [App\Http\Controllers\AdminUsersController::class
 Route::get('/downloadpdf-users', [App\Http\Controllers\AdminUsersController::class, 'downloadpdf']);
 Route::get('/downloadpdf-users-angkatan', [App\Http\Controllers\AdminUsersController::class, 'downloadpdfByAngkatan']);
 
+// halaman admin periode
+Route::get('/admin-periode', [App\Http\Controllers\AdminPeriodeController::class, 'index']);
+Route::post('/simpan-data-periode', [App\Http\Controllers\AdminPeriodeController::class, 'simpan']);
+Route::get('{id}/edit-periode', [App\Http\Controllers\AdminPeriodeController::class, 'edit']);
+Route::post('/update-periode/{id}', [App\Http\Controllers\AdminPeriodeController::class, 'update']);
+Route::get('{id}/hapus-periode', [App\Http\Controllers\AdminPeriodeController::class, 'hapus']);
+
+
 // halaman admin divisi
 Route::get('/admin-divisi', [App\Http\Controllers\AdminDivisiController::class, 'index']);
 Route::post('/simpan-data-divisi', [App\Http\Controllers\AdminDivisiController::class, 'simpan']);

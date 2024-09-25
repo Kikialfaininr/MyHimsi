@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Divisi;
 use App\Models\Jabatan;
 use App\Models\Anggota;
+use App\Models\Periode;
 use Redirect;
 use Session;
 use PDF;
@@ -15,9 +16,12 @@ class AdminDivisiController extends Controller
 {
     public function index()
     {
-        $divisi = Divisi::orderBy('created_at', 'desc')->get();
+        $periode = Periode::all();
+        $divisi = Divisi::with(['periode'])
+                      ->orderBy('created_at', 'DESC')
+                      ->get();
         
-        return view('admin-divisi', compact('divisi'));
+        return view('admin-divisi', compact('divisi', 'periode'));
     }
 
     public function simpan(Request $request)
@@ -38,6 +42,7 @@ class AdminDivisiController extends Controller
         $divisi = new Divisi();
             $divisi->nama_divisi = $request->nama_divisi;
             $divisi->deskripsi = $request->deskripsi;
+            $divisi->id_periode = $request->id_periode;
         $divisi->save();
         return redirect('/admin-divisi')->with('message', 'Data berhasil ditambah')->with('alert_class', 'success');      
     }
@@ -51,10 +56,10 @@ class AdminDivisiController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama_divisi' => 'unique:divisi',
+            'nama_divisi' => 'unique:divisi,nama_divisi,' . $id . ',id_divisi',
         ], [
             'nama_divisi.unique' => 'Gagal menyimpan data karena data sudah ada.',
-        ]);
+        ]);        
 
         if ($validator->fails()) {
             return redirect('/admin-divisi')->with([
@@ -66,6 +71,7 @@ class AdminDivisiController extends Controller
         $divisi = Divisi::where('id_divisi', $id)->first();
             $divisi->nama_divisi = $request->nama_divisi;
             $divisi->deskripsi = $request->deskripsi;
+            $divisi->id_periode = $request->id_periode;
         $divisi->save();
         return redirect('/admin-divisi')->with('message', 'Data berhasil diubah')->with('alert_class', 'success');
     }
@@ -84,7 +90,10 @@ class AdminDivisiController extends Controller
 
     public function downloadpdf()
     {
-        $divisi = Divisi::all();
+        $periode = Periode::all();
+        $divisi = Divisi::with(['periode'])
+                      ->orderBy('created_at', 'DESC')
+                      ->get();
         $jabatan = Jabatan::all();
         $anggota = Anggota::with(['divisi', 'jabatan'])
                         ->orderBy('created_at', 'DESC')

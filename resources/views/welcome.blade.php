@@ -104,7 +104,7 @@
         {{-- BPH --}}
         <div class="bph" id="bph">
             <h2 class="heading">Badan Pengurus Harian</h2>
-            <h3 class="subheading">Periode 2023/2024</h3>
+            <h3 class="subheading">{{ $periode->periode }}</h3>
             @foreach ($anggota as $no => $value)
                 @if ($value->jabatan->nama_jabatan == 'Ketua Umum')
                 <div class="row bph-content">
@@ -240,7 +240,7 @@
         {{-- divisi --}}
         <div class="division" id="division">
             <h2 class="heading">Divisi</h2>
-            <h3 class="subheading">Periode 2023/2024</h3>
+            <h3 class="subheading">{{ $periode->periode }}</h3>
             <div class="wrapper">
                 <div class="row justify-content-center">
                     @foreach ($divisi as $no => $value)

@@ -45,6 +45,7 @@
                         <th class="text-center">No</th>
                         <th class="text-center">Divisi</th>
                         <th class="text-center">Deskripsi</th>
+                        <th class="text-center">Periode</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -54,6 +55,7 @@
                         <td align="center">{{$no+1}}</td>
                         <td>{{$value->nama_divisi}}</td>
                         <td>{{$value->deskripsi}}</td>
+                        <td>{{$value->periode->periode}}</td>
                         <td class="action-col">
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#UbahDivisi{{$value->id_divisi}}" title="Ubah Data">
@@ -110,6 +112,18 @@
                         </span>
                         @enderror
                     </div>
+                    <div>
+                        <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
+                        <select class="form-select" name="id_periode" id="id_periode"
+                            value="{{ $value->id_periode }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                            <option disble value>Pilih periode</option>
+                            @foreach ($periode as $data)
+                                <option value="{{ $data->id_periode }}"
+                                    {{ $value && $data->id_periode == $value->id_periode ? 'selected' : '' }}>
+                                    {{ $data->periode }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group row">
                         <label class="col-form-label text-md-end"></label>
                         <div class="col-md-8">
@@ -157,6 +171,19 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+                    </div>
+                    <div>
+                        <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
+                        <select class="form-select" name="id_periode" id="id_periode"
+                            style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                            <option value="">Pilih periode</option>
+                            @foreach ($periode as $data)
+                                <option value="{{ $data->id_periode }}"
+                                    {{ ($value->id_periode ?? old('id_periode')) == $data->id_periode ? 'selected' : '' }}>
+                                    {{ $data->periode }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label text-md-end"></label>

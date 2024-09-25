@@ -59,6 +59,14 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ url('/admin-periode') }}">
+                        <span class="icon">
+                            <i class='bx bx-time'></i>
+                        </span>
+                        <span class="title">Periode</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ url('/admin-divisi') }}">
                         <span class="icon">
                             <i class='bx bx-grid'></i>

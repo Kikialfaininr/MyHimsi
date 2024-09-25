@@ -50,6 +50,7 @@
                             <th class="text-center">Jenis Kelamin</th>
                             <th class="text-center">Divisi</th>
                             <th class="text-center">Jabatan</th>
+                            <th class="text-center">Periode</th>
                             <th class="text-center">Link Instagram</th>
                             <th class="text-center">Link Linkedin</th>
                             <th class="text-center">Aksi</th>
@@ -76,6 +77,7 @@
                                 <td class="text-center">{{ $value->jenis_kelamin }}</td>
                                 <td>{{ $value->divisi->nama_divisi }}</td>
                                 <td>{{ $value->jabatan->nama_jabatan }}</td>
+                                <td>{{ $value->periode->periode }}</td>
                                 <td>
                                     <a href="{{ $value->link_ig }}" target="_blank">{{ $value->link_ig }}</a>
                                 </td> 
@@ -215,6 +217,18 @@
                                         <option value="{{ $data->id_jabatan }}"
                                             {{ $value && $data->id_jabatan == $value->id_jabatan ? 'selected' : '' }}>
                                             {{ $data->nama_jabatan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
+                                <select class="form-select" name="id_periode" id="id_periode"
+                                    value="{{ $value->id_periode }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                                    <option disble value>Pilih periode</option>
+                                    @foreach ($periode as $data)
+                                        <option value="{{ $data->id_periode }}"
+                                            {{ $value && $data->id_periode == $value->id_periode ? 'selected' : '' }}>
+                                            {{ $data->periode }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -378,6 +392,19 @@
                                             <option value="{{ $data->id_jabatan }}"
                                                 {{ ($value->id_jabatan ?? old('id_jabatan')) == $data->id_jabatan ? 'selected' : '' }}>
                                                 {{ $data->nama_jabatan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
+                                    <select class="form-select" name="id_periode" id="id_periode"
+                                        style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                                        <option value="">Pilih periode</option>
+                                        @foreach ($periode as $data)
+                                            <option value="{{ $data->id_periode }}"
+                                                {{ ($value->id_periode ?? old('id_periode')) == $data->id_periode ? 'selected' : '' }}>
+                                                {{ $data->periode }}
                                             </option>
                                         @endforeach
                                     </select>

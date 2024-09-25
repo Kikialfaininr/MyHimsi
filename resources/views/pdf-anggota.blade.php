@@ -92,6 +92,7 @@
                     <th class="text-center">Jenis Kelamin</th>
                     <th class="text-center">Divisi</th>
                     <th class="text-center">Jabatan</th>
+                    <th class="text-center">Periode</th>
                     <th class="text-center">Link Instagram</th>
                     <th class="text-center">Link Linkedin</th>
                 </tr>
@@ -106,6 +107,7 @@
                         <td class="text-center">{{ $value->jenis_kelamin }}</td>
                         <td>{{ $value->divisi->nama_divisi }}</td>
                         <td>{{ $value->jabatan->nama_jabatan }}</td>
+                        <td>{{ $value->periode->periode }}</td>
                         <td>
                             @if ($value->link_ig)
                                 <a href="{{ $value->link_ig }}" target="_blank">Link Instagram</a>

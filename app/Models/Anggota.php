@@ -26,4 +26,9 @@ class Anggota extends Model
     {
         return $this->hasMany(Users::class, 'id_anggota', 'id_anggota');
     }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'id_periode');
+    }
 }

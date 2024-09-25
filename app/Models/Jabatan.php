@@ -18,4 +18,9 @@ class Jabatan extends Model
     {
         return $this->hasMany(Anggota::class, 'id_jabatan', 'id_jabatan');
     }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'id_periode');
+    }
 }

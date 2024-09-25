@@ -17,10 +17,10 @@
         {{-- anggota divisi --}}
         <div class="division-member">
             <h2 class="heading">Anggota Divisi</h2>
-            <h3 class="subheading">Periode 2023/2024</h3>
+            <h3 class="subheading">{{ $periode->periode }}</h3>
             <div class="kadiv-content">
                 @foreach ($anggota as $no => $value)
-                @if ($value->jabatan->nama_jabatan == 'Ketua Divisi')
+                @if ($value->jabatan->nama_jabatan == 'Ketua Divisi' && $value->periode->keterangan == 'Aktif')
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="kadiv-bio">
@@ -57,7 +57,7 @@
             <div class="member-content">
                 <div class="row justify-content-center">
                     @foreach ($anggota as $no => $value)
-                    @if ($value->jabatan->nama_jabatan == 'Anggota Divisi')
+                    @if ($value->jabatan->nama_jabatan == 'Anggota Divisi' && $value->periode->keterangan == 'Aktif')
                     <div class="col-md-4">
                         <div class="card">
                             <div class="member-img">
@@ -95,21 +95,24 @@
         {{-- program kerja --}}
         <div class="division-proker">
             <h2 class="heading">Program Kerja Divisi</h2>
-            <h3 class="subheading">Periode 2023/2024</h3>
+            <h3 class="subheading">{{ $periode->periode }}</h3>
             @foreach ($proker as $no => $value)
-            <div class="proker-content">
-                <div class="row align-items-center">
-                    <div class="col-md-2">
-                        <h2>{{ $value->judul_proker }}</h2>
-                    </div>
-                    <div class="col-md-10">
-                        <div class="card">
-                            <p>{{ $value->deskripsi }}</p>
+                @if ($value->periode->keterangan == "Aktif")
+                    <div class="proker-content">
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <h2>{{ $value->judul_proker }}</h2>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card">
+                                    <p>{{ $value->deskripsi }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                @endif
             @endforeach
         </div>
+        
     </div>
 @endsection
