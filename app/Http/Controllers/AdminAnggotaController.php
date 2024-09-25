@@ -159,8 +159,13 @@ class AdminAnggotaController extends Controller
         $divisi = Divisi::all();
         $jabatan = Jabatan::all();
         $anggota = Anggota::with(['divisi', 'jabatan'])
-                      ->orderBy('created_at', 'DESC')
-                      ->get();
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        // Cari anggota dengan jabatan "Ketua Umum"
+        $ketuaUmum = Anggota::whereHas('jabatan', function($query) {
+            $query->where('nama_jabatan', 'Ketua Umum');
+        })->first();
 
         // Encode gambar ke base64
         $logoHimsi = public_path('image/logo himsi.png');
@@ -172,12 +177,10 @@ class AdminAnggotaController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y'); // Format sesuai kebutuhan
+        $currentDate = now()->format('d F Y');
 
-        // Pass imageSrc dan currentDate ke view
-        $pdf = PDF::loadview('pdf-anggota', compact('anggota', 'himsiSrc', 'uhbSrc', 'currentDate'));
-        $pdf->setPaper('F4', 'potrait');
+        $pdf = PDF::loadview('pdf-anggota', compact('anggota', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
+        $pdf->setPaper('F4', 'landscape');
         return $pdf->stream('Data Anggota Himsi.pdf');
     }
-
 }

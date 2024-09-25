@@ -244,7 +244,7 @@
             <div class="wrapper">
                 <div class="row justify-content-center">
                     @foreach ($divisi as $no => $value)
-                        @if ($value->nama_divisi !== 'BPH')
+                        @if ($value->nama_divisi !== 'Badan Pengurus Harian')
                             <div class="col-sm-4">
                                 <div class="card division-item">
                                     <div class="card-body">

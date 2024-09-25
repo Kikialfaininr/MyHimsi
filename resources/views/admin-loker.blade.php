@@ -28,11 +28,6 @@
                     data-bs-toggle="modal" data-bs-target="#TambahDataLoker" title="Tambah Data">
                     <i class='bx bx-plus'></i> Tambah Data Loker
                 </button>
-                <a href="{{url('downloadpdf-loker')}}" target="_blank">
-                    <button class="btn btn-danger">
-                        <i class='bx bxs-file-pdf'></i> Cetak
-                    </button>
-                </a>
             </div>
         </div>
     </div>

@@ -408,6 +408,10 @@ body {
     color: var(--second-bg-color);
 }
 
+.dataCard .row {
+    margin-bottom: 10px;
+}
+
 .alertCard {
     margin: 0 20px 0 20px;
 }

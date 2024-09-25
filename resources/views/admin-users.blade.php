@@ -28,11 +28,30 @@
                     data-bs-toggle="modal" data-bs-target="#TambahDataLogin" title="Tambah Data">
                     <i class='bx bx-plus'></i> Tambah Data Login
                 </button>
-                <a href="{{url('downloadpdf-users')}}" target="_blank">
-                    <button class="btn btn-danger">
-                        <i class='bx bxs-file-pdf'></i> Cetak
-                    </button>
-                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <form action="{{ url('downloadpdf-users-angkatan') }}" method="GET" target="_blank" class="d-inline-block">
+                    <div class="input-group">
+                        <select class="form-select" id="angkatan" name="angkatan">
+                            <option selected disabled>Pilih Angkatan</option>
+                            @for ($year = 2019; $year <= date('Y'); $year++)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                            @endfor
+                        </select>
+                        <button type="submit" class="btn btn-danger">
+                            <i class='bx bxs-file-pdf'></i> Cetak
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3">
+                    <a href="{{ url('downloadpdf-users') }}" target="_blank">
+                        <button class="btn btn-danger">
+                            <i class='bx bxs-file-pdf'></i> Cetak Semua Data
+                        </button>
+                    </a>
             </div>
         </div>
     </div>

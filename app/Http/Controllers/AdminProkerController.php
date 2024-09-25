@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Proker;
 use App\Models\Divisi;
+use App\Models\Jabatan;
+use App\Models\Anggota;
 use Redirect;
 use Session;
 use PDF;
@@ -70,6 +72,16 @@ class AdminProkerController extends Controller
     public function downloadpdf()
     {
         $proker = Proker::get();
+        $divisi = Divisi::all();
+        $jabatan = Jabatan::all();
+        $anggota = Anggota::with(['divisi', 'jabatan'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        // Cari anggota dengan jabatan "Ketua Umum"
+        $ketuaUmum = Anggota::whereHas('jabatan', function($query) {
+            $query->where('nama_jabatan', 'Ketua Umum');
+        })->first();
 
         // Encode gambar ke base64
         $logoHimsi = public_path('image/logo himsi.png');
@@ -81,10 +93,9 @@ class AdminProkerController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y'); // Format sesuai kebutuhan
+        $currentDate = now()->format('d F Y');
 
-        // Pass imageSrc dan currentDate ke view
-        $pdf = PDF::loadview('pdf-proker', compact('proker', 'himsiSrc', 'uhbSrc', 'currentDate'));
+        $pdf = PDF::loadview('pdf-proker', compact('proker', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'portrait');
         return $pdf->stream('Data Proker Himsi.pdf');
     }

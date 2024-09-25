@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Users;
+use App\Models\Jabatan;
 use App\Models\Anggota;
 use Redirect;
 use Session;
@@ -99,11 +100,19 @@ class AdminUsersController extends Controller
 
     public function downloadpdf()
     {
-        $anggota = Anggota::all();
+        $jabatan = Jabatan::all();
+        $anggota = Anggota::with(['divisi', 'jabatan'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
         $users = users::with(['anggota'])
                         ->where('role', 'Anggota')
-                      ->orderBy('created_at', 'DESC')
-                      ->get();
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        // Cari anggota dengan jabatan "Ketua Umum"
+        $ketuaUmum = Anggota::whereHas('jabatan', function($query) {
+            $query->where('nama_jabatan', 'Ketua Umum');
+        })->first();
 
         // Encode gambar ke base64
         $logoHimsi = public_path('image/logo himsi.png');
@@ -115,12 +124,45 @@ class AdminUsersController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y'); // Format sesuai kebutuhan
+        $currentDate = now()->format('d F Y');
 
-        // Pass imageSrc dan currentDate ke view
-        $pdf = PDF::loadview('pdf-users', compact('users', 'himsiSrc', 'uhbSrc', 'currentDate'));
-        $pdf->setPaper('F4', 'landscape');
+        $pdf = PDF::loadview('pdf-users', compact('users', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
+        $pdf->setPaper('F4', 'potrait');
         return $pdf->stream('Data Login Anggota Himsi.pdf');
     }
+
+    public function downloadpdfByAngkatan(Request $request)
+    {
+        $angkatan = $request->input('angkatan');
+        $users = Users::with('anggota')
+                        ->whereHas('anggota', function($query) use ($angkatan) {
+                            $query->where('angkatan', $angkatan);
+                        })
+                        ->where('role', 'Anggota')
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        // Cari anggota dengan jabatan "Ketua Umum"
+        $ketuaUmum = Anggota::whereHas('jabatan', function($query) {
+            $query->where('nama_jabatan', 'Ketua Umum');
+        })->first();
+
+        // Encode gambar ke base64
+        $logoHimsi = public_path('image/logo himsi.png');
+        $himsiData = base64_encode(file_get_contents($logoHimsi));
+        $himsiSrc = 'data:image/png;base64,' . $himsiData;
+
+        $logoUhb = public_path('image/logo uhb.png');
+        $uhbData = base64_encode(file_get_contents($logoUhb));
+        $uhbSrc = 'data:image/png;base64,' . $uhbData;
+
+        // Ambil tanggal hari ini
+        $currentDate = now()->format('d F Y');
+
+        $pdf = PDF::loadview('pdf-angkatanusers', compact('users', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum', 'angkatan'));
+        $pdf->setPaper('F4', 'potrait');
+        return $pdf->stream('Data Login Anggota Himsi Per Angkatan ' . $angkatan . '.pdf');
+    }
+
 
 }

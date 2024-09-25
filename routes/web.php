@@ -33,6 +33,7 @@ Route::get('{id}/edit-users', [App\Http\Controllers\AdminUsersController::class,
 Route::post('/update-users/{id}', [App\Http\Controllers\AdminUsersController::class, 'update']);
 Route::get('{id}/hapus-users', [App\Http\Controllers\AdminUsersController::class, 'hapus']);
 Route::get('/downloadpdf-users', [App\Http\Controllers\AdminUsersController::class, 'downloadpdf']);
+Route::get('/downloadpdf-users-angkatan', [App\Http\Controllers\AdminUsersController::class, 'downloadpdfByAngkatan']);
 
 // halaman admin divisi
 Route::get('/admin-divisi', [App\Http\Controllers\AdminDivisiController::class, 'index']);
@@ -72,7 +73,6 @@ Route::post('/simpan-data-event', [App\Http\Controllers\AdminEventController::cl
 Route::get('{id}/edit-event', [App\Http\Controllers\AdminEventController::class, 'edit']);
 Route::post('/update-event/{id}', [App\Http\Controllers\AdminEventController::class, 'update']);
 Route::get('{id}/hapus-event', [App\Http\Controllers\AdminEventController::class, 'hapus']);
-Route::get('/downloadpdf-event', [App\Http\Controllers\AdminEventController::class, 'downloadpdf']);
 
 // halaman admin berita
 Route::get('/admin-berita', [App\Http\Controllers\AdminBeritaController::class, 'index']);
@@ -87,7 +87,6 @@ Route::post('/simpan-data-publikasi', [App\Http\Controllers\AdminPublikasiContro
 Route::get('{id}/edit-publikasi', [App\Http\Controllers\AdminPublikasiController::class, 'edit']);
 Route::post('/update-publikasi/{id}', [App\Http\Controllers\AdminPublikasiController::class, 'update']);
 Route::get('{id}/hapus-publikasi', [App\Http\Controllers\AdminPublikasiController::class, 'hapus']);
-Route::get('/downloadpdf-publikasi', [App\Http\Controllers\AdminPublikasiController::class, 'downloadpdf']);
 
 // halaman admin sertifikat
 Route::get('/admin-sertifikat', [App\Http\Controllers\AdminSertifikatController::class, 'index']);
@@ -95,7 +94,6 @@ Route::post('/simpan-data-sertifikat', [App\Http\Controllers\AdminSertifikatCont
 Route::get('{id}/edit-sertifikat', [App\Http\Controllers\AdminSertifikatController::class, 'edit']);
 Route::post('/update-sertifikat/{id}', [App\Http\Controllers\AdminSertifikatController::class, 'update']);
 Route::get('{id}/hapus-sertifikat', [App\Http\Controllers\AdminSertifikatController::class, 'hapus']);
-Route::get('/downloadpdf-sertifikat', [App\Http\Controllers\AdminSertifikatController::class, 'downloadpdf']);
 
 // halaman admin loker
 Route::get('/admin-loker', [App\Http\Controllers\AdminLokerController::class, 'index']);
@@ -103,4 +101,3 @@ Route::post('/simpan-data-loker', [App\Http\Controllers\AdminLokerController::cl
 Route::get('{id}/edit-loker', [App\Http\Controllers\AdminLokerController::class, 'edit']);
 Route::post('/update-loker/{id}', [App\Http\Controllers\AdminLokerController::class, 'update']);
 Route::get('{id}/hapus-loker', [App\Http\Controllers\AdminLokerController::class, 'hapus']);
-Route::get('/downloadpdf-loker', [App\Http\Controllers\AdminLokerController::class, 'downloadpdf']);

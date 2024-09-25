@@ -88,7 +88,7 @@
         <p>Purwokerto, {{ $currentDate }}</p>
         <p>Ketua Umum</p>
         <br><br><br>
-        <p>Ulan Juniarti</p>
+        <p>{{ $ketuaUmum ? $ketuaUmum->full_name : '(__________________)' }}</p>
     </div>
 </body>
 </html>

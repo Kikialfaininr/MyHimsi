@@ -28,11 +28,6 @@
                         title="Tambah Data">
                         <i class='bx bx-plus'></i> Tambah Data Event
                     </button>
-                    <a href="{{ url('downloadpdf-event') }}" target="_blank">
-                        <button class="btn btn-danger">
-                            <i class='bx bxs-file-pdf'></i> Cetak
-                        </button>
-                    </a>
                 </div>
             </div>
         </div>

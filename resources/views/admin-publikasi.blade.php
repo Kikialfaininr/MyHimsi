@@ -28,11 +28,6 @@
                     data-bs-toggle="modal" data-bs-target="#TambahDataPublikasi" title="Tambah Data">
                     <i class='bx bx-plus'></i> Tambah Data Publikasi
                 </button>
-                <a href="{{url('downloadpdf-publikasi')}}" target="_blank">
-                    <button class="btn btn-danger">
-                        <i class='bx bxs-file-pdf'></i> Cetak
-                    </button>
-                </a>
             </div>
         </div>
     </div>

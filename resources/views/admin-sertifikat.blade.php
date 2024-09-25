@@ -28,11 +28,6 @@
                     data-bs-toggle="modal" data-bs-target="#TambahDataSertifikat" title="Tambah Data">
                     <i class='bx bx-plus'></i> Tambah Data Sertifikat
                 </button>
-                <a href="{{url('downloadpdf-sertifikat')}}" target="_blank">
-                    <button class="btn btn-danger">
-                        <i class='bx bxs-file-pdf'></i> Cetak
-                    </button>
-                </a>
             </div>
         </div>
     </div>
