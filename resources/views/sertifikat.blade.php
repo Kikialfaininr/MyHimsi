@@ -20,18 +20,19 @@
             <!-- Jurnal Cards -->
             <div class="row justify-content-center">
                 @foreach($sertifikat as $no => $value)
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$value->nama_sertifikat}}</h5>
-                            <div class="card-text">
-                                <a href="{{ $value->link_sertifikat }}" target="_blank" class="btn btn-primary">Download Sertifikat</a>
-                                <h5 class="card-tag">Kategori: {{ $value->kategori }}</h5>
+                    @if (Auth::check() && Auth::user()->role == 'Anggota' || $value->kategori == 'Umum')
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$value->nama_sertifikat}}</h5>
+                                    <div class="card-text">
+                                        <a href="{{ $value->link_sertifikat }}" target="_blank" class="btn btn-primary">Download Sertifikat</a>
+                                        <h5 class="card-tag">Kategori: {{ $value->kategori }}</h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    </a>
-                </div>
+                    @endif
                 @endforeach
             </div>
         </div>

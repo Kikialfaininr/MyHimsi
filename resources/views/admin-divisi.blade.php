@@ -22,6 +22,7 @@
             </div>
             @endif
         </div>
+        @if(Auth::check() && Auth::user()->role == 'Admin')
         <div class="row">
             <div class="col-md-8">
                 <button type="button" class="btn btn-primary"
@@ -30,6 +31,7 @@
                 </button>
             </div>
         </div>
+        @endif
         <div class="row">
             <div class="col-md-3">
                 <form action="{{ url('downloadpdf-divisi-periode') }}" method="GET" target="_blank">
@@ -65,7 +67,9 @@
                         <th class="text-center">Divisi</th>
                         <th class="text-center">Deskripsi</th>
                         <th class="text-center">Periode</th>
+                        @if(Auth::check() && Auth::user()->role == 'Admin')
                         <th class="text-center">Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -75,6 +79,7 @@
                         <td>{{$value->nama_divisi}}</td>
                         <td>{{$value->deskripsi}}</td>
                         <td>{{$value->periode->periode}}</td>
+                        @if(Auth::check() && Auth::user()->role == 'Admin')
                         <td class="action-col">
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#UbahDivisi{{$value->id_divisi}}" title="Ubah Data">
@@ -85,7 +90,8 @@
                                     <i class='bx bx-trash'></i>
                                 </button>
                             </a>
-                        </td>    
+                        </td> 
+                        @endif   
                     </tr>
                     @endforeach
                 </tbody>
@@ -94,6 +100,7 @@
     </div>
 </div>
 
+@if(Auth::check() && Auth::user()->role == 'Admin')
 {{-- tambah data --}}
 <div class="modal" id="TambahDataDivisi" role="dialog">
     <div class="modal-dialog modal-xl">
@@ -219,6 +226,7 @@
     </div>
 </div>
 @endforeach
+@endif
 
 
 @push('scripts')

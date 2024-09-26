@@ -22,6 +22,7 @@
                     </div>
                 @endif
             </div>
+            @if(Auth::check() && Auth::user()->role == 'Admin')
             <div class="row">
                 <div class="col-md-8">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TambahDataAnggota"
@@ -30,6 +31,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <div class="row">
                 <div class="col-md-3">
                     <form action="{{ url('downloadpdf-anggota-periode') }}" method="GET" target="_blank">
@@ -72,7 +74,9 @@
                             <th class="text-center">Periode</th>
                             <th class="text-center">Link Instagram</th>
                             <th class="text-center">Link Linkedin</th>
+                            @if(Auth::check() && Auth::user()->role == 'Admin')
                             <th class="text-center">Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -107,6 +111,7 @@
                                 <td>
                                     <a href="{{ $value->link_linkedin }}" target="_blank">{{ $value->link_linkedin }}</a>
                                 </td>
+                                @if(Auth::check() && Auth::user()->role == 'Admin')
                                 <td class="action-col">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#UbahAnggota{{ $value->id_anggota }}" title="Ubah Data">
@@ -118,6 +123,7 @@
                                         </button>
                                     </a>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -125,6 +131,7 @@
             </div>
         </div>
 
+        @if(Auth::check() && Auth::user()->role == 'Admin')
         {{-- tambah data --}}
         <div class="modal" id="TambahDataAnggota" role="dialog">
             <div class="modal-dialog modal-xl">
@@ -475,6 +482,7 @@
                 </div>
             </div>
         @endforeach
+        @endif
 
         @push('scripts')
             <script>

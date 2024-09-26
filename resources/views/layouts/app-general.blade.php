@@ -49,14 +49,16 @@
                             <a class="nav-link" href="{{ url('/berita') }}">Berita</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/publikasi') }}">Publikasi</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ url('/sertifikat') }}">Sertifikat</a>
+                        </li>
+                        @if(Auth::check() && Auth::user()->role == 'Anggota')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/publikasi') }}">Publikasi</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/loker') }}">Loker</a>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/arsip') }}">Arsip</a>
                         </li>
@@ -103,9 +105,11 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if(Auth::check() && Auth::user()->role == 'Anggota')
                                     <a class="dropdown-item" href="{{ url('/profil-anggota') }}">
                                         {{ __('Profil anggota') }}
                                     </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">

@@ -22,6 +22,7 @@
             </div>
             @endif
         </div>
+        @if(Auth::check() && Auth::user()->role == 'Admin')
         <div class="row">
             <div class="col-md-8">
                 <button type="button" class="btn btn-primary"
@@ -30,6 +31,7 @@
                 </button>
             </div>
         </div>
+        @endif
     </div>
     {{-- tabel data --}}
     <div class="col-md-12">
@@ -40,7 +42,9 @@
                         <th class="text-center">No</th>
                         <th class="text-center">Periode</th>
                         <th class="text-center">Keterangan</th>
+                        @if(Auth::check() && Auth::user()->role == 'Admin')
                         <th class="text-center">Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +53,7 @@
                         <td align="center">{{$no+1}}</td>
                         <td>{{$value->periode}}</td>
                         <td>{{$value->keterangan}}</td>
+                        @if(Auth::check() && Auth::user()->role == 'Admin')
                         <td class="action-col">
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#UbahPeriode{{$value->id_periode}}" title="Ubah Data">
@@ -59,7 +64,8 @@
                                     <i class='bx bx-trash'></i>
                                 </button>
                             </a>
-                        </td>    
+                        </td>  
+                        @endif  
                     </tr>
                     @endforeach
                 </tbody>
@@ -68,6 +74,7 @@
     </div>
 </div>
 
+@if(Auth::check() && Auth::user()->role == 'Admin')
 {{-- tambah data --}}
 <div class="modal" id="TambahDataPeriode" role="dialog">
     <div class="modal-dialog modal-xl">
@@ -178,7 +185,7 @@
     </div>
 </div>
 @endforeach
-
+@endif
 
 @push('scripts')
 <script>
