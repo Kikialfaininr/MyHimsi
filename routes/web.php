@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
+use Illuminate\Support\Facades\Mail;
 
 // Halaman umum yang bisa diakses oleh semua role atau tanpa login
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
@@ -114,7 +115,7 @@ Route::group(['middleware' => ['auth', RoleMiddleware::class.':Admin,Pengurus']]
 });
 
 // Halaman untuk anggota
-Route::group(['middleware' => ['auth', RoleMiddleware::class.':anggota']], function () {
+Route::group(['middleware' => ['auth', RoleMiddleware::class.':Anggota']], function () {
     // halaman anggota
     Route::get('/publikasi', [App\Http\Controllers\PublikasiController::class, 'index']);
     Route::get('/loker', [App\Http\Controllers\LokerController::class, 'index']);

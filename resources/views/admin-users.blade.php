@@ -142,42 +142,15 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="email">{{ __('Email') }}</label>
+                        <label for="email" class="required-label">{{ __('Email') }}</label>
                         <input id="email" type="email"
-                            class="form-control @error('email') is-invalid @enderror" name="email" autofocus>
+                            class="form-control @error('email') is-invalid @enderror" name="email" required autofocus>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
-                    <div>
-                        <label for="password" class="required-label">{{ __('Password') }}</label>
-                        <div class="password-wrapper">
-                            <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" name="password"
-                                required autofocus>
-                            <span class="password-toggle" onclick="togglePassword()">
-                                <i id="password-icon" class='bx bx-hide'></i>
-                            </span>
-                        </div>
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="password_confirmation" class="required-label">{{ __('Confirm Password') }}</label>
-                        <input id="password_confirmation" type="password"
-                            class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"
-                            required autofocus>
-                        @error('password_confirmation')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>                           
                     <div class="form-group row">
                         <label class="col-form-label text-md-end"></label>
                         <div class="col-md-8">
@@ -232,10 +205,10 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="email">{{ __('Email') }}</label>
+                        <label for="email" class="required-label">{{ __('Email') }}</label>
                         <input id="email" type="email"
                             class="form-control @error('email') is-invalid @enderror" name="email"
-                            value="{{ $value->email }}">
+                            value="{{ $value->email }}" required autofocus>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

@@ -10,7 +10,6 @@
                     <th class="text-center">Nama</th>
                     <th class="text-center">Username</th>
                     <th class="text-center">Email</th>
-                    <th class="text-center">Password</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +24,6 @@
                             <td>{{$value->anggota->full_name}}</td>
                             <td>{{$value->name}}</td> 
                             <td>{{$value->email}}</td> 
-                            <td>12345</td>  
                         </tr>
                     @endforeach
                 @endif

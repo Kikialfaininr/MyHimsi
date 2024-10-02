@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordNotification;
+use Illuminate\Support\Str;
 use App\Models\Users;
 use App\Models\Jabatan;
 use App\Models\Anggota;
@@ -30,11 +33,13 @@ class AdminUsersController extends Controller
     public function simpan(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'unique:users',
-            'password' => 'required|confirmed',
+            'name' => 'required|unique:users,name',
+            'email' => 'required|email|unique:users,email',
+            'id_anggota' => 'required|integer|unique:users,id_anggota',
         ], [
             'name.unique' => 'Gagal menyimpan data karena data sudah ada.',
             'password.confirmed' => 'Password konfirmasi tidak cocok.',
+            'id_anggota.unique' => 'Anggota ini sudah memiliki akun.',
         ]);
 
         if ($validator->fails()) {
@@ -44,16 +49,28 @@ class AdminUsersController extends Controller
             ]);
         }
 
-        $users = new Users();
-        $users->name = $request->name;
-        $users->email = $request->email;
-        $users->password = Hash::make($request->password);
-        $users->id_anggota = $request->id_anggota;
-        $users->role = 'Anggota';
-        $users->save();
-        return redirect('/admin-users')->with('message', 'Data berhasil ditambah')->with('alert_class', 'success');      
-    }
+        // Generate password random
+        $randomPassword = Str::random(5);
 
+        // Hash password sebelum disimpan ke database
+        $hashedPassword = Hash::make($randomPassword);
+
+        $user = new Users();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $hashedPassword;
+        $user->id_anggota = $request->id_anggota;
+        $user->role = 'Anggota';
+        $user->save();
+
+        // Kirim password ke email anggota
+        Mail::to($user->email)->send(new PasswordNotification($user->name, $randomPassword));
+
+        return redirect('/admin-users')->with([
+            'message' => 'Data berhasil ditambah dan password telah dikirim ke email anggota.',
+            'alert_class' => 'success'
+        ]);
+    }
 
     public function edit(Request $request, $id)
     {
@@ -64,11 +81,14 @@ class AdminUsersController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'unique:users,name,' . $id,
-            'password' => 'nullable|confirmed',
+            'name' => 'required|unique:users,name,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
+            'id_anggota' => 'required|integer',
+            'id_anggota' => 'required|integer|unique:users,id_anggota,' . $id,
         ], [
             'name.unique' => 'Gagal menyimpan data karena data sudah ada.',
             'password.confirmed' => 'Password konfirmasi tidak cocok.',
+            'id_anggota.unique' => 'Anggota ini sudah memiliki akun.',
         ]);
 
         if ($validator->fails()) {
@@ -78,17 +98,26 @@ class AdminUsersController extends Controller
             ]);
         }
 
-        $users = Users::where('id', $id)->first();
-        $users->name = $request->name;
-        $users->email = $request->email;
-        $users->id_anggota = $request->id_anggota;
-        
+        $user = Users::findOrFail($id);
+
+        // Update data user kecuali password
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->id_anggota = $request->id_anggota;
+
+        // Cek jika admin ingin mengubah password
         if ($request->filled('password')) {
-            $users->password = Hash::make($request->password);
+            // Hash password baru
+            $user->password = Hash::make($request->password);
         }
 
-        $users->save();
-        return redirect('/admin-users')->with('message', 'Data berhasil diubah')->with('alert_class', 'success');
+        // Simpan perubahan data user
+        $user->save();
+
+        return redirect('/admin-users')->with([
+            'message' => 'Data berhasil diperbarui.',
+            'alert_class' => 'success'
+        ]);
     }
 
     public function hapus(Request $request, $id)
