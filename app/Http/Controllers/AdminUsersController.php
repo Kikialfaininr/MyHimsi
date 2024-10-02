@@ -50,7 +50,7 @@ class AdminUsersController extends Controller
         }
 
         // Generate password random
-        $randomPassword = Str::random(5);
+        $randomPassword = Str::random(8);
 
         // Hash password sebelum disimpan ke database
         $hashedPassword = Hash::make($randomPassword);

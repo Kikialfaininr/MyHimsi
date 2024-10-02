@@ -155,8 +155,9 @@
                     <h3>Website</h3>
                     <ul>
                         <li><a href="https://www.uhb.ac.id/id/fakultas/fakultas-sains/s1-sistem-informasi/"
-                                target="_blank">Program Studi</a></li>
-                        <li><a href="https://www.uhb.ac.id/id/" target="_blank">Universitas</a></li>
+                                target="_blank">Prodi S1 Sistem Informasi</a></li>
+                        <li><a href="https://www.uhb.ac.id/id/" target="_blank">Universitas Harapan Bangsa</a></li>
+                        <li><a href="https://ejournal.uhb.ac.id/index.php/IKOMTI" target="_blank">Jurnal IKOMTI</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
