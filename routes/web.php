@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Mail;
 
 // Halaman umum yang bisa diakses oleh semua role atau tanpa login
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
+Route::get('/poster', [App\Http\Controllers\PosterController::class, 'index']);
+Route::get('/poster/{id}', [App\Http\Controllers\PosterController::class, 'show']);
 Route::get('/prestasi', [App\Http\Controllers\PrestasiController::class, 'index']);
 Route::get('/divisi/{id}', [App\Http\Controllers\DivisiController::class, 'index']);
 Route::get('/berita/{id}', [App\Http\Controllers\BeritaController::class, 'show']);
@@ -106,6 +108,15 @@ Route::group(['middleware' => ['auth', RoleMiddleware::class.':Admin,Pengurus']]
     Route::get('{id}/hapus-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'hapus']);
     Route::get('/downloadpdf-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'downloadpdf']);
 
+    // halaman admin poster
+    Route::get('/admin-poster', [App\Http\Controllers\AdminPosterController::class, 'index']);
+    Route::post('/simpan-data-poster', [App\Http\Controllers\AdminPosterController::class, 'simpan']);
+    Route::get('{id}/edit-poster', [App\Http\Controllers\AdminPosterController::class, 'edit']);
+    Route::post('/update-poster/{id}', [App\Http\Controllers\AdminPosterController::class, 'update']);
+    Route::post('/status-poster/{id}', [App\Http\Controllers\AdminPosterController::class, 'status']);
+    Route::get('{id}/hapus-poster', [App\Http\Controllers\AdminPosterController::class, 'hapus']);
+    Route::get('/downloadpdf-poster', [App\Http\Controllers\AdminPosterController::class, 'downloadpdf']);
+
     // halaman admin event
     Route::get('/admin-event', [App\Http\Controllers\AdminEventController::class, 'index']);
     Route::post('/simpan-data-event', [App\Http\Controllers\AdminEventController::class, 'simpan']);
@@ -159,12 +170,17 @@ Route::group(['middleware' => ['auth', RoleMiddleware::class.':Anggota']], funct
     Route::post('/simpan-data-haki-anggota', [App\Http\Controllers\PrestasiController::class, 'simpanHaki']);
     Route::post('/simpan-data-tugasakhir-anggota', [App\Http\Controllers\PrestasiController::class, 'simpanTugasakhir']);
 
+    // galeri poster
+    Route::post('/simpan-data-poster-anggota', [App\Http\Controllers\PosterController::class, 'simpan']);
+
     // riwayat pengajuan prestasi
     Route::get('/riwayat-pengajuan', [App\Http\Controllers\RiwayatPengajuanController::class, 'index']);
     Route::post('/update-artikel-anggota/{id}', [App\Http\Controllers\RiwayatPengajuanController::class, 'updateArtikel']);
     Route::post('/update-haki-anggota/{id}', [App\Http\Controllers\RiwayatPengajuanController::class, 'updateHaki']);
     Route::post('/update-tugasakhir-anggota/{id}', [App\Http\Controllers\RiwayatPengajuanController::class, 'updateTugasakhir']);
+    Route::post('/update-poster-anggota/{id}', [App\Http\Controllers\RiwayatPengajuanController::class, 'updatePoster']);
     Route::get('{id}/hapus-artikel-anggota', [App\Http\Controllers\RiwayatPengajuanController::class, 'hapusArtikel']);
     Route::get('{id}/hapus-haki-anggota', [App\Http\Controllers\RiwayatPengajuanController::class, 'hapusHaki']);
     Route::get('{id}/hapus-tugasakhir-anggota', [App\Http\Controllers\RiwayatPengajuanController::class, 'hapusTugasakhir']);
+    Route::get('{id}/hapus-poster-anggota', [App\Http\Controllers\RiwayatPengajuanController::class, 'hapusPoster']);
 });

@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Artikel;
 use App\Models\Haki;
 use App\Models\TugasAkhir;
+use App\Models\Poster;
+use Redirect;
+use Session;
+use PDF;
+use Image;
 
 class RiwayatPengajuanController extends Controller
 {
@@ -26,7 +32,11 @@ class RiwayatPengajuanController extends Controller
                                  ->orderBy('created_at', 'DESC')
                                  ->get();
 
-        return view('riwayat-pengajuan', compact('artikel', 'haki', 'tugasakhir'));
+        $poster = Poster::where('id', $userId)
+                                 ->orderBy('created_at', 'DESC')
+                                 ->get();
+
+        return view('riwayat-pengajuan', compact('artikel', 'haki', 'tugasakhir', 'poster'));
     }
 
     public function updateArtikel(Request $request, $id)
@@ -66,6 +76,56 @@ class RiwayatPengajuanController extends Controller
         return redirect('/riwayat-pengajuan')->with('message', 'Pengajuan berhasil diubah')->with('alert_class', 'success');
     }
 
+    public function updatePoster(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:15000',
+            ], [
+                'foto.image' => 'File harus berupa gambar.',
+                'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
+                'foto.max' => 'Gambar tidak boleh lebih dari 15MB.',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect('/riwayat-pengajuan')->with([
+                    'message' => $validator->errors()->first(),
+                    'alert_class' => 'danger'
+                ]);
+            }
+
+            $poster = Poster::find($id);
+
+            if ($request->hasFile('foto')) {
+                $file = $request->file('foto');
+                $foto = 'Poster-'.date('Ymdhis').'.'.$file->getClientOriginalExtension();
+
+                $image = Image::make($file->getRealPath());
+                $image->save(public_path('image/poster/'.$foto), 80);
+
+                // Hapus foto lama jika ada
+                if ($poster->foto && file_exists(public_path('image/poster/' . $poster->foto))) {
+                    unlink(public_path('image/poster/' . $poster->foto));
+                }
+
+                $poster->foto = $foto;
+            }
+
+            $poster->nama_mahasiswa = $request->nama_mahasiswa;
+            $poster->judul = $request->judul;
+            $poster->jenis = $request->jenis;
+            $poster->id = Auth::id();
+            $poster->save();
+
+            return redirect('/riwayat-pengajuan')->with('message', 'Pengajuan berhasil diubah')->with('alert_class', 'success');
+        } catch (\Exception $e) {
+            return redirect('/riwayat-pengajuan')->with([
+                'message' => 'Gagal mengajukan poster: ' . $e->getMessage(),
+                'alert_class' => 'danger'
+            ]);
+        }
+    }
+
     public function hapusArtikel(Request $request, $id)
     {
         $artikel = Artikel::findOrFail($id);
@@ -87,6 +147,14 @@ class RiwayatPengajuanController extends Controller
         $tugasakhir = TugasAkhir::findOrFail($id);
 
         $tugasakhir->delete();
+        return redirect('/riwayat-pengajuan')->with('message', 'Pengajuan berhasil dibatalkan')->with('alert_class', 'success');
+    }
+
+    public function hapusPoster(Request $request, $id)
+    {
+        $poster = Poster::findOrFail($id);
+
+        $poster->delete();
         return redirect('/riwayat-pengajuan')->with('message', 'Pengajuan berhasil dibatalkan')->with('alert_class', 'success');
     }
 }

@@ -33,4 +33,9 @@ class Users extends Model
         return $this->hasMany(TugasAkhir::class, 'id');
     }
 
+    public function poster()
+    {
+        return $this->hasMany(Poster::class, 'id');
+    }
+
 }

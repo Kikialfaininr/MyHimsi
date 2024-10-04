@@ -3,6 +3,9 @@
 @section('content')
     <div class="berita-detail">
         <div class="card">
+            <a href="javascript:history.back()" class="btn btn-back">
+                <i class='bx bx-left-arrow-alt'></i> Back
+            </a>
             <h2>{{ $berita->judul_berita }}</h2>
             <h5>{{ $berita->penulis }}</h5>
             <h6>{{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('l, d F Y') }}</h6>

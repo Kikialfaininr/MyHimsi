@@ -968,6 +968,7 @@ body {
     font-size: 4rem;
     font-weight: 700;
     margin: 20px;
+    margin-top: 50px;
     text-align: center;
     color: var(--second-bg-color);
 }
@@ -995,7 +996,6 @@ body {
     font-size: 1.5rem;
     font-weight: 500;
 }
-
 
 /* event */
 .event {
@@ -1688,4 +1688,161 @@ body {
     height: 100px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+
+/* poster */
+.poster {
+    padding: 80px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+}
+
+.poster .card h2 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 20px;
+    text-align: center;
+    color: var(--second-bg-color);
+}
+
+.poster .card span {
+    color: var(--main-color);
+}
+
+.poster .menu,
+.poster .menu .card {
+    padding: 20px;  
+}
+
+.poster .menu p {
+    display: flex;
+    justify-content: left;
+    margin: 20px 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.poster .menu .card a {
+    text-decoration: none;
+    color: var(--main-color);
+    font-size: 1.6rem;
+    font-weight: 500;
+    justify-content: left;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.poster .menu .card a:hover {
+    color: var(--second-text-color);
+    text-decoration: underline;
+}
+
+.poster-content {
+    padding: 20px;
+}
+
+.poster-content .card {
+    border: none;
+    overflow: hidden;
+    position: relative;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.poster-content .card img {
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    filter: brightness(0.5);
+    transition: transform 0.3s ease;
+}
+
+.poster-content .card:hover {
+    box-shadow: 0 4px 15px var(--main-color);
+}
+
+.poster-content .card:hover img {
+    transform: scale(1.1);
+}
+
+.poster-content .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.poster-content .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.poster-content .card-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--main-color);
+}
+
+/* poster detail */
+.poster-detail {
+    padding: 80px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+}
+
+.poster-detail .card {
+    padding: 40px;
+}
+
+.poster-detail .card h2 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 20px;
+    margin-top: 50px;
+    text-align: center;
+    color: var(--second-bg-color);
+}
+
+.poster-detail .card h6 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: grey;
+    text-align: center;
+}
+
+.poster-detail .card .poster-img {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.poster-detail .card p {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.btn-back {
+    position: absolute;
+    left: 50px;
+    color: var(--second-bg-color);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    
+}
+.btn-back:hover {
+    color: var(--main-color);
+}
+.bx-left-arrow-alt {
+    font-size: 1.5rem; 
+    vertical-align: middle;
 }

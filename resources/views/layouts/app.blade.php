@@ -131,6 +131,14 @@
                     </div>
                 </div>
                 <li>
+                    <a href="{{ url('/admin-poster') }}">
+                        <span class="icon">
+                            <i class='bx bx-photo-album'></i>
+                        </span>
+                        <span class="title">Galeri Poster</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ url('/admin-event') }}">
                         <span class="icon">
                             <i class='bx bx-calendar'></i>

@@ -46,6 +46,9 @@
                             <a class="nav-link" href="{{ url('/prestasi') }}">Prestasi</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/poster') }}">Galeri Poster</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url('/event') }}">Event</a>
                         </li>
                         <li class="nav-item">
@@ -152,8 +155,8 @@
                     <ul>
                         <li><a href="{{ url('/') }}#vision">Visi-Misi</a></li>
                         <li><a href="{{ url('/') }}#division">Divisi</a></li>
-                        <li><a href="{{ url('/event') }}">Event</a></li>
-                        <li><a href="{{ url('/berita') }}">Berita</a></li>
+                        <li><a href="{{ url('/prestasi') }}">Prestasi</a></li>
+                        <li><a href="{{ url('/poster') }}">Galeri Poster Mahasiswa</a></li>
                         <li><a href="{{ url('/arsip') }}">Arsip</a></li>
                     </ul>
                 </div>
