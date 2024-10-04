@@ -132,12 +132,24 @@ body {
     pointer-events: none;
 }
 
-.user-avatar {
-    width: 30px; 
-    height: 30px; 
-    border-radius: 50%;
-    object-fit: cover; 
-    margin-right: 10px;
+.collapse .card {
+    width: 120%;
+    max-width: 600px;
+    margin: 0 auto; 
+    border: none;
+    background-color: var(--blue);
+}
+
+.collapse .card-body a {
+    color: var(--white); 
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+    padding: 10px 0;
+}
+
+.collapse .card-body a:hover {
+    color: var(--yellow);
 }
 
 /* ===================== Main ===================== */
@@ -212,6 +224,14 @@ body {
 
 .user li {
     list-style: none;
+}
+
+.user-avatar {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%;
+    object-fit: cover; 
+    margin-right: 10px;
 }
 
 /* halaman dashboard */

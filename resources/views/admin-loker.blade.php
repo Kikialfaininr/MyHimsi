@@ -91,7 +91,7 @@
     </div>
 </div>
 
-{{-- edit data --}}
+{{-- detail loker --}}
 @foreach($loker as $no => $value)
 <div class="modal" id="Deskripsi{{$value->id_loker}}" role="dialog">
     <div class="modal-dialog modal-xl">

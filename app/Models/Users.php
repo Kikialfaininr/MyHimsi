@@ -18,4 +18,19 @@ class Users extends Model
         return $this->belongsTo(Anggota::class, 'id_anggota');
     }
 
+    public function artikel()
+    {
+        return $this->hasMany(Artikel::class, 'id');
+    }
+
+    public function haki()
+    {
+        return $this->hasMany(Haki::class, 'id');
+    }
+    
+    public function tugasakhir()
+    {
+        return $this->hasMany(TugasAkhir::class, 'id');
+    }
+
 }

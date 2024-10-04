@@ -20,6 +20,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" type="text/css" href="{{ asset('css\style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- DataTables -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -99,6 +100,37 @@
                     </a>
                 </li>
                 <li>
+                    <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                        aria-controls="collapseExample">
+                        <span class="icon">
+                            <i class='bx bxs-medal'></i>
+                        </span>
+                        <span class="title">Prestasi</span>
+                    </a>
+                </li>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <a href="{{ url('/admin-artikel') }}">
+                            <span class="icon">
+                                <i class='bx bxs-book-content'></i>
+                            </span>
+                            <span class="title">Data Artikel</span>
+                        </a>
+                        <a href="{{ url('/admin-haki') }}">
+                            <span class="icon">
+                                <i class='bx bxs-lock-alt'></i>
+                            </span>
+                            <span class="title">Data HaKI</span>
+                        </a>
+                        <a href="{{ url('/admin-tugasakhir') }}">
+                            <span class="icon">
+                                <i class='bx bxs-file'></i>
+                            </span>
+                            <span class="title">Data Tugas Akhir</span>
+                        </a>
+                    </div>
+                </div>
+                <li>
                     <a href="{{ url('/admin-event') }}">
                         <span class="icon">
                             <i class='bx bx-calendar'></i>
@@ -156,11 +188,11 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#"
-                                role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center"
+                                href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" v-pre>
                                 @php
                                     $foto = '';
-                                    
 
                                     if (Auth::user()->role == 'Admin') {
                                         $foto = asset('image/admin.jpeg');

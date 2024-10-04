@@ -78,6 +78,31 @@ Route::group(['middleware' => ['auth', RoleMiddleware::class.':Admin,Pengurus']]
     Route::get('/downloadpdf-proker', [App\Http\Controllers\AdminProkerController::class, 'downloadpdf']);
     Route::get('/downloadpdf-proker-periode', [App\Http\Controllers\AdminProkerController::class, 'downloadpdfByPeriode']);
 
+    // halaman admin artikel
+    Route::get('/admin-artikel', [App\Http\Controllers\AdminArtikelController::class, 'index']);
+    Route::post('/simpan-data-artikel', [App\Http\Controllers\AdminArtikelController::class, 'simpan']);
+    Route::get('{id}/edit-artikel', [App\Http\Controllers\AdminArtikelController::class, 'edit']);
+    Route::post('/update-artikel/{id}', [App\Http\Controllers\AdminArtikelController::class, 'update']);
+    Route::post('/status-artikel/{id}', [App\Http\Controllers\AdminArtikelController::class, 'status']);
+    Route::get('{id}/hapus-artikel', [App\Http\Controllers\AdminArtikelController::class, 'hapus']);
+    Route::get('/downloadpdf-artikel', [App\Http\Controllers\AdminArtikelController::class, 'downloadpdf']);
+
+    // halaman admin haki
+    Route::get('/admin-haki', [App\Http\Controllers\AdminHakiController::class, 'index']);
+    Route::post('/simpan-data-haki', [App\Http\Controllers\AdminHakiController::class, 'simpan']);
+    Route::get('{id}/edit-haki', [App\Http\Controllers\AdminHakiController::class, 'edit']);
+    Route::post('/update-haki/{id}', [App\Http\Controllers\AdminHakiController::class, 'update']);
+    Route::get('{id}/hapus-haki', [App\Http\Controllers\AdminHakiController::class, 'hapus']);
+    Route::get('/downloadpdf-haki', [App\Http\Controllers\AdminHakiController::class, 'downloadpdf']);
+
+    // halaman admin tugas akhir
+    Route::get('/admin-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'index']);
+    Route::post('/simpan-data-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'simpan']);
+    Route::get('{id}/edit-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'edit']);
+    Route::post('/update-tugasakhir/{id}', [App\Http\Controllers\AdminTugasAkhirController::class, 'update']);
+    Route::get('{id}/hapus-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'hapus']);
+    Route::get('/downloadpdf-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'downloadpdf']);
+
     // halaman admin event
     Route::get('/admin-event', [App\Http\Controllers\AdminEventController::class, 'index']);
     Route::post('/simpan-data-event', [App\Http\Controllers\AdminEventController::class, 'simpan']);
