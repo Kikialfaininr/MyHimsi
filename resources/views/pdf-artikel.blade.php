@@ -9,6 +9,8 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Author Mahasiswa</th>
                     <th class="text-center">Judul Artikel</th>
+                    <th class="text-center">Penerbit</th>
+                    <th class="text-center">Tanggal Publikasi</th>
                     <th class="text-center">Link Artikel</th>
                 </tr>
             </thead>
@@ -36,6 +38,8 @@
                                 @endif
                             </td>
                             <td>{{ $value->judul }}</td>
+                            <td>{{ $value->penerbit }}</td>
+                            <td>{{ $value->tahun_terbit }}</td>
                             <td>
                                 <a href="{{ $value->link_artikel }}" target="_blank">Link Artikel</a>
                             </td>

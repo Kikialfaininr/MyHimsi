@@ -20,7 +20,7 @@ class ProfilAnggotaController extends Controller
     public function index()
     {
         $user = Auth::user();
-
+        
         $divisi = Divisi::all();
         $jabatan = Jabatan::all();
         $periode = Periode::all();

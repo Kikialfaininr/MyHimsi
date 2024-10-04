@@ -47,6 +47,8 @@
                             <th class="text-center">Status</th>
                             <th class="text-center">Author Mahasiswa</th>
                             <th class="text-center">Judul Artikel</th>
+                            <th class="text-center">Penerbit</th>
+                            <th class="text-center">Tahun Publikasi</th>
                             <th class="text-center">Link Artikel</th>
                             <th class="text-center">Aksi</th>
                         </tr>
@@ -79,7 +81,9 @@
                                         {!! nl2br(e($lines[0])) !!}
                                     @endif
                                 </td> 
-                                <td>{{ $value->judul }}</td>                               
+                                <td>{{ $value->judul }}</td>   
+                                <td>{{ $value->penerbit }}</td> 
+                                <td>{{ $value->tahun_terbit }}</td>                 
                                 <td>
                                     <a href="{{ $value->link_artikel }}" target="_blank">{{ $value->link_artikel }}</a>
                                 </td>
@@ -118,6 +122,18 @@
                     <form method="POST" action="{{ url('simpan-data-artikel') }}">
                         @csrf
                         <div>
+                            <label for="nama_mahasiswa" class="required-label">{{ __('Author Mahasiswa') }}</label>
+                            <textarea id="nama_mahasiswa"
+                                class="form-control @error('nama_mahasiswa') is-invalid @enderror" name="nama_mahasiswa"
+                                value="{{ old('nama_mahasiswa') }}" required autofocus></textarea>
+                            @error('nama_mahasiswa')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <p class="form-text text-muted">* Jika Lebih dari 1 nama, cantumkan semua nama mahasiswa yang menjadi penulis artikel dengan memisahkannya menggunakan enter tanpa penomoran.</p>
+                        </div>
+                        <div>
                             <label for="judul" class="required-label">{{ __('Judul Artikel') }}</label>
                             <input id="judul" type="text"
                                 class="form-control @error('judul') is-invalid @enderror" name="judul"
@@ -129,16 +145,26 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="nama_mahasiswa" class="required-label">{{ __('Author Mahasiswa') }}</label>
-                            <textarea id="nama_mahasiswa"
-                                class="form-control @error('nama_mahasiswa') is-invalid @enderror" name="nama_mahasiswa"
-                                value="{{ old('nama_mahasiswa') }}" required autofocus></textarea>
-                            @error('nama_mahasiswa')
+                            <label for="penerbit" class="required-label">{{ __('Penerbit') }}</label>
+                            <input id="penerbit" type="text"
+                                class="form-control @error('penerbit') is-invalid @enderror" name="penerbit"
+                                value="{{ old('penerbit') }}" required autofocus>
+                            @error('penerbit')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <p class="form-text text-muted">* Cantumkan semua nama mahasiswa yang menjadi penulis artikel dengan memisahkannya menggunakan enter tanpa penomoran.</p>
+                        </div>
+                        <div>
+                            <label for="tahun_terbit" class="required-label">{{ __('Tahun Publikasi') }}</label>
+                            <input id="tahun_terbit" type="number"
+                                class="form-control @error('tahun_terbit') is-invalid @enderror" name="tahun_terbit"
+                                value="{{ old('tahun_terbit') }}" required autofocus>
+                            @error('tahun_terbit')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div>
                             <label for="link_artikel" class="required-label">{{ __('Link Artikel') }}</label>
@@ -172,11 +198,24 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Ubah Data artikel</h4>
+                        <h4 class="modal-title">Ubah Data Artikel</h4>
                     </div>
                     <div class="modal-body">
                         <form method="POST" action="{{ url('update-artikel/' . $value->id_artikel) }}">
                             @csrf
+                            <div>
+                                <label for="nama_mahasiswa" class="required-label">{{ __('Author Mahasiswa') }}</label>
+                                <textarea id="nama_mahasiswa" 
+                                          class="form-control @error('nama_mahasiswa') is-invalid @enderror" 
+                                          name="nama_mahasiswa" 
+                                          required autofocus>{{ old('nama_mahasiswa', $value->nama_mahasiswa) }}</textarea>
+                                @error('nama_mahasiswa')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <p class="form-text text-muted">* Jika Lebih dari 1 nama, cantumkan semua nama mahasiswa yang menjadi penulis artikel dengan memisahkannya menggunakan enter tanpa penomoran.</p>
+                            </div>
                             <div>
                                 <label for="judul" class="required-label">{{ __('Judul Artikel') }}</label>
                                 <input id="judul" type="text"
@@ -189,17 +228,26 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="nama_mahasiswa" class="required-label">{{ __('Author Mahasiswa') }}</label>
-                                <textarea id="nama_mahasiswa" 
-                                          class="form-control @error('nama_mahasiswa') is-invalid @enderror" 
-                                          name="nama_mahasiswa" 
-                                          required autofocus>{{ old('nama_mahasiswa', $value->nama_mahasiswa) }}</textarea>
-                                @error('nama_mahasiswa')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <label for="penerbit" class="required-label">{{ __('Penerbit') }}</label>
+                                <input id="penerbit" type="text"
+                                    class="form-control @error('penerbit') is-invalid @enderror" name="penerbit"
+                                    value="{{ $value->penerbit }}" required autofocus>
+                                @error('penerbit')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
-                                <p class="form-text text-muted">* Cantumkan semua nama mahasiswa yang menjadi penulis artikel dengan memisahkannya menggunakan enter tanpa penomoran.</p>
+                            </div>
+                            <div>
+                                <label for="tahun_terbit" class="required-label">{{ __('Tahun Publikasi') }}</label>
+                                <input id="tahun_terbit" type="number"
+                                    class="form-control @error('tahun_terbit') is-invalid @enderror" name="tahun_terbit"
+                                    value="{{ $value->tahun_terbit }}" required autofocus>
+                                @error('tahun_terbit')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div>
                                 <label for="link_artikel" class="required-label">{{ __('Link Artikel') }}</label>

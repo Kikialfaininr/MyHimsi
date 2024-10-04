@@ -125,7 +125,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <p class="form-text text-muted">* Jika Lebih dari 1 nama, Cantumkan semua nama mahasiswa yang menjadi penulis tugas akhir dengan memisahkannya menggunakan enter tanpa penomoran.</p>
+                            <p class="form-text text-muted">* Jika Lebih dari 1 nama, cantumkan semua nama mahasiswa yang menjadi penulis tugas akhir dengan memisahkannya menggunakan enter tanpa penomoran.</p>
                         </div>
                         <div>
                             <label for="judul" class="required-label">{{ __('Judul Tugas Akhir') }}</label>
@@ -186,7 +186,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                                <p class="form-text text-muted">* Jika Lebih dari 1 nama, Cantumkan semua nama mahasiswa yang menjadi penulis tugas akhir dengan memisahkannya menggunakan enter tanpa penomoran.</p>
+                                <p class="form-text text-muted">* Jika Lebih dari 1 nama, cantumkan semua nama mahasiswa yang menjadi penulis tugas akhir dengan memisahkannya menggunakan enter tanpa penomoran.</p>
                             </div>
                             <div>
                                 <label for="judul" class="required-label">{{ __('Judul Tugas Akhir') }}</label>

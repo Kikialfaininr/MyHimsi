@@ -28,6 +28,8 @@ class AdminArtikelController extends Controller
         $artikel = new Artikel();
         $artikel->judul = $request->judul;
         $artikel->nama_mahasiswa = $request->nama_mahasiswa;
+        $artikel->penerbit = $request->penerbit;
+        $artikel->tahun_terbit = $request->tahun_terbit;
         $artikel->link_artikel = $request->link_artikel;
         $artikel->status = 'Diterima';
         
@@ -52,6 +54,8 @@ class AdminArtikelController extends Controller
         $artikel = Artikel::where('id_artikel', $id)->first();
             $artikel->judul = $request->judul;
             $artikel->nama_mahasiswa = $request->nama_mahasiswa;
+            $artikel->penerbit = $request->penerbit;
+            $artikel->tahun_terbit = $request->tahun_terbit;
             $artikel->link_artikel = $request->link_artikel;
             $artikel->status = 'Diterima';
             $artikel->id = Auth::id();

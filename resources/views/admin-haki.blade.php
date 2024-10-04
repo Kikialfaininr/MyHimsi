@@ -61,7 +61,7 @@
                                 <td>
                                     @if(is_null($value->status))
                                         <button class="btn btn-success btn-sm" onclick="confirmStatus('Terima', '{{ url('status-haki/' . $value->id_haki) }}')"><i class='bx bx-check'></i></button>
-                                        <button class="btn btn-danger btn-sm" onclick="confirmStatus('Tolak', '{{ url('status-haki/' . $value->id_haki) }}')"><i class='bx bx-x'></i>                                        </button>
+                                        <button class="btn btn-danger btn-sm" onclick="confirmStatus('Tolak', '{{ url('status-haki/' . $value->id_haki) }}')"><i class='bx bx-x'></i></button>
                                     @else
                                         <span class="{{ $value->status === 'Diterima' ? 'text-success' : 'text-danger' }}">
                                             {{ $value->status }}
@@ -129,7 +129,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <p class="form-text text-muted">* Cantumkan semua nama mahasiswa yang menjadi penulis haki dengan memisahkannya menggunakan enter tanpa penomoran.</p>
+                            <p class="form-text text-muted">* Jika Lebih dari 1 nama, cantumkan semua nama mahasiswa yang menjadi pencipta HaKI dengan memisahkannya menggunakan enter tanpa penomoran.</p>
                         </div>
                         <div>
                             <label for="nomor" class="required-label">{{ __('Nomor Paten') }}</label>
@@ -196,7 +196,7 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Ubah Data haki</h4>
+                        <h4 class="modal-title">Ubah Data HaKI</h4>
                     </div>
                     <div class="modal-body">
                         <form method="POST" action="{{ url('update-haki/' . $value->id_haki) }}">
@@ -212,7 +212,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                                <p class="form-text text-muted">* Cantumkan semua nama mahasiswa yang menjadi penulis haki dengan memisahkannya menggunakan enter tanpa penomoran.</p>
+                                <p class="form-text text-muted">* Jika Lebih dari 1 nama, cantumkan semua nama mahasiswa yang menjadi pencipta HaKI dengan memisahkannya menggunakan enter tanpa penomoran.</p>
                             </div>
                             <div>
                                 <label for="nomor" class="required-label">{{ __('Nomor Paten') }}</label>

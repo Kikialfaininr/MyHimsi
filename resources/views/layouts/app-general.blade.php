@@ -43,6 +43,9 @@
                             <a class="nav-link" href="{{ url('/') }}">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/prestasi') }}">Prestasi</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url('/event') }}">Event</a>
                         </li>
                         <li class="nav-item">
@@ -108,6 +111,9 @@
                                     @if(Auth::check() && Auth::user()->role == 'Anggota')
                                     <a class="dropdown-item" href="{{ url('/profil-anggota') }}">
                                         {{ __('Profil anggota') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ url('/riwayat-pengajuan') }}">
+                                        {{ __('Riwayat Pengajuan Prestasi') }}
                                     </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"

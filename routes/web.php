@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Mail;
 
 // Halaman umum yang bisa diakses oleh semua role atau tanpa login
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
+Route::get('/prestasi', [App\Http\Controllers\PrestasiController::class, 'index']);
 Route::get('/divisi/{id}', [App\Http\Controllers\DivisiController::class, 'index']);
 Route::get('/berita/{id}', [App\Http\Controllers\BeritaController::class, 'show']);
 Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index']);
@@ -92,6 +93,7 @@ Route::group(['middleware' => ['auth', RoleMiddleware::class.':Admin,Pengurus']]
     Route::post('/simpan-data-haki', [App\Http\Controllers\AdminHakiController::class, 'simpan']);
     Route::get('{id}/edit-haki', [App\Http\Controllers\AdminHakiController::class, 'edit']);
     Route::post('/update-haki/{id}', [App\Http\Controllers\AdminHakiController::class, 'update']);
+    Route::post('/status-haki/{id}', [App\Http\Controllers\AdminHakiController::class, 'status']);
     Route::get('{id}/hapus-haki', [App\Http\Controllers\AdminHakiController::class, 'hapus']);
     Route::get('/downloadpdf-haki', [App\Http\Controllers\AdminHakiController::class, 'downloadpdf']);
 
@@ -100,6 +102,7 @@ Route::group(['middleware' => ['auth', RoleMiddleware::class.':Admin,Pengurus']]
     Route::post('/simpan-data-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'simpan']);
     Route::get('{id}/edit-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'edit']);
     Route::post('/update-tugasakhir/{id}', [App\Http\Controllers\AdminTugasAkhirController::class, 'update']);
+    Route::post('/status-tugasakhir/{id}', [App\Http\Controllers\AdminTugasAkhirController::class, 'status']);
     Route::get('{id}/hapus-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'hapus']);
     Route::get('/downloadpdf-tugasakhir', [App\Http\Controllers\AdminTugasAkhirController::class, 'downloadpdf']);
 
@@ -150,4 +153,18 @@ Route::group(['middleware' => ['auth', RoleMiddleware::class.':Anggota']], funct
     Route::post('/ubah-profil/{id}', [App\Http\Controllers\ProfilAnggotaController::class, 'image']);
     Route::post('/ubah-login/{id}', [App\Http\Controllers\ProfilAnggotaController::class, 'login']);
     Route::post('/ubah-anggota/{id}', [App\Http\Controllers\ProfilAnggotaController::class, 'anggota']);
+
+    // prestasi
+    Route::post('/simpan-data-artikel-anggota', [App\Http\Controllers\PrestasiController::class, 'simpanArtikel']);
+    Route::post('/simpan-data-haki-anggota', [App\Http\Controllers\PrestasiController::class, 'simpanHaki']);
+    Route::post('/simpan-data-tugasakhir-anggota', [App\Http\Controllers\PrestasiController::class, 'simpanTugasakhir']);
+
+    // riwayat pengajuan prestasi
+    Route::get('/riwayat-pengajuan', [App\Http\Controllers\RiwayatPengajuanController::class, 'index']);
+    Route::post('/update-artikel-anggota/{id}', [App\Http\Controllers\RiwayatPengajuanController::class, 'updateArtikel']);
+    Route::post('/update-haki-anggota/{id}', [App\Http\Controllers\RiwayatPengajuanController::class, 'updateHaki']);
+    Route::post('/update-tugasakhir-anggota/{id}', [App\Http\Controllers\RiwayatPengajuanController::class, 'updateTugasakhir']);
+    Route::get('{id}/hapus-artikel-anggota', [App\Http\Controllers\RiwayatPengajuanController::class, 'hapusArtikel']);
+    Route::get('{id}/hapus-haki-anggota', [App\Http\Controllers\RiwayatPengajuanController::class, 'hapusHaki']);
+    Route::get('{id}/hapus-tugasakhir-anggota', [App\Http\Controllers\RiwayatPengajuanController::class, 'hapusTugasakhir']);
 });
