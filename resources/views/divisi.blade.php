@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Divisi')
+
 @section('content')
     <div class="divisi">
         <div class="division-title">

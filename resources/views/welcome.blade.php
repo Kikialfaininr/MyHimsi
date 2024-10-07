@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi')
+
 @section('content')
     {{-- carousel --}}
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">

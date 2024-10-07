@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Arsip Kepengurusan Himsi')
+
 @section('content')
     <div class="arsip">
         <div class="anggota">

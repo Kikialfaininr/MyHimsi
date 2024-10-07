@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Galeri Poster Mahasiswa')
+
 @section('content')
     <div class="poster">
         <div class="card">

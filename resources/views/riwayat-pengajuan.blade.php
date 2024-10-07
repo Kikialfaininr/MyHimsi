@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Riwayat Pengajuan')
+
 @section('content')
     <div class="riwayatPengajuan">
         <div class="col-md-12 col-xs-12">

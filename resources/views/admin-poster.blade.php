@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Data Poster')
+
 @section('content')
     <div class="dataCard">
         <h2>Data Galeri Poster Mahasiswa</h2>

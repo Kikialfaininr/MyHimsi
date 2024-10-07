@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>My Himsi</title>
+    <title>@yield('title', 'Default Title')</title>
     <link rel="icon" href="{{ asset('image\logo himsi.png') }}" type="image">
 
     <!-- Font Awesome 5.15.4 -->

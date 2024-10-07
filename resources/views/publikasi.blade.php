@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Publikasi Jurnal')
+
 @section('content')
 <div class="publikasi">
     {{-- Title --}}

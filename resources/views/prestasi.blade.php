@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Prestasi Mahasiswa')
+
 @section('content')
     <div class="prestasi">
         @if(Auth::check() && Auth::user()->role == 'Anggota')

@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Event')
+
 @section('content')
     <div class="event">
         <div class="card">

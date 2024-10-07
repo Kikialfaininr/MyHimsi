@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Sertifikat')
+
 @section('content')
     <div class="sertifikat">
         {{-- Title --}}

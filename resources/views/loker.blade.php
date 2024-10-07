@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Informasi Lowongan Kerja dan Magang')
+
 @section('content')
     <div class="loker">
         {{-- Title --}}

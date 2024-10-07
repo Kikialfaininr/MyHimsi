@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Data Event')
+
 @section('content')
     <div class="dataCard">
         <h2>Data Event</h2>

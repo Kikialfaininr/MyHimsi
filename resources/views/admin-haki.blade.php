@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Data HaKI Mahasiswa')
+
 @section('content')
     <div class="dataCard">
         <h2>Data HaKI Mahasiswa</h2>

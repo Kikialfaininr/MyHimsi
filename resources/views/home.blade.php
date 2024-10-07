@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Dahboard')
+
 @section('content')
 <div class="cardBox">
     <div class="card">

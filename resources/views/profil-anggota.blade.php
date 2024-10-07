@@ -1,5 +1,7 @@
 @extends('layouts.app-general')
 
+@section('title', 'My Himsi - Profil Anggota')
+
 @section('content')
     <div class="profil">
         <div class="row">
