@@ -158,3 +158,73 @@ body {
     text-align: center;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .form-login, .info-login {
+        width: 100%;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .form-login h2, .info-login h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-login p, .info-login p {
+        font-size: 1rem;
+    }
+
+    .form-login input {
+        font-size: 14px;
+    }
+
+    .form-login .btn-login, .form-login .btn-link {
+        font-size: 0.875rem;
+    }
+
+    .social-icons a {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-login h2, .info-login h2 {
+        font-size: 1.25rem;
+    }
+
+    .form-login p, .info-login p {
+        font-size: 0.875rem;
+    }
+
+    .form-login input {
+        font-size: 12px;
+    }
+
+    .form-login .btn-login, .form-login .btn-link {
+        font-size: 0.75rem;
+    }
+
+    .social-icons a {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.25rem;
+    }
+
+    .btn-back {
+        left: 20px;
+    }
+    
+    .bx-left-arrow-alt {
+        font-size: 0.8rem; 
+    }
+
+    
+}

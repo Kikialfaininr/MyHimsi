@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div class="kadiv-img">
                             @if ($value->foto)
                                 <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">

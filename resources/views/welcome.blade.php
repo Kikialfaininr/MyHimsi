@@ -14,16 +14,16 @@
                 <img src="{{ asset('image\bg3.jpg') }}" class="d-block w-100" alt="...">
             </div>
         </div>
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption d-block d-md-block">
             <h3>Selamat Datang</h3>
             <h1>Himpunan Mahasiswa <span>Sistem Informasi</span></h1>
             <div class="social-icons">
                 <a href="https://wa.me/087773705521" target="_blank" rel="noopener noreferrer"><i
                         class='bx bxl-whatsapp'></i></a>
-                    <a href="mailto:himsiuhb@gmail.com" target="_blank" rel="noopener noreferrer"><i
-                            class='bx bxl-gmail'></i></a>
-                    <a href="https://www.instagram.com/himsi.uhb/" target="_blank" rel="noopener noreferrer"><i
-                            class='bx bxl-instagram-alt'></i></a>
+                <a href="mailto:himsiuhb@gmail.com" target="_blank" rel="noopener noreferrer"><i
+                        class='bx bxl-gmail'></i></a>
+                <a href="https://www.instagram.com/himsi.uhb/" target="_blank" rel="noopener noreferrer"><i
+                        class='bx bxl-instagram-alt'></i></a>
             </div>
         </div>
     </div>
@@ -100,13 +100,14 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        {{-- BPH --}}
-        <div class="bph" id="bph">
-            <h2 class="heading">Badan Pengurus Harian</h2>
-            <h3 class="subheading">{{ $periode->periode }}</h3>
-            @foreach ($anggota as $no => $value)
-                @if ($value->jabatan->nama_jabatan == 'Ketua Umum')
+    {{-- BPH --}}
+    <div class="bph" id="bph">
+        <h2 class="heading">Badan Pengurus Harian</h2>
+        <h3 class="subheading">{{ $periode->periode }}</h3>
+        @foreach ($anggota as $no => $value)
+            @if ($value->jabatan->nama_jabatan == 'Ketua Umum')
                 <div class="row bph-content">
                     <div class="col-md-6">
                         <div class="bio-bph">
@@ -137,8 +138,8 @@
                         </div>
                     </div>
                 </div>
-                @endif
-                @if ($value->jabatan->nama_jabatan == 'Wakil Ketua Umum')
+            @endif
+            @if ($value->jabatan->nama_jabatan == 'Wakil Ketua Umum')
                 <div class="row bph-content">
                     <div class="col-md-6">
                         <div class="img-bph">
@@ -169,8 +170,8 @@
                         </div>
                     </div>
                 </div>
-                @endif
-                @if ($value->jabatan->nama_jabatan == 'Sekretaris')
+            @endif
+            @if ($value->jabatan->nama_jabatan == 'Sekretaris')
                 <div class="row bph-content">
                     <div class="col-md-6">
                         <div class="bio-bph">
@@ -201,8 +202,8 @@
                         </div>
                     </div>
                 </div>
-                @endif
-                @if ($value->jabatan->nama_jabatan == 'Bendahara')
+            @endif
+            @if ($value->jabatan->nama_jabatan == 'Bendahara')
                 <div class="row bph-content">
                     <div class="col-md-6">
                         <div class="img-bph">
@@ -233,32 +234,33 @@
                         </div>
                     </div>
                 </div>
-                @endif
-            @endforeach
-        </div>
+            @endif
+        @endforeach
+    </div>
 
-        {{-- divisi --}}
-        <div class="division" id="division">
-            <h2 class="heading">Divisi</h2>
-            <h3 class="subheading">{{ $periode->periode }}</h3>
-            <div class="wrapper">
-                <div class="row justify-content-center">
-                    @foreach ($divisi as $no => $value)
-                        @if ($value->nama_divisi !== 'Badan Pengurus Harian')
-                            <div class="col-sm-4">
-                                <div class="card division-item">
-                                    <div class="card-body">
-                                        <i class='bx bx-briefcase division-icon'></i>
-                                        <h2>{{ $value->nama_divisi }}</h2>
-                                        <p>{{ $value->deskripsi }}</p>
-                                        <a href="{{ url('/divisi/' . $value->id_divisi) }}" class="btn btn-division">Selengkapnya
-                                            <i class='bx bx-right-arrow-alt'></i></a>                                        
-                                    </div>
+    {{-- divisi --}}
+    <div class="division" id="division">
+        <h2 class="heading">Divisi</h2>
+        <h3 class="subheading">{{ $periode->periode }}</h3>
+        <div class="wrapper">
+            <div class="row justify-content-center">
+                @foreach ($divisi as $no => $value)
+                    @if ($value->nama_divisi !== 'Badan Pengurus Harian')
+                        <div class="col-sm-4">
+                            <div class="card division-item">
+                                <div class="card-body">
+                                    <i class='bx bx-briefcase division-icon'></i>
+                                    <h2>{{ $value->nama_divisi }}</h2>
+                                    <p>{{ $value->deskripsi }}</p>
+                                    <a href="{{ url('/divisi/' . $value->id_divisi) }}"
+                                        class="btn btn-division">Selengkapnya
+                                        <i class='bx bx-right-arrow-alt'></i></a>
                                 </div>
                             </div>
-                        @endif
-                    @endforeach
-                </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

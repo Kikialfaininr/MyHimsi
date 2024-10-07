@@ -37,6 +37,10 @@
                     <img src="{{ asset('image\logo himsi.png') }}" alt="himsi" width="60px"
                         class="d-inline-block align-text-center" />
                 </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -57,13 +61,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/sertifikat') }}">Sertifikat</a>
                         </li>
-                        @if(Auth::check() && Auth::user()->role == 'Anggota')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/publikasi') }}">Publikasi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/loker') }}">Loker</a>
-                        </li>
+                        @if (Auth::check() && Auth::user()->role == 'Anggota')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/publikasi') }}">Publikasi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/loker') }}">Loker</a>
+                            </li>
                         @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/arsip') }}">Arsip</a>
@@ -111,13 +115,13 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    @if(Auth::check() && Auth::user()->role == 'Anggota')
-                                    <a class="dropdown-item" href="{{ url('/profil-anggota') }}">
-                                        {{ __('Profil anggota') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ url('/riwayat-pengajuan') }}">
-                                        {{ __('Riwayat Pengajuan Prestasi') }}
-                                    </a>
+                                    @if (Auth::check() && Auth::user()->role == 'Anggota')
+                                        <a class="dropdown-item" href="{{ url('/profil-anggota') }}">
+                                            {{ __('Profil anggota') }}
+                                        </a>
+                                        <a class="dropdown-item" href="{{ url('/riwayat-pengajuan') }}">
+                                            {{ __('Riwayat Pengajuan Prestasi') }}
+                                        </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
@@ -166,7 +170,8 @@
                         <li><a href="https://www.uhb.ac.id/id/fakultas/fakultas-sains/s1-sistem-informasi/"
                                 target="_blank">Prodi S1 Sistem Informasi</a></li>
                         <li><a href="https://www.uhb.ac.id/id/" target="_blank">Universitas Harapan Bangsa</a></li>
-                        <li><a href="https://ejournal.uhb.ac.id/index.php/IKOMTI" target="_blank">Jurnal IKOMTI</a></li>
+                        <li><a href="https://ejournal.uhb.ac.id/index.php/IKOMTI" target="_blank">Jurnal IKOMTI</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -204,12 +209,12 @@
         });
     </script>
 
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
-<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
-@stack('scripts')
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+    @stack('scripts')
 
 </body>
 

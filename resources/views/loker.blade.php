@@ -60,18 +60,19 @@
             const posisi = element.getAttribute('data-posisi');
             const placeholder = document.getElementById('placeholder-detail');
             const detailPosisi = document.getElementById('detail-posisi');
-
+    
+            // Sembunyikan placeholder dan tampilkan detail posisi
             placeholder.style.display = 'none';
             detailPosisi.innerText = posisi;
             detailPosisi.style.display = 'block';
-
+    
             const namaPerusahaan = element.getAttribute('data-nama_perusahaan');
             const lokasi = element.getAttribute('data-lokasi');
             const jenisPekerjaan = element.getAttribute('data-jenis_pekerjaan');
             const gaji = element.getAttribute('data-gaji');
             const deskripsi = element.getAttribute('data-deskripsi');
             const linkApply = element.getAttribute('data-link_apply');
-
+    
             // Update elemen di lokerDetail
             document.getElementById('detail-posisi').innerText = posisi;
             document.getElementById('detail-nama_perusahaan').innerText = namaPerusahaan;
@@ -80,11 +81,24 @@
                 `<i class='bx bx-time-five'></i> ${jenisPekerjaan}`;
             document.getElementById('detail-gaji').innerHTML = `<i class='bx bx-money'></i> ${gaji}`;
             document.getElementById('detail-deskripsi').innerText = deskripsi;
-
+    
             // Tampilkan tombol "Lamar" dan update URL-nya
             const lamarButton = document.getElementById('detail-link_apply');
             lamarButton.style.display = 'block';
             lamarButton.setAttribute('href', linkApply);
+    
+            // Scroll otomatis ke lokerDetail
+            const lokerDetailElement = document.querySelector('.lokerDetail');
+            const offset = 80;  // Margin-top offset
+    
+            // Scroll ke bagian elemen
+            window.scrollTo({
+                top: lokerDetailElement.offsetTop - offset,  // Kurangi offset agar ada jarak 80px dari atas
+                behavior: 'smooth'
+            });
         }
     </script>
+    
+    
+    
 @endsection

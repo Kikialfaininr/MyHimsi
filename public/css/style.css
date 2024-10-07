@@ -12,7 +12,7 @@
 :root {
     --blue: #2c3c5b;
     --yellow: #F4CE14;
-    --white: #fff;
+    --white: #fff; 
     --gray: #f5f5f5;
     --black1: #222;
     --black2: #999;
@@ -547,7 +547,7 @@ body {
     }
 
     .navigation.active {
-        width: 100%;
+        width: 50%;
         left: 0;
     }
 
@@ -558,7 +558,7 @@ body {
     .main.active .toggle {
         color: #fff;
         position: fixed;
-        right: 0;
-        left: initial;
-    }
+        left: 240px;
+        right: initial;
+    }    
 }
