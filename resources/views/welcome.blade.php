@@ -18,7 +18,7 @@
         </div>
         <div class="carousel-caption d-block d-md-block">
             <h3>Selamat Datang</h3>
-            <h1>Himpunan Mahasiswa <span>Sistem Informasi</span></h1>
+            <h1>Himpunan Mahasiswa<br><span>Sistem Informasi</span></h1>
             <div class="social-icons">
                 <a href="https://wa.me/087773705521" target="_blank" rel="noopener noreferrer"><i
                         class='bx bxl-whatsapp'></i></a>

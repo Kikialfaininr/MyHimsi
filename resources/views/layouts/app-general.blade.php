@@ -167,7 +167,7 @@
                 <div class="footer-column">
                     <h3>Website</h3>
                     <ul>
-                        <li><a href="https://www.uhb.ac.id/id/fakultas/fakultas-sains/s1-sistem-informasi/"
+                        <li><a href="https://uhb.ac.id/s1-sistem-informasi/"
                                 target="_blank">Prodi S1 Sistem Informasi</a></li>
                         <li><a href="https://www.uhb.ac.id/id/" target="_blank">Universitas Harapan Bangsa</a></li>
                         <li><a href="https://ejournal.uhb.ac.id/index.php/IKOMTI" target="_blank">Jurnal IKOMTI</a>

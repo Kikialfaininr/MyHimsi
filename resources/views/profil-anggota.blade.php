@@ -110,7 +110,7 @@
                         </table>
                         <button type="button" class="btn btn-primary edit-btn" data-bs-toggle="modal"
                                 data-bs-target="#EditData{{ $value->id_anggota }}" title="Edit Data Member">
-                                <i class='bx bxs-edit'></i> edit data member
+                                <i class='bx bxs-edit'></i> edit data anggota
                         </button>
                         @endforeach
                     </div>
