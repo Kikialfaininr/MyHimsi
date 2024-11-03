@@ -41,6 +41,19 @@ class RiwayatPengajuanController extends Controller
 
     public function updateArtikel(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'judul' => 'unique:artikel,judul,' . $id . ',id',
+        ], [
+            'judul.unique' => 'Gagal menyimpan data karna judul artikel sudah ada.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/riwayat-pengajuan')->with([
+                'message' => $validator->errors()->first(),
+                'alert_class' => 'danger'
+            ]);
+        }
+        
         $artikel = Artikel::where('id_artikel', $id)->first();
             $artikel->judul = $request->judul;
             $artikel->nama_mahasiswa = $request->nama_mahasiswa;
@@ -54,6 +67,19 @@ class RiwayatPengajuanController extends Controller
 
     public function updateHaki(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'nomor' => 'unique:haki,nomor,' . $id . ',id',
+        ], [
+            'nomor.unique' => 'Gagal menyimpan data karna nomor HaKI sudah ada.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/riwayat-pengajuan')->with([
+                'message' => $validator->errors()->first(),
+                'alert_class' => 'danger'
+            ]);
+        }
+
         $haki = Haki::where('id_haki', $id)->first();
             $haki->nomor = $request->nomor;
             $haki->tanggal_terbit = $request->tanggal_terbit;
@@ -67,6 +93,19 @@ class RiwayatPengajuanController extends Controller
 
     public function updateTugasakhir(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'judul' => 'unique:tugasakhir,judul,' . $id . ',id',
+        ], [
+            'judul.unique' => 'Gagal menyimpan data karna judul tugas akhir sudah ada.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/riwayat-pengajuan')->with([
+                'message' => $validator->errors()->first(),
+                'alert_class' => 'danger'
+            ]);
+        }
+
         $tugasakhir = TugasAkhir::where('id_ta', $id)->first();
             $tugasakhir->judul = $request->judul;
             $tugasakhir->nama_mahasiswa = $request->nama_mahasiswa;
