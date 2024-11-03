@@ -122,9 +122,23 @@ class AdminUsersController extends Controller
 
     public function hapus(Request $request, $id)
     {
-        $users = users::findOrFail($id);
-        $users->delete();
-        return redirect('/admin-users')->with('message', 'Data berhasil dihapus')->with('alert_class', 'success');
+        $user = users::findOrFail($id);
+
+        $relatedArtikel = $user->artikel()->exists();
+        $relatedHaki = $user->haki()->exists();
+        $relatedTugasAkhir = $user->tugasakhir()->exists();
+        $relatedPoster = $user->poster()->exists();
+
+        if ($relatedArtikel || $relatedHaki || $relatedTugasAkhir || $relatedPoster) {
+            return redirect('/admin-users')
+                ->with('message', 'Tidak dapat menghapus credential anggota karena terdapat data poster dan atau prestasi yang terkait.')
+                ->with('alert_class', 'danger');
+        }
+
+        $user->delete();
+        return redirect('/admin-users')
+            ->with('message', 'Data berhasil dihapus')
+            ->with('alert_class', 'success');
     }
 
     public function downloadpdf()

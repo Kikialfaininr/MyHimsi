@@ -112,7 +112,7 @@
             @if ($value->jabatan->nama_jabatan == 'Ketua Umum')
                 <div class="row bph-content">
                     <div class="col-md-6">
-                        <div class="bio-bph">
+                        <div class="bio-bph left"> 
                             <h3>{{ $value->jabatan->nama_jabatan }}</h3>
                             <h2>{{ $value->full_name }}</h2>
                             <h4>{{ $value->angkatan }} - S1 Sistem Informasi</h4>
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="img-bph">
+                        <div class="img-bph right">
                             @if ($value->foto)
                                 <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
                                     <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
@@ -144,7 +144,7 @@
             @if ($value->jabatan->nama_jabatan == 'Wakil Ketua Umum')
                 <div class="row bph-content">
                     <div class="col-md-6">
-                        <div class="img-bph">
+                        <div class="img-bph left">
                             @if ($value->foto)
                                 <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
                                     <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="bio-bph">
+                        <div class="bio-bph right">
                             <h3>{{ $value->jabatan->nama_jabatan }}</h3>
                             <h2>{{ $value->full_name }}</h2>
                             <h4>{{ $value->angkatan }} - S1 Sistem Informasi</h4>
@@ -176,7 +176,7 @@
             @if ($value->jabatan->nama_jabatan == 'Sekretaris')
                 <div class="row bph-content">
                     <div class="col-md-6">
-                        <div class="bio-bph">
+                        <div class="bio-bph left">
                             <h3>{{ $value->jabatan->nama_jabatan }}</h3>
                             <h2>{{ $value->full_name }}</h2>
                             <h4>{{ $value->angkatan }} - S1 Sistem Informasi</h4>
@@ -189,7 +189,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="img-bph">
+                        <div class="img-bph right">
                             @if ($value->foto)
                                 <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
                                     <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
@@ -208,7 +208,7 @@
             @if ($value->jabatan->nama_jabatan == 'Bendahara')
                 <div class="row bph-content">
                     <div class="col-md-6">
-                        <div class="img-bph">
+                        <div class="img-bph left">
                             @if ($value->foto)
                                 <a href="{{ asset('image/anggota/' . $value->foto) }}" target="_blank">
                                     <img src="{{ asset('image/anggota/' . $value->foto) }}" alt="profil"
@@ -223,7 +223,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="bio-bph">
+                        <div class="bio-bph right">
                             <h3>{{ $value->jabatan->nama_jabatan }}</h3>
                             <h2>{{ $value->full_name }}</h2>
                             <h4>{{ $value->angkatan }} - S1 Sistem Informasi</h4>
