@@ -205,10 +205,10 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="email">{{ __('Email') }}</label>
+                        <label for="email" class="required-label">{{ __('Email') }}</label>
                         <input id="email" type="email"
                             class="form-control @error('email') is-invalid @enderror" name="email"
-                            value="{{ $value->email }}">
+                            value="{{ $value->email }}" required autofocus>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

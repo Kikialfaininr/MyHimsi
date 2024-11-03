@@ -133,9 +133,11 @@ class ProfilAnggotaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'unique:users,name,' . $id,
+            'email' => 'unique:users,email,' . $id,
             'password' => 'nullable|confirmed',
         ], [
-            'name.unique' => 'Gagal menyimpan data karena data sudah ada.',
+            'name.unique' => 'Gagal menyimpan data karena username digunakan.',
+            'email.unique' => 'Gagal menyimpan data karena email sudah terdaftar.',
             'password.confirmed' => 'Password konfirmasi tidak cocok.',
         ]);
 

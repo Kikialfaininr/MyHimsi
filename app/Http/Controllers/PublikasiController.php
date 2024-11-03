@@ -18,6 +18,11 @@ class PublikasiController extends Controller
                          ->orWhere('bidang', 'like', "%{$search}%");
         })->orderBy('created_at', 'desc')->get();
 
-        return view('publikasi', compact('publikasi'));
+        $message = null;
+            if ($publikasi->isEmpty()) {
+                $message = "Tidak ada publikasi jurnal yang ditemukan untuk kata kunci '$search'.";
+            }
+    
+            return view('publikasi', compact('publikasi', 'message'));
     }
 }

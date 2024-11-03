@@ -14,7 +14,12 @@ class BeritaController extends Controller
             return $query->where('judul_berita', 'like', "%{$search}%");
         })->orderBy('created_at', 'desc')->get();
 
-        return view('berita', compact('berita'));
+        $message = null;
+        if ($berita->isEmpty()) {
+            $message = "Tidak ada berita yang ditemukan untuk kata kunci '$search'.";
+        }
+
+        return view('berita', compact('berita', 'message'));
     }
 
     public function show($id)

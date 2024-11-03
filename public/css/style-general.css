@@ -927,7 +927,7 @@ body {
 }
 
 .berita-content {
-    padding: 20px;
+    margin: 20px;
 }
 
 .berita-content .card {
@@ -1030,6 +1030,11 @@ body {
     align-items: center;
     flex-direction: column;
     box-sizing: border-box;
+}
+
+.card {
+    width: 100%;
+    min-width: 300px;
 }
 
 .event .card h2 {

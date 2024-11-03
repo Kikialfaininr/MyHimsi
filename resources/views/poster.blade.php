@@ -9,7 +9,8 @@
             @if (Auth::check() && Auth::user()->role == 'Anggota')
                 <div class="menu">
                     <div class="card text-bg-primary">
-                        <p>Jika Sobat Himsi memiliki poster penelitian, pengabdian, tugas akhir, dan sebagianya, ajukan sekarang untuk dapat
+                        <p>Jika Sobat Himsi memiliki poster penelitian, pengabdian, tugas akhir, dan sebagianya, ajukan
+                            sekarang untuk dapat
                             dimuat dalam halaman Galeri Poster Mahasiswa!</p>
                         <div class="row">
                             <div class="col-md-9">
@@ -22,6 +23,25 @@
                     </div>
                 </div>
             @endif
+            <div class="col-md-12 col-xs-12">
+                <div class="alertCrd">
+                    @if (session()->has('message'))
+                        @php
+                            $alertClass = session('alert_class', 'success');
+                        @endphp
+
+                        <div class="alert alert-{{ $alertClass }}">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                </div>
+            </div>
             <div class="poster-content">
                 <div class="row justify-content-center">
                     @foreach ($poster as $no => $value)
@@ -95,9 +115,8 @@
                         </div>
                         <div>
                             <label for="jenis" class="required-label">{{ __('Jenis Poster') }}</label>
-                            <input id="jenis" type="text"
-                                class="form-control @error('jenis') is-invalid @enderror" name="jenis"
-                                value="{{ old('jenis') }}" required autofocus>
+                            <input id="jenis" type="text" class="form-control @error('jenis') is-invalid @enderror"
+                                name="jenis" value="{{ old('jenis') }}" required autofocus>
                             @error('jenis')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

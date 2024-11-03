@@ -117,7 +117,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if (Auth::check() && Auth::user()->role == 'Anggota')
                                         <a class="dropdown-item" href="{{ url('/profil-anggota') }}">
-                                            {{ __('Profil anggota') }}
+                                            {{ __('Profil Anggota') }}
                                         </a>
                                         <a class="dropdown-item" href="{{ url('/riwayat-pengajuan') }}">
                                             {{ __('Riwayat Pengajuan Prestasi') }}

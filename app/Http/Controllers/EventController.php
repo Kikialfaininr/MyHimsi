@@ -12,9 +12,18 @@ class EventController extends Controller
         // Ambil nilai pencarian dari input
         $search = $request->input('search');
 
-        // Query untuk mendapatkan event berdasarkan search dan/atau category
+        // Query untuk mendapatkan event berdasarkan pencarian di semua kolom yang ditentukan
         $event = Event::when($search, function ($query, $search) {
-                                return $query->where('nama_event', 'like', '%' . $search . '%');
+                                return $query->where(function ($query) use ($search) {
+                                    $query->where('nama_event', 'like', '%' . $search . '%')
+                                          ->orWhere('tanggal', 'like', '%' . $search . '%')
+                                          ->orWhere('waktu_mulai', 'like', '%' . $search . '%')
+                                          ->orWhere('waktu_selesai', 'like', '%' . $search . '%')
+                                          ->orWhere('deskripsi', 'like', '%' . $search . '%')
+                                          ->orWhere('lokasi', 'like', '%' . $search . '%')
+                                          ->orWhere('penyelenggara', 'like', '%' . $search . '%')
+                                          ->orWhere('kategori', 'like', '%' . $search . '%');
+                                });
                             })
                             ->when($category, function ($query, $category) {
                                 return $query->where('kategori', $category);
@@ -23,6 +32,11 @@ class EventController extends Controller
                             ->orderBy('waktu_mulai', 'desc')
                             ->get();
 
-        return view('event', compact('event'));
+        $message = null;
+        if ($event->isEmpty()) {
+            $message = "Tidak ada event yang ditemukan untuk kata kunci '$search'.";
+        }
+
+        return view('event', compact('event', 'message'));
     }
 }

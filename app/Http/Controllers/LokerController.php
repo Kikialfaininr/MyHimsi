@@ -18,6 +18,11 @@ class LokerController extends Controller
                          ->orWhere('jenis_pekerjaan', 'like', "%{$search}%");
         })->orderBy('created_at', 'desc')->get();
 
-        return view('loker', compact('loker'));
+        $message = null;
+        if ($loker->isEmpty()) {
+            $message = "Tidak ada lowongan yang ditemukan untuk kata kunci '$search'.";
+        }
+
+        return view('loker', compact('loker', 'message'));
     }
 }

@@ -19,6 +19,9 @@
         </div>
 
         <div class="loker-content">
+            @if ($message)
+                <div class="alert alert-warning">{{ $message }}</div>
+            @endif
             <div class="row">
                 <div class="col-sm-4">
                     @foreach ($loker as $no => $value)

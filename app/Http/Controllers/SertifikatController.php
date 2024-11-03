@@ -22,6 +22,11 @@ class SertifikatController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('sertifikat', compact('sertifikat'));
+            $message = null;
+            if ($sertifikat->isEmpty()) {
+                $message = "Tidak ada sertifikat yang ditemukan untuk kata kunci '$search'.";
+            }
+    
+            return view('sertifikat', compact('sertifikat', 'message'));
     }
 }

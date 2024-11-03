@@ -19,10 +19,9 @@
                                     <th class="text-center">Angkatan</th>
                                     <th class="text-center">Jenis Kelamin</th>
                                     <th class="text-center">Divisi</th>
-                                    <th class="text-center">Jabatan</th>
+                                    <th class="text-center">Jabatan Terakhir</th>
                                     <th class="text-center">Periode</th>
-                                    <th class="text-center">Link Instagram</th>
-                                    <th class="text-center">Link Linkedin</th>
+                                    <th class="text-center">Link Media Sosial</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,12 +52,10 @@
                                             <td>{{ $value->divisi->nama_divisi }}</td>
                                             <td>{{ $value->jabatan->nama_jabatan }}</td>
                                             <td>{{ $value->periode->periode }}</td>
-                                            <td>
-                                                <a href="{{ $value->link_ig }}" target="_blank">{{ $value->link_ig }}</a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ $value->link_linkedin }}"
-                                                    target="_blank">{{ $value->link_linkedin }}</a>
+                                            <td class="text-center">
+                                                    <a href="{{ $value->link_linkedin }}" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin-square fs-1 mx-2' ></i></a>
+                                                    <a href="{{ $value->link_ig }}" target="_blank" rel="noopener noreferrer"><i
+                                                            class='bx bxl-instagram-alt fs-1 mx-2'></i></a>
                                             </td>
                                         </tr>
                                     @endif
