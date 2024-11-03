@@ -42,7 +42,7 @@ class RiwayatPengajuanController extends Controller
     public function updateArtikel(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'judul' => 'unique:artikel,judul,' . $id . ',id',
+            'judul' => 'unique:artikel,judul,' . $id . ',id_artikel',
         ], [
             'judul.unique' => 'Gagal menyimpan data karna judul artikel sudah ada.',
         ]);
@@ -68,7 +68,7 @@ class RiwayatPengajuanController extends Controller
     public function updateHaki(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nomor' => 'unique:haki,nomor,' . $id . ',id',
+            'nomor' => 'unique:haki,nomor,' . $id . ',id_haki',
         ], [
             'nomor.unique' => 'Gagal menyimpan data karna nomor HaKI sudah ada.',
         ]);
@@ -94,7 +94,7 @@ class RiwayatPengajuanController extends Controller
     public function updateTugasakhir(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'judul' => 'unique:tugasakhir,judul,' . $id . ',id',
+            'judul' => 'unique:tugasakhir,judul,' . $id . ',id_ta',
         ], [
             'judul.unique' => 'Gagal menyimpan data karna judul tugas akhir sudah ada.',
         ]);
@@ -119,8 +119,10 @@ class RiwayatPengajuanController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
+                'judul' => 'unique:poster,judul,' . $id . ',id_poster',
                 'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:15000',
             ], [
+                'judul.unique' => 'Gagal menyimpan data karna judul poster sudah ada.',
                 'foto.image' => 'File harus berupa gambar.',
                 'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
                 'foto.max' => 'Gambar tidak boleh lebih dari 15MB.',

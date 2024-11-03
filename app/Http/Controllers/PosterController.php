@@ -30,8 +30,10 @@ class PosterController extends Controller
     public function simpan(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'judul' => 'unique:poster',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:15000', 
         ], [
+            'judul.unique' => 'Gagal menyimpan data karna judul poster sudah ada.',
             'foto.required' => 'Foto harus diupload.', 
             'foto.image' => 'File harus berupa gambar.',
             'foto.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
@@ -39,7 +41,7 @@ class PosterController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('/riwayat-pengajuan')->with([
+            return redirect('/poster')->with([
                 'message' => $validator->errors()->first(),
                 'alert_class' => 'danger'
             ]);

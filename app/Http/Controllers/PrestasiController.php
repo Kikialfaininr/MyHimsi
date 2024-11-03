@@ -22,9 +22,8 @@ class PrestasiController extends Controller
     public function simpanArtikel(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'judul' => 'required|unique:artikel',
+            'judul' => 'unique:artikel',
         ], [
-            'judul.required' => 'Judul artikel harus diisi.',
             'judul.unique' => 'Gagal menyimpan data karna judul artikel sudah ada.',
         ]);
 
@@ -55,7 +54,7 @@ class PrestasiController extends Controller
     public function simpanHaki(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nomor' => 'required|unique:haki',
+            'nomor' => 'unique:haki',
         ], [
             'nomor.unique' => 'Gagal menyimpan data karna nomor HaKI sudah ada.',
         ]);
@@ -87,7 +86,7 @@ class PrestasiController extends Controller
     public function simpanTugasakhir(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'judul' => 'required|judul:tugasakhir',
+            'judul' => 'unique:tugasakhir',
         ], [
             'judul.unique' => 'Gagal menyimpan data karna judul Tugas Akhir sudah ada.',
         ]);
