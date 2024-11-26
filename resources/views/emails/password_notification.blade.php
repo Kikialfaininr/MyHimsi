@@ -8,7 +8,7 @@
     <p>Halo Sobat Himsi</p>
     <p>Selamat, Kamu telah terdaftar sebagai anggota <strong>Himpunan Mahasiswa Sistem Informasi (HIMSI)</strong> Universitas Harapan Bangsa.</p>
     
-    <p>Kamu dapat menggunakan informasi berikut untuk login ke website kami di <a href="https://myhimsiuhb.com/">myhimsi.org</a>:</p>
+    <p>Kamu dapat menggunakan informasi berikut untuk login ke website kami di <a href="https://himsi.uhb.ac.id/">myhimsi.org</a>:</p>
     
     <p><strong>Username:</strong> {{ $name }}</p>
     <p><strong>Password:</strong> {{ $password }}</p>
