@@ -8,6 +8,7 @@ use App\Models\Divisi;
 use App\Models\Jabatan;
 use App\Models\Anggota;
 use App\Models\Periode;
+use Carbon\Carbon;
 use Redirect;
 use Session;
 use PDF;
@@ -114,7 +115,7 @@ class AdminDivisiController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-divisi', compact('divisi', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'portrait');
@@ -146,7 +147,7 @@ class AdminDivisiController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-divisi-periode', compact('divisi', 'periode', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'portrait');

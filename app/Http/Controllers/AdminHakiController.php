@@ -103,7 +103,7 @@ class AdminhakiController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-haki', compact('haki', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'portrait');

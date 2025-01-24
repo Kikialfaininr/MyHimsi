@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Jabatan;
 use App\Models\Anggota;
 use App\Models\Periode;
+use Carbon\Carbon;
 use Redirect;
 use Session;
 use PDF;
@@ -112,7 +113,7 @@ class AdminJabatanController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-jabatan', compact('jabatan', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'portrait');
@@ -148,7 +149,7 @@ class AdminJabatanController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         // Generate PDF dan tambahkan periode untuk informasi
         $pdf = PDF::loadview('pdf-jabatan-periode', compact('jabatan', 'periode', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));

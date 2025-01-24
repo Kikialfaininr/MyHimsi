@@ -27,7 +27,7 @@
                             <tbody>
                                 @php $counter = 1; @endphp
                                 @foreach ($anggota as $value)
-                                    @if ($value->periode->keterangan !== 'Aktif')
+                                    @if ($value->periode && $value->periode->keterangan !== 'Aktif')
                                         <tr>
                                             <td class="text-center">{{ $counter++ }}</td>
                                             <td class="text-center">
@@ -84,7 +84,7 @@
                             <tbody>
                                 @php $counter = 1; @endphp
                                 @foreach ($divisi as $no => $value)
-                                    @if ($value->periode->keterangan !== 'Aktif')
+                                    @if ($value->periode && $value->periode->keterangan !== 'Aktif')
                                         <tr>
                                             <td class="text-center">{{ $counter++ }}</td>
                                             <td>{{ $value->nama_divisi }}</td>
@@ -117,7 +117,7 @@
                             <tbody>
                                 @php $counter = 1; @endphp
                                 @foreach ($jabatan as $no => $value)
-                                    @if ($value->periode->keterangan !== 'Aktif')
+                                    @if ($value->periode && $value->periode->keterangan !== 'Aktif')
                                         <tr>
                                             <td class="text-center">{{ $counter++ }}</td>
                                             <td>{{ $value->nama_jabatan }}</td>
@@ -151,7 +151,7 @@
                             <tbody>
                                 @php $counter = 1; @endphp
                                 @foreach ($proker as $no => $value)
-                                    @if ($value->periode->keterangan !== 'Aktif')
+                                    @if ($value->periode && $value->periode->keterangan !== 'Aktif')
                                         <tr>
                                             <td class="text-center">{{ $counter++ }}</td>
                                             <td>{{ $value->judul_proker }}</td>

@@ -106,7 +106,7 @@
                                 <td class="text-center">{{ $value->jenis_kelamin }}</td>
                                 <td>{{ $value->divisi->nama_divisi }}</td>
                                 <td>{{ $value->jabatan->nama_jabatan }}</td>
-                                <td>{{ $value->periode->periode }}</td>
+                                <td>{{ $value->periode ? $value->periode->periode : '-' }}</td>
                                 <td>
                                     <a href="{{ $value->link_ig }}" target="_blank">{{ $value->link_ig }}</a>
                                 </td>

@@ -8,6 +8,7 @@ use App\Models\Anggota;
 use App\Models\Divisi;
 use App\Models\Jabatan;
 use App\Models\Periode;
+use Carbon\Carbon;
 use Redirect;
 use Session;
 use DB;
@@ -182,7 +183,7 @@ class AdminAnggotaController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-anggota', compact('anggota', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'landscape');
@@ -213,7 +214,7 @@ class AdminAnggotaController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
     
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
     
         $sanitizedPeriode = str_replace(['/', '\\'], '-', $periode->periode);
     
@@ -221,6 +222,4 @@ class AdminAnggotaController extends Controller
         $pdf->setPaper('F4', 'landscape');
         return $pdf->stream('Data Anggota Periode ' . $sanitizedPeriode . '.pdf');
     }
-    
-
 }

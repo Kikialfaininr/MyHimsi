@@ -20,7 +20,7 @@
             <tbody>
                 @if($users->isEmpty())
                     <tr>
-                        <td colspan="5" class="text-center">Data tidak ada</td>
+                        <td colspan="4" class="text-center">Data tidak ada</td>
                     </tr>
                 @else
                     @foreach($users as $no => $value)

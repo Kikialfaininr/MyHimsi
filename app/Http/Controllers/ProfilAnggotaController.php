@@ -134,11 +134,12 @@ class ProfilAnggotaController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'unique:users,name,' . $id,
             'email' => 'unique:users,email,' . $id,
-            'password' => 'nullable|confirmed',
+            'password' => 'nullable|confirmed|min:8',
         ], [
             'name.unique' => 'Gagal menyimpan data karena username digunakan.',
             'email.unique' => 'Gagal menyimpan data karena email sudah terdaftar.',
             'password.confirmed' => 'Password konfirmasi tidak cocok.',
+            'password.min' => 'Password harus memiliki minimal 8 karakter.',
         ]);
 
         if ($validator->fails()) {

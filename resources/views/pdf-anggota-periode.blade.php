@@ -119,7 +119,7 @@
                             <td class="text-center">{{ $value->jenis_kelamin }}</td>
                             <td>{{ $value->divisi->nama_divisi }}</td>
                             <td>{{ $value->jabatan->nama_jabatan }}</td>
-                            <td>{{ $value->periode->periode }}</td>
+                            <td>{{ $value->periode ? $value->periode->periode : '-' }}</td>
                             <td>
                                 @if ($value->link_ig)
                                     <a href="{{ $value->link_ig }}" target="_blank">Link Instagram</a>

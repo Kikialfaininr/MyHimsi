@@ -133,7 +133,7 @@
                         <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
                         <input id="deskripsi" type="text"
                             class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                            value="{{ old('deskripsi') }}" required autofocus>
+                            value="{{ old('deskripsi') }}" required>
                         @error('deskripsi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -143,7 +143,7 @@
                     <div>
                         <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
                         <select class="form-select" name="id_periode" id="id_periode"
-                            value="{{ $value->id_periode }}" style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                            value="{{ $value->id_periode }}" style="width: 100%; height: 35px; font-size: 13px;" required>
                             <option disble value>Pilih periode</option>
                             @foreach ($periode as $data)
                                 <option value="{{ $data->id_periode }}"
@@ -182,7 +182,7 @@
                         <label for="nama_divisi" class="required-label">{{ __('Divisi') }}</label>
                         <input id="nama_divisi" type="text"
                             class="form-control @error('nama_divisi') is-invalid @enderror" name="nama_divisi"
-                            value="{{ $value->nama_divisi }}" required autofocus>
+                            value="{{ $value->nama_divisi }}" required>
                         @error('nama_divisi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -193,7 +193,7 @@
                         <label for="deskripsi" class="required-label">{{ __('Deskripsi') }}</label>
                         <input id="deskripsi" type="text"
                             class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                            value="{{ $value->deskripsi }}" required autofocus>
+                            value="{{ $value->deskripsi }}" required>
                         @error('deskripsi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -203,7 +203,7 @@
                     <div>
                         <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
                         <select class="form-select" name="id_periode" id="id_periode"
-                            style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                            style="width: 100%; height: 35px; font-size: 13px;" required>
                             <option value="">Pilih periode</option>
                             @foreach ($periode as $data)
                                 <option value="{{ $data->id_periode }}"

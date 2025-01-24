@@ -9,6 +9,7 @@ use App\Models\Artikel;
 use App\Models\Users;
 use App\Models\Jabatan;
 use App\Models\Anggota;
+use Carbon\Carbon;
 use Redirect;
 use Session;
 use PDF;
@@ -103,7 +104,7 @@ class AdminArtikelController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-artikel', compact('artikel', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'portrait');

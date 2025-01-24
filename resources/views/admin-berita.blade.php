@@ -151,7 +151,7 @@
                         <div>
                             <label for="penulis" class="required-label">{{ __('Penulis') }}</label>
                             <input id="penulis" type="text" class="form-control @error('penulis') is-invalid @enderror"
-                                name="penulis" value="{{ old('penulis') }}">
+                                name="penulis" value="{{ old('penulis') }}" required autofocus>
                             @error('penulis')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -173,7 +173,7 @@
                             <label for="deskripsi" class="required-label">{{ __('Isi Berita') }}</label>
                             <textarea id="deskripsi" type="text"
                                 class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi"
-                                value="{{ old('deskripsi') }}"></textarea>
+                                value="{{ old('deskripsi') }}" required autofocus></textarea>
                             @error('deskripsi')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -228,7 +228,7 @@
                                 <label for="penulis" class="required-label">{{ __('Penulis') }}</label>
                                 <input id="penulis" type="text"
                                     class="form-control @error('penulis') is-invalid @enderror" name="penulis"
-                                    value="{{ $value->penulis }}">
+                                    value="{{ $value->penulis }}" required autofocus>
                                 @error('penulis')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

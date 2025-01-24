@@ -208,7 +208,7 @@
                         <label for="email" class="required-label">{{ __('Email') }}</label>
                         <input id="email" type="email"
                             class="form-control @error('email') is-invalid @enderror" name="email"
-                            value="{{ $value->email }}" required autofocus>
+                            value="{{ $value->email }}" required>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -220,7 +220,7 @@
                         <div class="password-wrapper">
                             <input id="password" type="password"
                                 class="form-control @error('password') is-invalid @enderror" name="password"
-                                placeholder="Masukkan password baru (jika ingin mengubah)"
+                                placeholder="Masukkan password baru (jika ingin diubah)"
                                 autocomplete="new-password">
                             <span class="password-toggle" onclick="togglePassword()">
                                 <i id="password-icon" class='bx bx-hide'></i>
@@ -275,7 +275,7 @@
                          <label for="full_name" class="required-label">{{ __('Nama Lengkap') }}</label>
                          <input id="full_name" type="text"
                              class="form-control @error('full_name') is-invalid @enderror" name="full_name"
-                             value="{{ $value->full_name }}" required autofocus>
+                             value="{{ $value->full_name }}" required>
                          @error('full_name')
                              <span class="invalid-feedback" role="alert">
                                  <strong>{{ $message }}</strong>
@@ -286,7 +286,7 @@
                          <label for="nim" class="required-label">{{ __('NIM') }}</label>
                          <input id="nim" type="number"
                              class="form-control @error('nim') is-invalid @enderror" name="nim"
-                             value="{{ $value->nim }}" required autofocus>
+                             value="{{ $value->nim }}" required>
                          @error('nim')
                              <span class="invalid-feedback" role="alert">
                                  <strong>{{ $message }}</strong>
@@ -296,7 +296,7 @@
                      <div>
                          <label for="angkatan" class="required-label">{{ __('Angkatan') }}</label>
                          <select id="angkatan" class="form-control @error('angkatan') is-invalid @enderror"
-                             name="angkatan" required autofocus>
+                             name="angkatan" required>
                              <option value="">Pilih Tahun</option>
                              @php
                                  $currentYear = date('Y');
@@ -344,7 +344,7 @@
                      <div>
                          <label for="id_divisi" class="required-label">{{ __('Divisi') }}</label>
                          <select class="form-select" name="id_divisi" id="id_divisi"
-                             style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                             style="width: 100%; height: 35px; font-size: 13px;" required>
                              <option value="">Pilih Divisi</option>
                              @foreach ($divisi as $data)
                                  <option value="{{ $data->id_divisi }}"
@@ -357,7 +357,7 @@
                      <div>
                          <label for="id_jabatan" class="required-label">{{ __('Jabatan') }}</label>
                          <select class="form-select" name="id_jabatan" id="id_jabatan"
-                             style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                             style="width: 100%; height: 35px; font-size: 13px;" required>
                              <option value="">Pilih Jabatan</option>
                              @foreach ($jabatan as $data)
                                  <option value="{{ $data->id_jabatan }}"

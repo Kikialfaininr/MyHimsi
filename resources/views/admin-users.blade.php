@@ -136,7 +136,7 @@
                         <label for="name" class="required-label">{{ __('Username') }}</label>
                         <input id="name" type="text"
                             class="form-control @error('name') is-invalid @enderror" name="name"
-                            required autofocus>
+                            required>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -146,7 +146,7 @@
                     <div>
                         <label for="email" class="required-label">{{ __('Email') }}</label>
                         <input id="email" type="email"
-                            class="form-control @error('email') is-invalid @enderror" name="email" required autofocus>
+                            class="form-control @error('email') is-invalid @enderror" name="email" required>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -199,7 +199,7 @@
                         <label for="name" class="required-label">{{ __('Username') }}</label>
                         <input id="name" type="text"
                             class="form-control @error('name') is-invalid @enderror" name="name"
-                            value="{{ $value->name }}" required autofocus>
+                            value="{{ $value->name }}" required>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -210,7 +210,7 @@
                         <label for="email" class="required-label">{{ __('Email') }}</label>
                         <input id="email" type="email"
                             class="form-control @error('email') is-invalid @enderror" name="email"
-                            value="{{ $value->email }}" required autofocus>
+                            value="{{ $value->email }}" required>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -218,11 +218,11 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="password" class="required-label">{{ __('Password') }}</label>
+                        <label for="password">{{ __('Password') }}</label>
                         <div class="password-wrapper">
                             <input id="password" type="password"
                                 class="form-control @error('password') is-invalid @enderror" name="password"
-                                placeholder="Masukkan password baru (jika ingin mengubah)"
+                                placeholder="Masukkan password baru (jika ingin diubah)"
                                 autocomplete="new-password">
                             <span class="password-toggle" onclick="togglePassword()">
                                 <i id="password-icon" class='bx bx-hide'></i>
@@ -235,7 +235,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="password_confirmation" class="required-label">{{ __('Confirm Password') }}</label>
+                        <label for="password_confirmation">{{ __('Confirm Password') }}</label>
                         <input id="password_confirmation" type="password"
                             class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"
                             placeholder="Konfirmasi password baru (jika diubah)"

@@ -9,6 +9,7 @@ use App\Models\Divisi;
 use App\Models\Jabatan;
 use App\Models\Anggota;
 use App\Models\Periode;
+use Carbon\Carbon;
 use Redirect;
 use Session;
 use PDF;
@@ -85,7 +86,7 @@ class AdminProkerController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-proker', compact('proker', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'portrait');
@@ -117,7 +118,7 @@ class AdminProkerController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-proker-periode', compact('proker', 'periode', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'portrait');

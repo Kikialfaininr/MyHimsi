@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\Users;
 use App\Models\Jabatan;
 use App\Models\Anggota;
+use Carbon\Carbon;
 use Redirect;
 use Session;
 use Hash;
@@ -38,7 +39,7 @@ class AdminUsersController extends Controller
             'id_anggota' => 'required|integer|unique:users,id_anggota',
         ], [
             'name.unique' => 'Gagal menyimpan data karena data sudah ada.',
-            'password.confirmed' => 'Password konfirmasi tidak cocok.',
+            'email' => 'Gagal menyimpan data karena data sudah ada.',
             'id_anggota.unique' => 'Anggota ini sudah memiliki akun.',
         ]);
 
@@ -85,9 +86,11 @@ class AdminUsersController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
             'id_anggota' => 'required|integer',
             'id_anggota' => 'required|integer|unique:users,id_anggota,' . $id,
+            'password' => 'nullable|confirmed|min:8', 
         ], [
             'name.unique' => 'Gagal menyimpan data karena data sudah ada.',
             'password.confirmed' => 'Password konfirmasi tidak cocok.',
+            'password.min' => 'Password harus memiliki minimal 8 karakter.',
             'id_anggota.unique' => 'Anggota ini sudah memiliki akun.',
         ]);
 
@@ -167,7 +170,7 @@ class AdminUsersController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-users', compact('users', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum'));
         $pdf->setPaper('F4', 'potrait');
@@ -200,7 +203,7 @@ class AdminUsersController extends Controller
         $uhbSrc = 'data:image/png;base64,' . $uhbData;
 
         // Ambil tanggal hari ini
-        $currentDate = now()->format('d F Y');
+        $currentDate = Carbon::now()->locale('id')->translatedFormat('d F Y');
 
         $pdf = PDF::loadview('pdf-angkatanusers', compact('users', 'himsiSrc', 'uhbSrc', 'currentDate', 'ketuaUmum', 'angkatan'));
         $pdf->setPaper('F4', 'potrait');
