@@ -22,19 +22,6 @@ class PrestasiController extends Controller
 
     public function simpanArtikel(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'judul' => 'unique:artikel',
-        ], [
-            'judul.unique' => 'Gagal menyimpan data karna judul artikel sudah ada.',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/prestasi')->with([
-                'message' => $validator->errors()->first(),
-                'alert_class' => 'danger'
-            ]);
-        }
-
         $artikel = new Artikel();
         $artikel->judul = $request->judul;
         $artikel->nama_mahasiswa = $request->nama_mahasiswa;
@@ -54,19 +41,6 @@ class PrestasiController extends Controller
 
     public function simpanHaki(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nomor' => 'unique:haki',
-        ], [
-            'nomor.unique' => 'Gagal menyimpan data karna nomor HaKI sudah ada.',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/prestasi')->with([
-                'message' => $validator->errors()->first(),
-                'alert_class' => 'danger'
-            ]);
-        }
-
         $haki = new Haki();
         $haki->nomor = $request->nomor;
         $haki->tanggal_terbit = $request->tanggal_terbit;
@@ -86,19 +60,6 @@ class PrestasiController extends Controller
 
     public function simpanTugasakhir(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'judul' => 'unique:tugasakhir',
-        ], [
-            'judul.unique' => 'Gagal menyimpan data karna judul Tugas Akhir sudah ada.',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/prestasi')->with([
-                'message' => $validator->errors()->first(),
-                'alert_class' => 'danger'
-            ]);
-        }
-
         $tugasakhir = new TugasAkhir();
         $tugasakhir->judul = $request->judul;
         $tugasakhir->nama_mahasiswa = $request->nama_mahasiswa;

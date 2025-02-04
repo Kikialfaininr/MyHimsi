@@ -11,7 +11,7 @@ class Users extends Model
     protected $table = 'users';
     protected $fillable = ['*'];
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function anggota()
     {
@@ -37,5 +37,4 @@ class Users extends Model
     {
         return $this->hasMany(Poster::class, 'id');
     }
-
 }

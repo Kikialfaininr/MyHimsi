@@ -82,7 +82,7 @@
                         <td>{{$value->anggota->full_name}}</td>
                         <td>{{$value->name}}</td> 
                         <td>{{$value->email}}</td> 
-                        <td>{{$value->password}}</td> 
+                        <td>{{$value->password}}</td>
                         @if(Auth::check() && Auth::user()->role == 'Admin')                   
                         <td class="action-col">
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
