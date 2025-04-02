@@ -104,7 +104,13 @@
                                 <tr>
                                     <td>Status</td>
                                     <td>:</td>
-                                    <td>Anggota {{$value->periode->keterangan}} Kepengurusan {{$value->periode->periode}}</td>
+                                    <td>
+                                        @if($value->periode)
+                                            {{$value->periode->keterangan}} Kepengurusan {{$value->periode->periode}}
+                                        @else
+                                            Periode tidak tersedia
+                                        @endif
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -367,6 +373,19 @@
                              @endforeach
                          </select>
                      </div>
+                     <div>
+                        <label for="id_periode" class="required-label">{{ __('Periode') }}</label>
+                        <select class="form-select" name="id_periode" id="id_periode"
+                            style="width: 100%; height: 35px; font-size: 13px;" required autofocus>
+                            <option value="">Pilih periode</option>
+                            @foreach ($periode as $data)
+                                <option value="{{ $data->id_periode }}"
+                                    {{ ($value->id_periode ?? old('id_periode')) == $data->id_periode ? 'selected' : '' }}>
+                                    {{ $data->periode }} - {{ $data->keterangan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                      <div>
                          <label for="link_ig">{{ __('Link Instagram') }}</label>
                          <input id="link_ig" type="text"

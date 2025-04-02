@@ -30,7 +30,7 @@ class ProfilAnggotaController extends Controller
 
         $users = Users::where('id', $user->id)->get();
 
-        return view('profil-anggota', compact('anggota', 'users', 'divisi', 'jabatan'));
+        return view('profil-anggota', compact('anggota', 'users', 'divisi', 'jabatan', 'periode'));
     }
 
     public function anggota(Request $request, $id)
