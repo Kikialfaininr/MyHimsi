@@ -52,7 +52,6 @@ class ProfilAnggotaController extends Controller
             $anggota = Anggota::find($id);
 
             // Update data anggota
-            $anggota->full_name = $request->full_name;
             $anggota->nim = $request->nim;
             $anggota->angkatan = $request->angkatan;
             $anggota->jenis_kelamin = $request->jenis_kelamin;

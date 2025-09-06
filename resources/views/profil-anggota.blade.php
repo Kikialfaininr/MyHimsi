@@ -278,27 +278,13 @@
                  <form method="POST" action="{{ url('ubah-anggota/' . $value->id_anggota) }}">
                      @csrf
                      <div>
-                         <label for="full_name" class="required-label">{{ __('Nama Lengkap') }}</label>
-                         <input id="full_name" type="text"
-                             class="form-control @error('full_name') is-invalid @enderror" name="full_name"
-                             value="{{ $value->full_name }}" required>
-                         @error('full_name')
-                             <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
-                             </span>
-                         @enderror
-                     </div>
-                     <div>
-                         <label for="nim" class="required-label">{{ __('NIM') }}</label>
-                         <input id="nim" type="number"
-                             class="form-control @error('nim') is-invalid @enderror" name="nim"
-                             value="{{ $value->nim }}" required>
-                         @error('nim')
-                             <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
-                             </span>
-                         @enderror
-                     </div>
+                        <label>{{ __('Nama Lengkap') }}</label>
+                        <p class="form-control-plaintext">{{ $value->full_name }}</p>
+                    </div>
+                    <div>
+                        <label>{{ __('NIM') }}</label>
+                        <p class="form-control-plaintext">{{ $value->nim }}</p>
+                    </div>
                      <div>
                          <label for="angkatan" class="required-label">{{ __('Angkatan') }}</label>
                          <select id="angkatan" class="form-control @error('angkatan') is-invalid @enderror"
